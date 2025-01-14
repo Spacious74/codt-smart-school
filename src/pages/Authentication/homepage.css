@@ -1,0 +1,12 @@
+.typography-heading {
+    font-size: 45px;
+    font-weight: 600;
+    color: black;
+  }
+  
+  @media (max-width: 600px) {
+    .typography-heading {
+      font-size: 40px;
+    }
+  }
+  

@@ -1,0 +1,70 @@
+/* carousel.css */
+
+/* Custom Arrow Styles */
+.slick-prev,
+.slick-next {
+  background-color:#4d4d4d;
+  color: #4d4d4d !Important; /* Arrow color */
+  font-size: 30px; /* Adjust size as needed */
+  z-index: 1; /* Ensure arrows are above other elements */
+  width: 30px; /* Width of the arrow button */
+  height: 30px; /* Height of the arrow button */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius:50%;
+}
+
+/* Add background to arrows for better visibility */
+.slick-prev:before,
+.slick-next:before {
+  font-family: 'slick';
+  font-size: 44px; /* Adjust size as needed */
+  line-height: 1; /* Center the icon */
+  opacity: 1; /* Make sure the icon is visible */
+}
+
+/* Change color on hover */
+.slick-prev:hover,
+.slick-next:hover {
+  background-color:#4d4d4d;
+  color: black; /* Active button color */
+}
+
+/* Custom Navigation Dots Styles */
+.slick-dots li button {
+  margin: 10px 0px !important;
+  background-color: #8a8a8a; /* Navigation button color */
+}
+
+.slick-dots li.slick-active button {
+  background-color:#503dff; /* Active navigation button color */
+}
+
+/* Adjust size of dots */
+.slick-dots li button {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-top: -15px !important;
+}
+/* carousel.css */
+
+/* Custom Arrow Styles */
+.custom-prev-arrow,
+.custom-next-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  z-index: 1;
+  
+}
+
+.custom-prev-arrow {
+  font-size:2rem !important;
+}
+
+.custom-next-arrow {
+  right: 10px; /* Adjust as needed */
+}
