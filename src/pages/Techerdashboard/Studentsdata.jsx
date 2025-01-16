@@ -1,5 +1,4 @@
-import React from 'react';
-import { Box, Button, Typography, Grid } from '@mui/material';
+import { Box, Button, Typography, Grid, Divider } from '@mui/material';
 import Allstudents from './AllStudents.jsx';
 
 const Studentsdata = () => {
@@ -7,14 +6,14 @@ const Studentsdata = () => {
 
   return (
     <>
-    <Box textAlign="start" p={4}>
+    <Box textAlign="start">
       
       <Typography variant="h5" color="black" mb={4}>
         Manage Students
       </Typography>
 
 
-      <Grid container spacing={2} justifyContent="center">
+      <Grid container spacing={2} justifyContent="start" sx={{mb:2}}>
         {classes.map((className) => (
           <Grid item key={className}>
             <Button
@@ -23,8 +22,8 @@ const Studentsdata = () => {
               sx={{
                 borderRadius: '8px',
                 px: 3,
-                py: 1.5,
-                fontSize: '1rem',
+                py: 1,
+                fontSize: '0.85rem',
               }}
             >
               {className}
@@ -32,7 +31,7 @@ const Studentsdata = () => {
           </Grid>
         ))}
       </Grid>
-
+      <Divider sx={{ height: 1, backgroundColor: '#c9c9c9',my:3 }} />
     </Box>
 <Allstudents/>
     </>

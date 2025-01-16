@@ -47,6 +47,7 @@ import TeacherCareer from "./pages/Techerdashboard/TeacherCareer.jsx"
 import TeacherNotice from "./pages/Techerdashboard/TeacherNotice.jsx"
 import AttendanceTeacher from "./pages/Techerdashboard/AttendanceTeacher.jsx"
 import Syllabusupdate from "./pages/Techerdashboard/Syallabusupdate.jsx";
+import MarkAttendanceTeacher from "./pages/Techerdashboard/MarkAttendanceTeacher.jsx";
 
 import SchoolLayout from "./layout/Schoolayout.jsx";
 import Schoolhome from "./pages/Schooldashboard/Home.jsx";
@@ -220,7 +221,7 @@ function App() {
                       <Route path="academics/syllabus/create" element={<SyllabusCreate />} />
                       <Route path="/academics/syllabus/:id" element={<Syllabusupdate />} />
                       <Route path="training" element={<Training />} />
-                      <Route path="attendance" element={<AttendanceTeacher />} />
+                      <Route path="attendance" element={<MarkAttendanceTeacher />} />
                       <Route path="managestud/:studentId" element={<Managestud />} />
                       <Route path="*" element={<Navigate to="/teacher" />} />
                     </Routes>

@@ -7,12 +7,12 @@ import {
 import { Link as RouterLink } from 'react-router-dom';
 import Academics from "./Manageteacher"
 
-const Teachers = ({ setmanageteacher, setteacherData, teacherDetiles }) => {
+const Teachers = ({ setmanageteacher, setteacherData, teacherDetails }) => {
 
   const {
     id, first_name, last_name, email, phone_number, educational_board, address, city, pin_code,
     state, password, image, selected_subjects, class_selection, selected_divisions, experience,
-  } = teacherDetiles;
+  } = teacherDetails;
 
   // State to control dialog visibility
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -24,7 +24,7 @@ const Teachers = ({ setmanageteacher, setteacherData, teacherDetiles }) => {
   });
 
   const handleManageClick = () => {
-    setteacherData(teacherDetiles);
+    setteacherData(teacherDetails);
     setmanageteacher(true);
   };
 
@@ -349,13 +349,12 @@ const AllTeachers = () => {
   const [teacherData, setteacherData] = useState({});
 
 
-
-  const teacherDetiless = [
-    { name: 'Mrs. Nipa Nayak', image: '' },
-    { name: 'Mr. Sandip Ujwal', image: '' },
-    { name: 'Mrs. Sejal Goswami', image: '' },
-    { name: 'Mr. Ketan Patel', image: '' },
-  ];
+  // const teacherDetails = [
+  //   { name: 'Mrs. Nipa Nayak', image: '' },
+  //   { name: 'Mr. Sandip Ujwal', image: '' },
+  //   { name: 'Mrs. Sejal Goswami', image: '' },
+  //   { name: 'Mr. Ketan Patel', image: '' },
+  // ];
 
   const classes = ['all','class 1', 'class 2', 'class 3', 'class 4', 'class 5', 'class 6', 'class 7', 'class 8'];
 
@@ -420,12 +419,12 @@ const AllTeachers = () => {
             <Grid container direction="column" spacing={2}>
               {/* Check if filteredData has any content */}
               {filteredData.length > 0 ? (
-                filteredData.map((teacherDetiles, index) => (
+                filteredData.map((teacherDetails, index) => (
                   <Grid item key={index}>
                     <Teachers
                       setmanageteacher={setmanageteacher}
                       setteacherData={setteacherData}
-                      teacherDetiles={teacherDetiles}
+                      teacherDetails={teacherDetails}
                     />
                   </Grid>
                 ))

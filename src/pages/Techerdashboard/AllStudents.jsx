@@ -112,20 +112,10 @@ const AllStudents = () => {
   console.log("students " , students)
 
   return (
- <Box sx={{ p: { xs: 2, md: 3 } }}>
-  <Typography
-    variant="h6"
-    sx={{
-      mb: 2,
-      fontSize: { xs: '1.25rem', md: '1.5rem' },
-      textAlign: { xs: 'center', md: 'left' },
-    }}
-  >
-    What teachers think about you
-  </Typography>
+ <Box>
 
   {/* Grid container for reviews */}
-  <Grid container direction="column" spacing={2}>
+  <Grid container direction="column">
     {students.map((student) => (
       <Grid item key={student.id}>
         <TeacherReview
