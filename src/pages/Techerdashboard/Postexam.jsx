@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { TextField, Button, Box, Typography } from '@mui/material';
 
 const ExamForm = () => {
@@ -69,15 +69,15 @@ const ExamForm = () => {
       sx={{
         border: '2px solid #503dff',
         padding: '20px',
-        borderRadius: '8px',
+        borderRadius: '10px',
         margin: '20px auto',
       }}
     >
-      <Typography variant="h6" sx={{ marginBottom: '20px', color: '#000' }}>
+      <Typography variant="h6" sx={{ mb:1}}>
         Post new exam
       </Typography>
       <TextField
-        label="Title"
+        label="Exam Title"
         name="title"
         value={formData.title}
         onChange={handleChange}
@@ -113,13 +113,13 @@ const ExamForm = () => {
         type="number"
         value={formData.total_marks}
         onChange={handleChange}
-        fullWidth
         margin="normal"
+        fullWidth
         InputLabelProps={{ style: { color: '#503dff' } }}
         variant="outlined"
       />
       <TextField
-        label="For which class the exam is applicable?"
+        label="For class"
         name="applicable_class"
         value={formData.applicable_class}
         onChange={handleChange}

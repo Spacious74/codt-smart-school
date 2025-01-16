@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Box, Button, Grid, Paper, Typography } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import { Link } from 'react-router-dom';
@@ -10,8 +10,8 @@ const ExamCard = () => {
     const fetchExams = async () => {
       try {
         const teacherEmail = sessionStorage.getItem('teacherEmail');
-        console.log('Teacher Email:', teacherEmail);
-        const response = await fetch(`https://codtsmartschool.strangeweb.in/teacherapi/examdatatecaher.php?teacher_email=${teacherEmail}`);
+        const response =
+          await fetch(`https://codtsmartschool.strangeweb.in/teacherapi/examdatatecaher.php?teacher_email=${teacherEmail}`);
         const result = await response.json();
 
         if (result.success) {
@@ -31,17 +31,29 @@ const ExamCard = () => {
     <Box sx={{ padding: 3 }}>
       {/* Header Section */}
       <Link to="/teacher/academics/exam/create">
-        <Box sx={{ display: 'flex', alignItems: 'center', mb: 4 }}>
-          <Button variant="contained" sx={{ mr: 2 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
+          <Button
+            variant="contained"
+            sx={{
+              mr: 2,
+              backgroundColor: '#eb6a18',
+              padding: '12px', // Adjust padding as needed
+              '&:hover': { backgroundColor: '#d35e16' }, // Optional hover effect
+            }}
+          >
             <AddIcon fontSize="large" />
           </Button>
-          <Typography variant="h5">Post New Exam</Typography>
         </Box>
+        <Typography variant="h6">Post New Exam</Typography>
+
       </Link>
 
       {/* Exam List Section */}
-      <Typography variant="h6" sx={{ mb: 2 }}>Exams posted by you</Typography>
-      <Paper elevation={2} sx={{ padding: 2, mb: 2 }}>
+      <Typography variant="h6" sx={{ mb: 2, mt: 5, fontWeight: 'bold' }}>
+        Exams Posted By You
+      </Typography>
+
+      <Paper elevation={0} sx={{ p: 3, border: 'solid 1px #cecece', borderRadius: '12px' }}>
         {exams?.length > 0 ? (
           exams.map((exam) => (
             <AssignmentItem key={exam.id} exam={exam} />
@@ -54,10 +66,11 @@ const ExamCard = () => {
   );
 };
 
-const AssignmentItem = ({ exam }) => {
+const AssignmentItem = (exam) => {
+  console.log(exam.exam.subject);
   const handleDownload = (file) => {
     const fileUrl = `https://codtsmartschool.strangeweb.in/teacherapi/${file}`;
-    
+
     // Open the file in a new tab
     const link = document.createElement('a');
     link.href = fileUrl;
@@ -67,87 +80,100 @@ const AssignmentItem = ({ exam }) => {
     document.body.removeChild(link);
   };
   return (
-    <Grid container spacing={2} alignItems="center" sx={{ mb: 2, borderBottom: '1px solid #ddd', pb: 1 }}>
-      {/* Subject and Assignment Info */}
-      <Grid item xs={12} md={3} sx={{ textAlign: { xs: 'center', md: 'left' } }}>
-        <Typography variant="h6">Exam Series</Typography>
-        <Typography variant="body1" fontSize="14px" color="#503dff">
-          <a href="#" style={{ color: '#503dff', textDecoration: 'none' }}>{exam.title}</a>
-        </Typography>
-        <Typography variant="body1" fontSize="12px" mt={2}>Posted by</Typography>
-        <Typography variant="body1" fontSize="14px" color="#503dff">
-          <a href="#" style={{ color: '#503dff', textDecoration: 'none' }}>{exam.teacheremail}</a>
-        </Typography>
-      </Grid>
+    <div className='exam_card'>
 
-      {/* Exam Title */}
-      <Grid item xs={12} md={3} sx={{ textAlign: { xs: 'center', md: 'left' } }}>
-        <Typography variant="body1">{exam.subject}</Typography>
-      </Grid>
+      <div >
+        <Typography variant="body1" sx={{ fontWeight: 'bold', mb: 2 }} >{exam.exam.subject}</Typography>
+        <Box sx={{ display: 'flex', flexDirection: 'column' }} >
+          <Typography variant="caption" sx={{ fontWeight: 'bold' }} >Posted By</Typography>
+          <Typography variant="caption" sx={{ fontWeight: 'bold', color: '#503dff' }} >{exam.exam.teacheremail}</Typography>
+        </Box>
+      </div>
 
-      {/* Dates */}
-      <Grid item xs={12} md={3} sx={{ textAlign: { xs: 'center', md: 'left' } }}>
-        <Grid>
-          <Typography>Start Date -</Typography>
-          <span style={{ color: '#503dff', fontSize: 'small' }}>
-            {new Date(exam.exam_date).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}
-          </span>
-        </Grid>
-        <Grid>
-          <Typography>End Date - </Typography>
-          <span style={{ color: '#503dff', fontSize: 'small' }}>
-            {new Date(exam.exam_date).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}
-          </span>
-        </Grid>
-      </Grid>
+      <div  id='bold' >
+        {exam.exam.title}
+      </div>
 
-      {/* Action Buttons */}
-      <Grid item xs={12} md={2} sx={{ textAlign: { xs: 'center', md: 'left' }, display: 'flex', flexDirection: 'column', gap: 1 }}>
-        {/* View Timetable Button */}
+
+      <div  >
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: '10px' }} >
+          <Typography variant="body2" sx={{ fontWeight: 'bold' }} >
+            Start Date: {new Date(exam.exam.exam_date).toLocaleDateString()}
+          </Typography>
+          <Typography variant="body2" sx={{ fontWeight: 'bold' }} >
+            End Date: {new Date(exam.exam.exam_end_date)?.toLocaleDateString() || ''}
+          </Typography>
+        </Box>
+      </div>
+
+
+      <div  >
         <Button
           variant="contained"
+          href={exam.exam.timetable_path}
+          target="_blank"
+          rel="noopener noreferrer"
+          sx={{
+            mb: 1,
+            backgroundColor: '#503dff',
+            color: '#fff',
+            borderRadius: 2,
+            '&:hover': { backgroundColor: '#4030cc' },
+            width: '100%'
+          }}
+        >
+          View TimeTable
+        </Button><br></br>
+        <Button
+          variant="contained"
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
           sx={{
             backgroundColor: '#503dff',
-            color: 'white',
-            fontSize: '0.75rem',
-            padding: '6px 12px',
-            '&:hover': { backgroundColor: '#3b30cc' }
-          }}
-          onClick={() => handleDownload(exam.timetable_path)} // Trigger file download
-        >
-          View TIME TABLE
-        </Button>
-        {/* Exam Instructions Button */}
-        <Button
-          variant="contained"
-          sx={{
-            backgroundColor: '#503dff',
-            color: 'white',
-            fontSize: '0.75rem',
-            padding: '6px 12px',
-            '&:hover': { backgroundColor: '#3b30cc' }
+            color: '#fff',
+            width: '100%',
+            borderRadius: 2,
+            '&:hover': { backgroundColor: '#4030cc' },
           }}
         >
-          Exam Instructions
+          Instructions
         </Button>
-      </Grid>
+      </div>
 
-      {/* Edit Button */}
-      <Grid item xs={12} md={1} sx={{ display: 'flex', justifyContent: { xs: 'center', md: 'flex-end' } }}>
+      <div >
+
         <Button
           variant="contained"
           sx={{
-            backgroundColor: '#eb6a18',
-            color: 'white',
-            fontSize: '0.85rem',
-            padding: '6px 12px',
-            '&:hover': { backgroundColor: '#d25e15' }
+            minWidth: 120,
+            bgcolor: '#eb6a18',
+            color: '#fff',
+            borderRadius: 2,
+            '&:hover': { bgcolor: '#d35e16' },
           }}
         >
-          Edit
+          Add Result
         </Button>
-      </Grid>
-    </Grid>
+
+        <br></br>
+
+        <Button variant="contained" color="error"
+          sx={{
+            minWidth: 120,
+            bgcolor: '#eb6a18',
+            color: '#fff',
+            borderRadius: 2,
+            '&:hover': { bgcolor: '#d35e16' },
+            marginTop: '10px'
+          }}
+        >
+          Delete
+        </Button>
+
+      </div>
+
+    </div>
   );
 };
 

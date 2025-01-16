@@ -1,139 +1,132 @@
-
-.showMoreText{
+.showMoreText {
     display: -webkit-box;
     /* Change here the number of lines you want to show in a paragraph */
     line-clamp: 2;
-    -webkit-line-clamp: 2; 
+    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
 
-.subject_buttom{
+.subject_buttom {
     padding-bottom: 10px;
 }
 
-.Syllabus{
+.Syllabus {
     border-bottom: 1px solid rgb(209, 205, 205);
     padding-bottom: 10px;
 }
- .full{
+
+.full {
     width: 100%;
- }
+}
 
- .cources_items{
-    width: 100%!important;
+.cources_items {
+    width: 100% !important;
     border-bottom: 1px solid rgb(209, 205, 205);
     padding-bottom: 10px;
- }
-
- .subject{
-    font-size: 20px!important;
-    padding-top: 30px;
-    padding-bottom: 20px;
- }
- 
+}
 
 
 #bold {
     font-weight: bold;
 }
 
-.space {
-    padding: 10px;
-}
 
 .postedBy span {
     color: black;
 }
 
 .exam_card {
-    padding: 20px;
-    border-bottom: 1px solid rgb(231, 226, 226);
     display: grid;
-    grid-template-columns: repeat(5, 1fr); /* 5 equal columns */
+    grid-template-columns: repeat(5, 1fr);
+    /* 5 equal columns */
     gap: 10px;
-    padding-top: 30px;
 }
 
-.postedBy {
-    padding-top: 30px;
-    color: #3c2ecf;
-    font-size: 13px;
-}
 
 /* Responsive Design */
 @media (max-width: 1200px) {
     .exam_card {
-        grid-template-columns: repeat(4, 1fr); /* 4 columns for medium screens */
+        grid-template-columns: repeat(4, 1fr);
+        /* 4 columns for medium screens */
     }
 }
 
 @media (max-width: 992px) {
     .exam_card {
-        grid-template-columns: repeat(3, 1fr); /* 3 columns for smaller screens */
+        grid-template-columns: repeat(3, 1fr);
+        /* 3 columns for smaller screens */
     }
 }
 
 @media (max-width: 768px) {
     .exam_card {
-        grid-template-columns: repeat(2, 1fr); /* 2 columns for tablets */
+        grid-template-columns: repeat(2, 1fr);
+        /* 2 columns for tablets */
         gap: 8px;
     }
+
     .postedBy {
-        font-size: 12px; /* Smaller font for compact display */
+        font-size: 12px;
+        /* Smaller font for compact display */
     }
 }
 
 @media (max-width: 576px) {
     .exam_card {
-        grid-template-columns: 1fr; /* Single column for mobile */
+        grid-template-columns: 1fr;
+        /* Single column for mobile */
         gap: 6px;
     }
+
     .space {
-        padding: 5px; /* Reduce padding for mobile */
+        padding: 5px;
+        /* Reduce padding for mobile */
     }
+
     .postedBy {
-        font-size: 11px; /* Smaller font for mobile */
+        font-size: 11px;
+        /* Smaller font for mobile */
     }
 }
 
- 
- /* Style for the entire form */
+
+/* Style for the entire form */
 form {
-    padding:  0 50px;
+    padding: 0 50px;
     background-color: #fff;
     border-radius: 8px;
     margin: 0 auto;
-  }
-  
-  /* Style for the labels */
-  form label {
+}
+
+/* Style for the labels */
+form label {
     display: block;
     font-size: 14px;
     font-weight: bold;
     color: #333;
     margin-bottom: 5px;
-  }
-  
-  /* Style for the input fields and select dropdown */
-  form input[type="number"],
-  form select {
+}
+
+/* Style for the input fields and select dropdown */
+form input[type="number"],
+form select {
     width: 100%;
     margin: 10px 0;
     border-radius: 5px;
     font-size: 14px;
     outline: none;
-  }
-  
-  /* Style for input fields on focus */
-  form input[type="number"]:focus,
-  form select:focus {
+}
+
+/* Style for input fields on focus */
+form input[type="number"]:focus,
+form select:focus {
     border-color: #503dff;
     box-shadow: 0 0 5px rgba(80, 61, 255, 0.2);
-  }
-  
-  /* Style for the button */
-  form button {
+}
+
+/* Style for the button */
+form button {
     width: 100%;
     padding: 12px;
     background-color: #503dff;
@@ -144,21 +137,22 @@ form {
     font-weight: bold;
     cursor: pointer;
     text-transform: uppercase;
-  }
-  
-  /* Button hover effect */
-  form button:hover {
+}
+
+/* Button hover effect */
+form button:hover {
     background-color: #3c2ecf;
-  }
-  
-  /* Style for the error or success message */
-  form p {
+}
+
+/* Style for the error or success message */
+form p {
     text-align: center;
-    color: #ff0000;  /* Red color for error messages */
+    color: #ff0000;
+    /* Red color for error messages */
     font-size: 14px;
     margin-top: 10px;
-  }
-  
+}
+
 
 
 /* Default styles for larger screens (desktops and laptops) */
@@ -175,10 +169,6 @@ form {
     padding-top: 50px;
 }
 
-.subject{
-    font-size: 20px;
-    margin-top: -20px;
-}
 
 .text_edn {
     display: flex;
@@ -320,22 +310,27 @@ form {
 .assinmne_name {
     width: 51%;
 }
+
 .submitd_student {
     font-size: 13px;
 }
+
 .questins {
-    background-color: #503dff!important;
-    color: white!important;
+    background-color: #503dff !important;
+    color: white !important;
     border-radius: 20px;
     padding: 0 10px;
 }
+
 .questins button {
     font-size: 13px;
 }
+
 .last_date {
-    color: #503dff!important;
+    color: #503dff !important;
     font-size: 13px;
 }
+
 .assinmnet_grid {
     display: flex;
     gap: 10px;
@@ -399,100 +394,112 @@ form {
 }
 
 
-.review_flex{
+.review_flex {
     display: flex;
     padding-top: 10px;
     gap: 10px;
 }
 
-.exam_item{
+.exam_item {
     border-bottom: 1px solid rgb(211, 209, 209);
     margin-bottom: 10px;
 }
-.exam_flex{
+
+.exam_flex {
     display: flex;
     gap: 10px;
     font-size: 15px;
 }
-.fx_center{
+
+.fx_center {
     display: flex;
 }
- 
+
 /* CSS for the table */
 table {
     width: 100%;
     border-collapse: collapse;
     font-family: Arial, sans-serif;
-  }
-  
-  th, td {
+}
+
+th,
+td {
     padding: 10px;
     text-align: left;
     border: 1px solid #ddd;
-  }
-  
-  th {
+}
+
+th {
     background-color: #f4f4f4;
     color: #333;
-  }
-  
-  tr:nth-child(even) {
+}
+
+tr:nth-child(even) {
     background-color: #f9f9f9;
-  }
-  
-  tr:hover {
+}
+
+tr:hover {
     background-color: #f1f1f1;
-  }
-  
-  table {
+}
+
+table {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
     overflow: hidden;
-  }
-  
- 
-.button_sapce{
+}
+
+
+.button_sapce {
     margin-right: 20px;
-    }
-.quick_actions_button{
+}
+
+.quick_actions_button {
     display: flex;
 }
 
 
-.fx_center{
+.fx_center {
     display: flex;
     gap: 10px;
 }
-.text-center{
-    text-align: center!important;
+
+.text-center {
+    text-align: center !important;
 }
 
 .custom-toast {
-    background-color: #503dff !important; /* Only change background */
+    background-color: #503dff !important;
+    /* Only change background */
     padding: 10px;
     border-radius: 50px;
 }
 
 .custom-toast button[aria-label="close"] {
     position: absolute;
-    top: 23px; /* Adjust if needed */
-    right: 20px; /* Ensure it's aligned to the right */
+    top: 23px;
+    /* Adjust if needed */
+    right: 20px;
+    /* Ensure it's aligned to the right */
     color: white;
 }
-.flex_box{
+
+.flex_box {
     display: flex;
     gap: 20px;
 }
-.radius-10{ border-radius: 10px!important; }
 
-.css-480o17-MuiGrid-root>.MuiGrid-item{
-    padding-top: 0!important;
+.radius-10 {
+    border-radius: 10px !important;
 }
 
-.ease-linear{
-    padding-left: 10px!important;
+.css-480o17-MuiGrid-root>.MuiGrid-item {
+    padding-top: 0 !important;
 }
-  
+
+.ease-linear {
+    padding-left: 10px !important;
+}
+
 
 /* Default styles */
 .search_bar {
@@ -504,8 +511,10 @@ table {
 }
 
 .search_input {
-    border: none; border-radius: 10px;
-    outline: none; /* Focus ke dauran border effect hatane ke liye */
+    border: none;
+    border-radius: 10px;
+    outline: none;
+    /* Focus ke dauran border effect hatane ke liye */
     padding-top: 1px;
     padding-left: 10px;
 }
@@ -517,7 +526,8 @@ table {
 .fx_center {
     width: 100%;
     display: flex;
-    justify-content: center; /* Center the content horizontally */
+    justify-content: center;
+    /* Center the content horizontally */
 }
 
 .top_header {
@@ -534,15 +544,24 @@ table {
     color: #8a8a8a;
 }
 
-.app_header{
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 10px; border-bottom: solid 1px #e8e8e8;
+.app_header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: solid 1px #e8e8e8;
 }
-.header_right{
-    display: flex; align-items: center; gap:20px;
+
+.header_right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
 }
-.header_left{
-    display: flex; align-items: center; gap:10px;
+
+.header_left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .search-bar {
@@ -560,13 +579,15 @@ table {
 }
 
 .search-bar input {
-    border: none; outline: none;
+    border: none;
+    outline: none;
     flex: 1;
 }
 
 .search-bar svg {
     stroke: #888;
-    width: 20px; height: 20px;
+    width: 20px;
+    height: 20px;
     margin-right: 8px;
     transition: fill 0.3s ease;
 }
@@ -583,44 +604,50 @@ table {
     }
 
     .top_header {
-        grid-template-columns: 1fr; /* Stack the columns vertically */
+        grid-template-columns: 1fr;
+        /* Stack the columns vertically */
         gap: 15px;
     }
 
 
     .icons span {
-        font-size: 25px; /* Slightly smaller icons on small screens */
+        font-size: 25px;
+        /* Slightly smaller icons on small screens */
     }
 }
 
 /* When screen width is 480px or less (mobile devices) */
 @media (max-width: 480px) {
     .search_bar {
-        flex-direction: column; /* Stack search bar elements vertically */
+        flex-direction: column;
+        /* Stack search bar elements vertically */
         padding-left: 5px;
     }
 
     .search_input {
-        width: 100%; /* Ensure input takes full width */
+        width: 100%;
+        /* Ensure input takes full width */
     }
 
     .top_header {
-        grid-template-columns: 1fr; /* Stack the columns vertically */
+        grid-template-columns: 1fr;
+        /* Stack the columns vertically */
         gap: 10px;
     }
 
-   
+
     .icons span {
-        font-size: 22px; /* Smaller icons on mobile */
+        font-size: 22px;
+        /* Smaller icons on mobile */
     }
 }
 
 /* For very large screens */
 @media (min-width: 1200px) {
     .top_header {
-        grid-template-columns: 60% 40%; /* Restore original layout for large screens */
+        grid-template-columns: 60% 40%;
+        /* Restore original layout for large screens */
     }
 
-   
-}
 
+}

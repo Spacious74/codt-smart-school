@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { TextField, Button, Box, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
@@ -12,7 +12,7 @@ const ExamForm = () => {
     applicable_class: '',
     notes: '',
     timetable_path: '',
-    schoolcode: localStorage.getItem("schoolCode"),
+    schoolcode: localStorage.getItem("schoolCode") ?? '',
     teacheremail: ''
   });
   const [message, setMessage] = useState('');
@@ -34,7 +34,7 @@ const ExamForm = () => {
 
     // Prepare the data to be sent
     const requestData = { ...formData };
-    
+
     try {
       const response = await fetch('https://codtsmartschool.strangeweb.in/studentapi/save_exam.php', {
         method: 'POST',
@@ -50,18 +50,18 @@ const ExamForm = () => {
         setMessage('Exam data saved successfully!');
         setFormData({
           title: '',
-    subject: '',
-    exam_date: '',
-    total_marks: '',
-    applicable_class: '',
-    notes: '',
-    timetable_path: '',
-    schoolcode: '',
-    teacheremail: ''
+          subject: '',
+          exam_date: '',
+          total_marks: '',
+          applicable_class: '',
+          notes: '',
+          timetable_path: '',
+          schoolcode: '',
+          teacheremail: ''
         })
 
         navigate('/school/academicschool/exam');  // Replace '/some-other-page' with the desired route
-        
+
       } else {
         setMessage(`Error: ${data.message}`);
       }
@@ -71,270 +71,102 @@ const ExamForm = () => {
     }
   };
 
-  
+
 
   return (
-    <div className="post_eaxm_container">
-
-    <Box component="form" onSubmit={handleSubmit}>
-
-      <Typography variant="h6" sx={{ marginBottom: '20px', color: '#000', marginTop: '50px' }}>
-        Post New Exam
+    <Box
+      component="form"
+      onSubmit={handleSubmit}
+      sx={{
+        border: '2px solid #503dff',
+        padding: '20px',
+        borderRadius: '10px',
+        margin: '20px auto',
+      }}
+    >
+      <Typography variant="h6" sx={{ mb: 1 }}>
+        Post new exam
       </Typography>
-
-      {/* Exam Title */}
-      <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
-        <Typography sx={{ width: '100px', marginRight: '10px', color: '#503dff' }}>Exam Title</Typography>
-        <TextField
-          name="title"
-          required
-          value={formData.title}
-          onChange={handleChange}
-          fullWidth
-          margin="normal"
-          InputProps={{
-            sx: {
-              borderRadius: '8px',
-              padding: '0px',
-              borderColor: '#503dff',
-              borderWidth: 1,
-            },
-          }}
-          InputLabelProps={{
-            style: {
-              color: '#503dff',
-              width: '100%', // Ensuring the label takes full width
-            },
-          }}
-          variant="outlined"
-        />
-      </Box>
-      {/* Subject */}
-      <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
-        <Typography sx={{ marginRight: '10px', color: '#503dff' }}>Subject</Typography>
-        <TextField
-          name="subject"
-          required
-          value={formData.subject}
-          onChange={handleChange}
-          fullWidth
-          margin="normal"
-          InputProps={{
-            sx: {
-              borderRadius: '8px',
-              padding: '0px',
-              borderColor: '#503dff',
-              borderWidth: 1,
-            },
-          }}
-          InputLabelProps={{
-            style: {
-              color: '#503dff',
-              width: '100%',
-            },
-          }}
-          variant="outlined"
-        />
-      </Box>
-
-      {/* Exam Date */}
-      <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
-        <Typography sx={{ marginRight: '10px', color: '#503dff', width: '100px' }}>Exam Date</Typography>
-        <TextField
-          name="exam_date"
-          required
-          type="date"
-          value={formData.exam_date}
-          onChange={handleChange}
-          fullWidth
-          margin="normal"
-          InputProps={{
-            sx: {
-              borderRadius: '8px',
-              padding: '0px',
-              borderColor: '#503dff',
-              borderWidth: 1,
-            },
-          }}
-          InputLabelProps={{
-            shrink: true,
-            style: {
-              color: '#503dff',
-              width: '100%',
-            },
-          }}
-          variant="outlined"
-        />
-      </Box>
-
-      {/* Total Marks */}
-      <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
-        <Typography sx={{ marginRight: '10px', color: '#503dff', width: '200px' }}>Total Marks</Typography>
-        <TextField
-          name="total_marks"
-          required
-          type="number"
-          value={formData.total_marks}
-          onChange={handleChange}
-          fullWidth
-          margin="normal"
-          InputProps={{
-            sx: {
-              borderRadius: '8px',
-              padding: '0px',
-              borderColor: '#503dff',
-              borderWidth: 1,
-            },
-          }}
-          InputLabelProps={{
-            style: {
-              color: '#503dff',
-              width: '100%',
-            },
-          }}
-          variant="outlined"
-        />
-      </Box>
-      {/* Applicable Class */}
-      <Box sx={{ marginBottom: '10px' }}>
-        <Typography sx={{ marginRight: '10px', color: '#503dff' }}>For which class the exam is applicable?</Typography>
-        <TextField
-          name="applicable_class"
-          required
-          value={formData.applicable_class}
-          onChange={handleChange}
-          fullWidth
-          margin="normal"
-          InputProps={{
-            sx: {
-              borderRadius: '8px',
-              padding: '0px',
-              borderColor: '#503dff',
-              borderWidth: 1,
-            },
-          }}
-          InputLabelProps={{
-            style: {
-              color: '#503dff',
-              width: '100%',
-            },
-          }}
-          variant="outlined"
-        />
-      </Box>
-
-      {/* Teacher Email */}
-      <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
-        <Typography sx={{ marginRight: '10px', color: '#503dff', width: '200px' }}>Teacher Email</Typography>
-        <TextField
-          name="teacheremail"
-          type="email"
-          value={formData.teacheremail}
-          onChange={handleChange}
-          fullWidth
-          margin="normal"
-          InputProps={{
-            sx: {
-              borderRadius: '8px',
-              padding: '0px',
-              borderColor: '#503dff',
-              borderWidth: 1,
-            },
-          }}
-          InputLabelProps={{
-            style: {
-              color: '#503dff',
-              width: '100%',
-            },
-          }}
-          variant="outlined"
-        />
-      </Box>
-
-      {/* Notes */}
-      <Box sx={{ marginBottom: '10px' }}>
-        <Typography sx={{ marginRight: '10px', color: '#503dff' }}>Add Notes</Typography>
-        <TextField
-          name="notes"
-          required
-          value={formData.notes}
-          onChange={handleChange}
-          fullWidth
-          margin="normal"
-          multiline
-          rows={4}
-          InputProps={{
-            sx: {
-              borderRadius: '8px',
-              padding: '0px',
-              borderColor: '#503dff',
-              borderWidth: 1,
-            },
-          }}
-          InputLabelProps={{
-            style: {
-              color: '#503dff',
-              width: '100%',
-            },
-          }}
-          variant="outlined"
-        />
-      </Box>
-      {/* URL */}
-      <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
-        <Typography sx={{ marginRight: '10px', color: '#503dff', width: '100px' }}>Add URL</Typography>
-        <TextField
-          name="timetable_path"
-          required
-          value={formData.timetable_path}
-          onChange={handleChange}
-          fullWidth
-          margin="normal"
-          InputProps={{
-            sx: {
-              borderRadius: '8px',
-              padding: '0px',
-              borderColor: '#503dff',
-              borderWidth: 1,
-            },
-          }}
-          InputLabelProps={{
-            style: {
-              color: '#503dff',
-              width: '100%',
-            },
-          }}
-          variant="outlined"
-        />
-      </Box>
-
-      {/* Submit Button */}
+      <TextField
+        label="Exam Title"
+        name="title"
+        value={formData.title}
+        onChange={handleChange}
+        fullWidth
+        margin="normal"
+        InputLabelProps={{ style: { color: '#503dff' } }}
+        variant="outlined"
+      />
+      <TextField
+        label="Subject"
+        name="subject"
+        value={formData.subject}
+        onChange={handleChange}
+        fullWidth
+        margin="normal"
+        InputLabelProps={{ style: { color: '#503dff' } }}
+        variant="outlined"
+      />
+      <TextField
+        label="Exam Date"
+        name="exam_date"
+        type="date"
+        value={formData.exam_date}
+        onChange={handleChange}
+        fullWidth
+        margin="normal"
+        InputLabelProps={{ shrink: true, style: { color: '#503dff' } }}
+        variant="outlined"
+      />
+      <TextField
+        label="Total Marks"
+        name="total_marks"
+        type="number"
+        value={formData.total_marks}
+        onChange={handleChange}
+        margin="normal"
+        fullWidth
+        InputLabelProps={{ style: { color: '#503dff' } }}
+        variant="outlined"
+      />
+      <TextField
+        label="For class"
+        name="applicable_class"
+        value={formData.applicable_class}
+        onChange={handleChange}
+        fullWidth
+        margin="normal"
+        InputLabelProps={{ style: { color: '#503dff' } }}
+        variant="outlined"
+      />
+      <TextField
+        label="Add Notes"
+        name="notes"
+        value={formData.notes}
+        onChange={handleChange}
+        fullWidth
+        margin="normal"
+        multiline
+        rows={4}
+        InputLabelProps={{ style: { color: '#503dff' } }}
+        variant="outlined"
+      />
       <Button
         type="submit"
         variant="contained"
         sx={{
           backgroundColor: '#503dff',
-          color: 'white',
-          padding: '10px 20px',
-          borderRadius: '8px',
+          color: '#fff',
           marginTop: '20px',
-          '&:hover': {
-            backgroundColor: '#3a2db6', // Darker shade for hover effect
-          },
+          '&:hover': { backgroundColor: '#3b2cb3' },
+          maxWidth: '300px',
         }}
+        fullWidth
       >
         Submit Exam
       </Button>
-      
-      {/* Message Display */}
-      {message && (
-        <Typography sx={{ marginTop: '20px', color: message.includes('Error') ? 'red' : 'green' }}>
-          {message}
-        </Typography>
-      )}
     </Box>
-  </div>
-    
+
   );
 };
 

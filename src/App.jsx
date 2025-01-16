@@ -181,7 +181,6 @@ function App() {
                       <Route path="pricing" element={<Subscription />} />
                       <Route path="academics" element={<Academics />} />
                       <Route path="studettendence" element={<Attendance />} />
-
                       <Route path="academics/exams" element={<ExamPerformance></ExamPerformance>} />
                       <Route path="academics/exams/examdetail" element={<ExamComp></ExamComp>} />
                       <Route path="academics/assignment" element={<Assignments></Assignments>} />
@@ -210,16 +209,16 @@ function App() {
                     <Routes>
                       <Route path="home" element={<Teacherdashboards />} />
                       <Route path="academics" element={<AcademicCard />} />
+                      <Route path="academics/exam" element={<TeacherExamCard />} />
+                      <Route path="academics/assignment" element={<AssignmentList></AssignmentList>} />
+                      <Route path="academics/assignment/create" element={<Addassignment />} />
+                      <Route path="academics/exam/create" element={<AddExam />} />
                       <Route path="studentsdata" element={<Studentsdata />} />
                       <Route path="notice" element={<TeacherNotice />} />
                       <Route path="career" element={<TeacherCareer />} />
-                      <Route path="academics/assignment/create" element={<Addassignment />} />
-                      <Route path="academics/exam" element={<TeacherExamCard />} />
                       <Route path="academics/syllabus" element={<Syallabus />} />
                       <Route path="academics/syllabus/create" element={<SyllabusCreate />} />
                       <Route path="/academics/syllabus/:id" element={<Syllabusupdate />} />
-                      <Route path="academics/assignment" element={<AssignmentList></AssignmentList>} />
-                      <Route path="academics/exam/create" element={<AddExam />} />
                       <Route path="training" element={<Training />} />
                       <Route path="attendance" element={<AttendanceTeacher />} />
                       <Route path="managestud/:studentId" element={<Managestud />} />
@@ -232,9 +231,7 @@ function App() {
               <Route
                 path="/school/*"
                 element={
-
                   <SchoolLayout>
-
                     <Routes>
                       <Route path="home" element={<Schoolhome />} />
                       <Route path="academicschool" element={<Academicsschool />}/>
