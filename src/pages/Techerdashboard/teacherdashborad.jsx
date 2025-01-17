@@ -89,7 +89,7 @@ const PerformanceMeter = ({ performance }) => {
     cutout: '80%',
   };
 
-  
+
   return (
     <Card sx={{ bgcolor: '#503dff', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'space-between', p: 2 }}>
       <Typography variant="h5">Academic Performance</Typography>
@@ -156,7 +156,7 @@ const Sidebar = () => {
   // Fetch dynamic attendance data
   const fetchAttendanceData = async () => {
 
-    
+
     setLoading(true);
     try {
       const currentYear = new Date().getFullYear();
@@ -284,14 +284,14 @@ const Sidebar = () => {
               Teacher Profile
             </Typography>
             <Box display="flex" flexDirection={{ xs: 'column', sm: 'row' }} alignItems="center" gap={2} justifyContent={'start'}>
-            <Box display={{ xs: 'contents', sm: 'flex' }} justifyContent={{ xs: 'flex-start', sm: 'flex-start' }} p={0}>
-  <img
-    src={`https://codtsmartschool.strangeweb.in/teacherapi/${schoolData.image}`}
-    alt="Teacher Profile"
-    onError={(e) => e.target.src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtRs_rWILOMx5-v3aXwJu7LWUhnPceiKvvDg&s"}
-    style={{ height: '80px', width: '80px', borderRadius: '50%', objectFit: 'contain', border: '2px solid gray', marginTop: '1rem' }}
-  />
-</Box>
+              <Box display={{ xs: 'contents', sm: 'flex' }} justifyContent={{ xs: 'flex-start', sm: 'flex-start' }} p={0}>
+                <img
+                  src={`https://codtsmartschool.strangeweb.in/teacherapi/${schoolData.image}`}
+                  alt="Teacher Profile"
+                  onError={(e) => e.target.src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtRs_rWILOMx5-v3aXwJu7LWUhnPceiKvvDg&s"}
+                  style={{ height: '80px', width: '80px', borderRadius: '50%', objectFit: 'contain', border: '2px solid gray', marginTop: '1rem' }}
+                />
+              </Box>
 
               <Box>
                 <Typography variant="h6" style={{ color: 'black', fontSize: '17px', fontWeight: '600' }}>
@@ -310,83 +310,83 @@ const Sidebar = () => {
 
           {/* Sidebar Links Section */}
           <Grid container spacing={2} mt={4}>
-  {data.map((item, idx) => (
-    <Grid item xs={6} sm={4} md={3} lg={2.5} key={idx}>
-      <Link to={item.route}>
-        <Box
-          sx={{ 
-            borderRadius: "8px", // Border removed
-            padding: "16px",
-            textAlign: "center",
-            width: "100%",
-            height: "120px",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            backgroundColor: [
-              "#089451", // First item
-              "#503dff", // Second item
-              "#a80000", // Third item
-              "#eb6a18", // Fourth item
-              "#3d8cf2", // Fifth item
-              "#eb6a18", // Sixth item
-              "#3d8cf2", // Seventh item
-              "#ee1527", // Eighth item
-            ][idx % 8], // Apply the colors cyclically based on index
-          }}
-        >
+            {data.map((item, idx) => (
+              <Grid item xs={6} sm={4} md={3} lg={2.5} key={idx}>
+                <Link to={item.route}>
+                  <Box
+                    sx={{
+                      borderRadius: "8px", // Border removed
+                      padding: "16px",
+                      textAlign: "center",
+                      width: "100%",
+                      height: "120px",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      backgroundColor: [
+                        "#089451", // First item
+                        "#503dff", // Second item
+                        "#a80000", // Third item
+                        "#eb6a18", // Fourth item
+                        "#3d8cf2", // Fifth item
+                        "#eb6a18", // Sixth item
+                        "#3d8cf2", // Seventh item
+                        "#ee1527", // Eighth item
+                      ][idx % 8], // Apply the colors cyclically based on index
+                    }}
+                  >
 
 
-          {/* Set the icon color to white */}
-          <Box sx={{ color: "white" }}>
-            {item.icon}
-          </Box>
+                    {/* Set the icon color to white */}
+                    <Box sx={{ color: "white" }}>
+                      {item.icon}
+                    </Box>
 
-        </Box>
+                  </Box>
 
-        <Typography variant="body1" align="center" sx={{ mt: 1 }}>
-          {item.label}
-        </Typography>
+                  <Typography variant="body1" align="center" sx={{ mt: 1 }}>
+                    {item.label}
+                  </Typography>
 
-        
-      </Link>
-    </Grid>
-  ))}
-</Grid>
+
+                </Link>
+              </Grid>
+            ))}
+          </Grid>
         </Grid>
 
         {/* Attendance Section */}
         <Grid item xs={12} sm={4}>
-  <Card sx={{ mb: 2, p: 2, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-    <Box>
-      <Typography variant="h6" fontWeight="bold">Attendance</Typography>
-      <Typography variant="h3" color="primary" fontWeight="bold">
-        {percentage ? `${percentage}%` : '0%'}
-      </Typography>
-      <Typography>
-        You were present for <strong>{present || 0}</strong> days out of <strong>{total || 0}</strong> days
-      </Typography>
-    </Box>
-    <Box mt={2} display="flex" justifyContent="center" alignItems="center" height={'150px'}>
-      <Doughnut data={attendanceChartData} options={attendanceChartOptions} />
-    </Box>
-  </Card>
+          <Card sx={{ mb: 2, p: 2, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <Box>
+              <Typography variant="h6" fontWeight="bold">Attendance</Typography>
+              <Typography variant="h3" color="primary" fontWeight="bold">
+                {percentage ? `${percentage}%` : '0%'}
+              </Typography>
+              <Typography>
+                You were present for <strong>{present || 0}</strong> days out of <strong>{total || 0}</strong> days
+              </Typography>
+            </Box>
+            <Box mt={2} display="flex" justifyContent="center" alignItems="center" height={'150px'}>
+              <Doughnut data={attendanceChartData} options={attendanceChartOptions} />
+            </Box>
+          </Card>
 
-  {/* Rating Section */}
-  <Card sx={{ mb: 2, p: 2, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-    <Box>
-      <Typography variant="h3" color="primary" fontWeight="bold">
-        {averageRating ? `${averageRating} / 5` : '0 / 5'}
-      </Typography>
-      <Typography fontWeight="bold">
-        You are reviewed by <span>{totalReviews || 0}</span> students
-      </Typography>
-    </Box>
-    <Box mt={2} display="flex" justifyContent="center" alignItems="center" height={'150px'}>
-      <Rating name="rating" value={averageRating || 0} readOnly precision={0.1} sx={{ color: 'yellow' }} />
-    </Box>
-  </Card>
-</Grid>
+          {/* Rating Section */}
+          <Card sx={{ mb: 2, p: 2, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <Box>
+              <Typography variant="h3" color="primary" fontWeight="bold">
+                {averageRating ? `${averageRating} / 5` : '0 / 5'}
+              </Typography>
+              <Typography fontWeight="bold">
+                You are reviewed by <span>{totalReviews || 0}</span> students
+              </Typography>
+            </Box>
+            <Box mt={2} display="flex" justifyContent="center" alignItems="center" height={'150px'}>
+              <Rating name="rating" value={averageRating || 0} readOnly precision={0.1} sx={{ color: 'yellow' }} />
+            </Box>
+          </Card>
+        </Grid>
 
       </Grid>
     </Box>

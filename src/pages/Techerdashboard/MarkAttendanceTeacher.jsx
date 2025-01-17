@@ -18,7 +18,6 @@ function MarkAttendanceTeacher() {
             } else {
                 setError(fetchError);
             }
-
             setLoading(false);
         }
         fetchDataAsync();

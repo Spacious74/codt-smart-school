@@ -181,7 +181,7 @@ function App() {
                       <Route path="home" element={<Home />} />
                       <Route path="pricing" element={<Subscription />} />
                       <Route path="academics" element={<Academics />} />
-                      <Route path="studettendence" element={<Attendance />} />
+                      <Route path="student-attendance" element={<Attendance />} />
                       <Route path="academics/exams" element={<ExamPerformance></ExamPerformance>} />
                       <Route path="academics/exams/examdetail" element={<ExamComp></ExamComp>} />
                       <Route path="academics/assignment" element={<Assignments></Assignments>} />

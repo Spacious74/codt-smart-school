@@ -13,7 +13,7 @@ const Resource = () => {
 
   return (
     <Box width="100%" mx="auto" p={0}>
-      <Stack spacing={4}>
+      <Stack spacing={1}>
         {articles.map((article, index) => (
           <Box
             key={index}
@@ -21,11 +21,9 @@ const Resource = () => {
             flexDirection={isMobile ? 'column' : 'row'} // Change direction for mobile
             justifyContent="space-between"
             alignItems="center"
-            borderBottom="1px solid #E0E0E0"
-            borderRadius="8px"
-            p={2}
+            py={1}
           >
-            <Typography variant="h6" fontWeight="medium" color="black" textAlign={isMobile ? 'center' : 'left'}>
+            <Typography variant="body1" fontWeight="medium" textAlign={isMobile ? 'center' : 'left'}>
               {article.title}
             </Typography>
             <Button
@@ -48,9 +46,9 @@ const Resource = () => {
           </Box>
         ))}
       </Stack>
-      <Box textAlign="center" mt={4}>
-        <Link href="#" color="textSecondary" variant="body2">
-          See All
+      <Box textAlign="center" mt={2}>
+        <Link href="#" color="primary" variant="body2">
+          Read more blogs...
         </Link>
       </Box>
     </Box>
