@@ -60,12 +60,10 @@ const Syllabus = () => {
   return (
     <>
 
-<SyllabusForm/>
+{/* <SyllabusForm/> */}
 
-    <Box sx={{ padding: '2rem' }}>
-      <Typography variant="h4" gutterBottom>
-        Syllabus
-      </Typography>
+    <Box >
+      <Typography variant="h5" gutterBottom sx={{mb:3}}>Syllabus</Typography>
 
       {/* Filter Section */}
       <Box display="flex" alignItems="center" gap={2} marginBottom="2rem">

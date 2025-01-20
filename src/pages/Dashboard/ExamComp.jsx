@@ -1,5 +1,5 @@
-import React, { useState , useEffect} from "react";
-import { Box, TextField, IconButton, Button, Avatar , Card , Divider , Typography, Grid , Dialog, DialogTitle, DialogContent, DialogActions } from "@mui/material";
+import React, { useState, useEffect } from "react";
+import { Box, TextField, IconButton, Button, Avatar, Card, Divider, Typography, Grid, Dialog, DialogTitle, DialogContent, DialogActions } from "@mui/material";
 import EventIcon from '@mui/icons-material/Event';
 import AssessmentIcon from '@mui/icons-material/Assessment';
 import ReceiptIcon from '@mui/icons-material/Receipt';
@@ -34,7 +34,7 @@ const UpcomingExams = () => {
 
   const studs = localStorage.getItem('stud');
   console.log(studs);
-  
+
   const stud = studs ? JSON.parse(studs) : null;
   const studemails = stud && stud.data ? stud.data.email : null;  // Access email from the nested data object
   console.log(studemails);
@@ -64,68 +64,77 @@ const UpcomingExams = () => {
   }
 
   return (
-    <Box p={4}>
+    <Box py={2}>
       <Typography variant="h5" fontWeight="bold" mb={4}>
         Upcoming Exams
       </Typography>
       {data.map((exam, index) => (
-        <Grid
-          container
-          spacing={2}
-          alignItems="center"
-          justifyContent="space-between"
-          key={index}
+        <Box key={index}
           sx={{
-            borderBottom: '1px solid #eee',
-            paddingBottom: 2,
-            marginBottom: 2,
-          }}
-        >
-          <Grid item xs={12} sm={4}>
-            <Typography variant="h6">{exam.subject}</Typography>
-            <Typography variant="body2">{exam.title}</Typography>
-            <Typography variant="caption" color="textSecondary">
-              Posted by{' '}
-              <a href="#" style={{ color: '#2f58cd' }}>
-                {exam.teacheremail || 'Unknown'}
-              </a>
-            </Typography>
-          </Grid>
-          <Grid item xs={12} sm={4}>
-            <Typography variant="body2">
-              Start Date -{' '}
-              <span style={{ color: '#2f58cd' }}>{exam.exam_date}</span>
-            </Typography>
-            <Typography variant="body2">
-              End Date -{' '}
-              <span style={{ color: '#2f58cd' }}>{exam.endDate || 'none'}</span>
-            </Typography>
-          </Grid>
-          <Grid item xs={12} sm={4} gap={8} >
-          <Button
-              onClick={() => openWebsite(exam?.timetable_path)}
+            p: 3, border: 'solid 1px #cecece', borderRadius: '12px', display: 'flex', justifyContent: 'space-between',
+            backgroundColor: '#fff'
+          }}>
+
+          <div >
+            <Typography variant="body1" sx={{ fontWeight: 'bold', mb: 2 }} >{exam.subject}</Typography>
+            <Box sx={{ display: 'flex', flexDirection: 'column' }} >
+              <Typography variant="caption" sx={{ fontWeight: 'bold' }} >Posted By</Typography>
+              <Typography variant="caption" sx={{ fontWeight: 'bold', color: '#503dff' }} >{exam.teacheremail}</Typography>
+            </Box>
+          </div>
+
+          <div id='bold' >
+            {exam.title}
+          </div>
+
+
+          <div  >
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: '10px' }} >
+              <Typography variant="body2" sx={{ fontWeight: 'bold' }} >
+                Start Date: {new Date(exam.exam_date).toLocaleDateString()}
+              </Typography>
+              <Typography variant="body2" sx={{ fontWeight: 'bold' }} >
+                End Date: {new Date(exam.exam_end_date)?.toLocaleDateString() || ''}
+              </Typography>
+            </Box>
+          </div>
+
+
+          <Box sx={{ gap: "10px", width: '18%' }} >
+            <Button
               variant="contained"
+              href={exam.timetable_path}
+              target="_blank"
+              rel="noopener noreferrer"
               sx={{
-                backgroundColor: '#2f58cd',
+                mb: 1,
+                backgroundColor: '#503dff',
                 color: '#fff',
-                '&:hover': { backgroundColor: '#3e71f7' },
-                
-              }} style={{marginRight:'20px'}}
+                borderRadius: 2,
+                '&:hover': { backgroundColor: '#4030cc' },
+                width: '100%'
+              }}
             >
-              View Time Table
+              TimeTable
             </Button>
             <Button
               variant="contained"
+              href="#"
+              target="_blank"
+              rel="noopener noreferrer"
               sx={{
-                backgroundColor: '#2f58cd',
+                backgroundColor: '#503dff',
                 color: '#fff',
-                '&:hover': { backgroundColor: '#3e71f7' },
+                width: '100%',
+                borderRadius: 2,
+                '&:hover': { backgroundColor: '#4030cc' },
               }}
             >
-              Exam Instructions
+              Instructions
             </Button>
-          </Grid>
-        </Grid>
+          </Box>
+
+        </Box>
       ))}
     </Box>
   );
@@ -277,11 +286,11 @@ const ExamResults = () => {
             <Box flexGrow={1} mb={{ xs: 2, sm: 0 }}>
               <Typography variant="body1">{exam.title}</Typography>
               <Typography variant="body2">
-  Exam Date: <span style={{ color: 'blue' }}>{exam.exam_date}</span>
-</Typography>
+                Exam Date: <span style={{ color: 'blue' }}>{exam.exam_date}</span>
+              </Typography>
               {/* <Typography variant="body2">End Date: <span style={{ color: 'blue' }}>{exam.exam_date}</span></Typography> */}
             </Box>
-          
+
             <Box
               sx={{
                 display: 'flex',
@@ -290,80 +299,80 @@ const ExamResults = () => {
                 justifyContent: { xs: 'center', sm: 'flex-end' },
               }}
             >
-         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-  <Button
-    variant="contained"
-    sx={{
-      mb: 1,
-      backgroundColor: '#503dff',
-      borderRadius: '8px',  // Add border radius to make the button rounded
-      textTransform:'capitalize',
-      padding: '4px 12px', // Adjust padding to slim down
-      '&:hover': {
-        backgroundColor: '#4029cc',
-      },
-    }}
-    onClick={() => handleTimeTableRedirect(exam.timetable_path)} // Replace with actual path
-  >
-    View Time Table
-  </Button>
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+                <Button
+                  variant="contained"
+                  sx={{
+                    mb: 1,
+                    backgroundColor: '#503dff',
+                    borderRadius: '8px',  // Add border radius to make the button rounded
+                    textTransform: 'capitalize',
+                    padding: '4px 12px', // Adjust padding to slim down
+                    '&:hover': {
+                      backgroundColor: '#4029cc',
+                    },
+                  }}
+                  onClick={() => handleTimeTableRedirect(exam.timetable_path)} // Replace with actual path
+                >
+                  View Time Table
+                </Button>
 
-  <Button
-    variant="contained"
-    sx={{
-      mb: 1,
-      backgroundColor: '#503dff',
-      borderRadius: '8px',  // Add border radius to make the button rounded
-      textTransform:'capitalize',
-      padding: '4px 12px', // Adjust padding to slim down
-      '&:hover': {
-        backgroundColor: '#4029cc',
-      },
-    }}
-  >
-    Exam Instructions
-  </Button>
-</Box>
+                <Button
+                  variant="contained"
+                  sx={{
+                    mb: 1,
+                    backgroundColor: '#503dff',
+                    borderRadius: '8px',  // Add border radius to make the button rounded
+                    textTransform: 'capitalize',
+                    padding: '4px 12px', // Adjust padding to slim down
+                    '&:hover': {
+                      backgroundColor: '#4029cc',
+                    },
+                  }}
+                >
+                  Exam Instructions
+                </Button>
+              </Box>
 
-<Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-  <Button
-    variant="outlined"
-    sx={{
-      backgroundColor: '#ffff',  // Optional: Custom background color for outlined button (if desired)
-      padding: '4px 12px',  // Slim down button padding
-      borderColor: '#503dff',  // Custom border color to match the button
-      borderRadius: '8px',  // Add border radius to make the button rounded
-     textTransform:'capitalize',
-      '&:hover': {
-        borderColor: '#4029cc',  // Optional: Darker border color on hover
-      },
-    }}
-    onClick={() => handleOpenDialog(exam)} // Open the report card dialog
-  >
-    Report Card
-  </Button>
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+                <Button
+                  variant="outlined"
+                  sx={{
+                    backgroundColor: '#ffff',  // Optional: Custom background color for outlined button (if desired)
+                    padding: '4px 12px',  // Slim down button padding
+                    borderColor: '#503dff',  // Custom border color to match the button
+                    borderRadius: '8px',  // Add border radius to make the button rounded
+                    textTransform: 'capitalize',
+                    '&:hover': {
+                      borderColor: '#4029cc',  // Optional: Darker border color on hover
+                    },
+                  }}
+                  onClick={() => handleOpenDialog(exam)} // Open the report card dialog
+                >
+                  Report Card
+                </Button>
 
-  <Typography
-  variant="body1"
-  mb={{ xs: 2, sm: 0 }}
->
-  {exam.gail_marks ? (
-    <>
-      {exam.gail_marks}/100{' '}
-      <span
-        style={{
-          color: exam.pass_fail === 'Pass' ? 'green' : 'red', // Conditional color
-        }}
-      >
-        {exam.pass_fail}
-      </span>
-    </>
-  ) : (
-    'Not Graded'
-  )}
-</Typography>
+                <Typography
+                  variant="body1"
+                  mb={{ xs: 2, sm: 0 }}
+                >
+                  {exam.gail_marks ? (
+                    <>
+                      {exam.gail_marks}/100{' '}
+                      <span
+                        style={{
+                          color: exam.pass_fail === 'Pass' ? 'green' : 'red', // Conditional color
+                        }}
+                      >
+                        {exam.pass_fail}
+                      </span>
+                    </>
+                  ) : (
+                    'Not Graded'
+                  )}
+                </Typography>
 
-</Box>
+              </Box>
 
             </Box>
           </Box>
@@ -372,79 +381,79 @@ const ExamResults = () => {
 
       {/* Report Card Dialog */}
       <Dialog open={openDialog} onClose={handleCloseDialog} maxWidth="md" fullWidth>
-  {/* Report Card Header */}
-  <DialogTitle sx={{ backgroundColor: '#503dff', color: '#fff', textAlign: 'center', padding: '20px' }}>
-    <Typography variant="h5" fontWeight="bold">Student Report Card</Typography>
-  </DialogTitle>
+        {/* Report Card Header */}
+        <DialogTitle sx={{ backgroundColor: '#503dff', color: '#fff', textAlign: 'center', padding: '20px' }}>
+          <Typography variant="h5" fontWeight="bold">Student Report Card</Typography>
+        </DialogTitle>
 
-  <DialogContent sx={{ padding: 3, backgroundColor: '#f9f9f9', border: '2px solid #503dff', borderRadius: '8px' }}>
-    {/* School Section */}
-    <Box sx={{ textAlign: 'center', marginBottom: 3, marginTop:2 }}>
-      <Typography variant="h6" fontWeight="bold" color="#503dff">School Details</Typography>
-      <Box sx={{ marginTop: 1, lineHeight: 1.8 }}>
-        <Typography variant="body1"><strong>School Name:</strong> {selectedReportCard ? selectedReportCard.school_name : 'Loading...'}</Typography>
-        <Typography variant="body1"><strong>Principal:</strong> {selectedReportCard ? selectedReportCard.principal_name : 'Loading...'}</Typography>
-        <Typography variant="body1">
-  <strong>Address:</strong> {selectedReportCard ? `${selectedReportCard.school_address}, ${selectedReportCard.school_city}` : 'Loading...'}
-</Typography>
+        <DialogContent sx={{ padding: 3, backgroundColor: '#f9f9f9', border: '2px solid #503dff', borderRadius: '8px' }}>
+          {/* School Section */}
+          <Box sx={{ textAlign: 'center', marginBottom: 3, marginTop: 2 }}>
+            <Typography variant="h6" fontWeight="bold" color="#503dff">School Details</Typography>
+            <Box sx={{ marginTop: 1, lineHeight: 1.8 }}>
+              <Typography variant="body1"><strong>School Name:</strong> {selectedReportCard ? selectedReportCard.school_name : 'Loading...'}</Typography>
+              <Typography variant="body1"><strong>Principal:</strong> {selectedReportCard ? selectedReportCard.principal_name : 'Loading...'}</Typography>
+              <Typography variant="body1">
+                <strong>Address:</strong> {selectedReportCard ? `${selectedReportCard.school_address}, ${selectedReportCard.school_city}` : 'Loading...'}
+              </Typography>
 
-      </Box>
-    </Box>
+            </Box>
+          </Box>
 
-    <Divider sx={{ marginBottom: 3 }} />
+          <Divider sx={{ marginBottom: 3 }} />
 
-    {/* Student Section */}
-    <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: 3 }}>
-      <Avatar
-        src={selectedReportCard ? selectedReportCard.student_image : ''}
-        alt="Student Image"
-        sx={{ width: 100, height: 100, marginRight: 3, border: '2px solid #503dff' }}
-      />
-      <Box>
-      <Typography variant="h5" fontWeight="bold">
-  {selectedReportCard ? `${selectedReportCard.first_name} ${selectedReportCard.last_name}` : 'Loading...'}
-</Typography>
+          {/* Student Section */}
+          <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: 3 }}>
+            <Avatar
+              src={selectedReportCard ? selectedReportCard.student_image : ''}
+              alt="Student Image"
+              sx={{ width: 100, height: 100, marginRight: 3, border: '2px solid #503dff' }}
+            />
+            <Box>
+              <Typography variant="h5" fontWeight="bold">
+                {selectedReportCard ? `${selectedReportCard.first_name} ${selectedReportCard.last_name}` : 'Loading...'}
+              </Typography>
 
-        <Typography variant="body1"><strong>Roll Number:</strong> {selectedReportCard ? selectedReportCard.rolenum : 'Loading...'}</Typography>
-        <Typography variant="body1"><strong>Grade:</strong> {selectedReportCard ? selectedReportCard.grade : 'Loading...'}</Typography>
-      </Box>
-    </Box>
+              <Typography variant="body1"><strong>Roll Number:</strong> {selectedReportCard ? selectedReportCard.rolenum : 'Loading...'}</Typography>
+              <Typography variant="body1"><strong>Grade:</strong> {selectedReportCard ? selectedReportCard.grade : 'Loading...'}</Typography>
+            </Box>
+          </Box>
 
-    <Divider sx={{ marginBottom: 3 }} />
+          <Divider sx={{ marginBottom: 3 }} />
 
-    {/* Exam Section */}
-    <Box>
-      <Typography variant="h6" fontWeight="bold" color="#503dff" sx={{ textAlign: 'center', marginBottom: 2 }}>
-        Exam Details
-      </Typography>
-      <Box sx={{ marginTop: 1, padding: 2, border: '1px solid #ddd', borderRadius: '8px', backgroundColor: '#fff' }}>
-        <Typography variant="body1"><strong>Exam Title:</strong> {selectedReportCard ? selectedReportCard.title : 'Loading...'}</Typography>
-        <Typography variant="body1"><strong>Subject:</strong> {selectedReportCard ? selectedReportCard.subject : 'Loading...'}</Typography>
-        <Typography variant="body1"><strong>Marks Obtained:</strong> {selectedReportCard ? selectedReportCard.gail_marks : 'Loading...'} / 100</Typography>
-        <Typography variant="body1"><strong>Status:</strong> {selectedReportCard ? selectedReportCard.pass_fail : 'Loading...'}</Typography>
-      </Box>
-    </Box>
-  </DialogContent>
+          {/* Exam Section */}
+          <Box>
+            <Typography variant="h6" fontWeight="bold" color="#503dff" sx={{ textAlign: 'center', marginBottom: 2 }}>
+              Exam Details
+            </Typography>
+            <Box sx={{ marginTop: 1, padding: 2, border: '1px solid #ddd', borderRadius: '8px', backgroundColor: '#fff' }}>
+              <Typography variant="body1"><strong>Exam Title:</strong> {selectedReportCard ? selectedReportCard.title : 'Loading...'}</Typography>
+              <Typography variant="body1"><strong>Subject:</strong> {selectedReportCard ? selectedReportCard.subject : 'Loading...'}</Typography>
+              <Typography variant="body1"><strong>Marks Obtained:</strong> {selectedReportCard ? selectedReportCard.gail_marks : 'Loading...'} / 100</Typography>
+              <Typography variant="body1"><strong>Status:</strong> {selectedReportCard ? selectedReportCard.pass_fail : 'Loading...'}</Typography>
+            </Box>
+          </Box>
+        </DialogContent>
 
-  {/* Footer Actions */}
-  <DialogActions sx={{ backgroundColor: '#503dff', padding: '10px 20px', justifyContent: 'center' }}>
-  <Button
-  onClick={handleCloseDialog}
-  variant="contained"
-  sx={{
-    backgroundColor: 'black', // Set the background color to black
-    color: 'white',           // Set the text color to white for contrast
-    fontWeight: 'bold',       // Keep the bold text
-    '&:hover': {
-      backgroundColor: '#333', // Optional: Darker shade on hover for better UX
-    },
-  }}
->
-  Close
-</Button>
+        {/* Footer Actions */}
+        <DialogActions sx={{ backgroundColor: '#503dff', padding: '10px 20px', justifyContent: 'center' }}>
+          <Button
+            onClick={handleCloseDialog}
+            variant="contained"
+            sx={{
+              backgroundColor: 'black', // Set the background color to black
+              color: 'white',           // Set the text color to white for contrast
+              fontWeight: 'bold',       // Keep the bold text
+              '&:hover': {
+                backgroundColor: '#333', // Optional: Darker shade on hover for better UX
+              },
+            }}
+          >
+            Close
+          </Button>
 
-  </DialogActions>
-</Dialog>
+        </DialogActions>
+      </Dialog>
 
     </Box>
   );
@@ -587,44 +596,44 @@ const GenerateReportCard = () => {
 
   const handleGeneratePDF = () => {
     const doc = new jsPDF();
-  
+
     // Add Title to the PDF
     doc.setFontSize(20);
     doc.setTextColor(80, 61, 255);  // #503dff color
     doc.text('Student Report Card', 105, 20, null, null, 'center');
-  
+
     // School Details Section
     doc.setFontSize(14);
     doc.setTextColor(0, 0, 0);  // Reset text color to black
     doc.text(`School Name: ${selectedReportCard ? selectedReportCard.school_name : 'Loading...'}`, 20, 40);
     doc.text(`Principal: ${selectedReportCard ? selectedReportCard.principal_name : 'Loading...'}`, 20, 50);
     doc.text(`Address: ${selectedReportCard ? `${selectedReportCard.school_address}, ${selectedReportCard.school_city}` : 'Loading...'}`, 20, 60);
-  
+
     // Add a line separator
     doc.setLineWidth(0.5);
     doc.line(20, 70, 190, 70);
-  
+
     // Student Details Section
     doc.text(`Student: ${selectedReportCard ? `${selectedReportCard.first_name} ${selectedReportCard.last_name}` : 'Loading...'}`, 20, 80);
     doc.text(`Roll Number: ${selectedReportCard ? selectedReportCard.rolenum : 'Loading...'}`, 20, 90);
     doc.text(`Grade: ${selectedReportCard ? selectedReportCard.grade : 'Loading...'}`, 20, 100);
-  
+
     // Add another line separator
     doc.line(20, 110, 190, 110);
-  
+
     // Exam Details Section
     doc.text(`Exam Title: ${selectedReportCard ? selectedReportCard.title : 'Loading...'}`, 20, 120);
     doc.text(`Subject: ${selectedReportCard ? selectedReportCard.subject : 'Loading...'}`, 20, 130);
     doc.text(`Marks Obtained: ${selectedReportCard ? selectedReportCard.gail_marks : 'Loading...'} / 100`, 20, 140);
     doc.text(`Status: ${selectedReportCard ? selectedReportCard.pass_fail : 'Loading...'}`, 20, 150);
-  
+
     // Add another line separator
     doc.line(20, 160, 190, 160);
-  
+
     // Download the PDF
     doc.save('report-card.pdf');
   };
-  
+
 
 
   if (loading) {
@@ -696,7 +705,7 @@ const GenerateReportCard = () => {
                 >
                   View Report Card
                 </Button>
-              
+
               </Grid>
             </Grid>
           ))
@@ -707,86 +716,86 @@ const GenerateReportCard = () => {
 
       {/* Dialog for viewing the report card */}
       <Dialog open={openDialog} onClose={handleCloseDialog} maxWidth="md" fullWidth>
-      <DialogTitle sx={{ backgroundColor: '#503dff', color: '#fff', textAlign: 'center', padding: '20px' }}>
-        <Typography variant="h5" fontWeight="bold">Student Report Card</Typography>
-      </DialogTitle>
-      <DialogContent sx={{ padding: 3, backgroundColor: '#f9f9f9', border: '2px solid #503dff', borderRadius: '8px' }}>
-        <Box sx={{ textAlign: 'center', marginBottom: 3, marginTop: 2 }}>
-          <Typography variant="h6" fontWeight="bold" color="#503dff">School Details</Typography>
-          <Box sx={{ marginTop: 1, lineHeight: 1.8 }}>
-            <Typography variant="body1"><strong>School Name:</strong> {selectedReportCard ? selectedReportCard.school_name : 'Loading...'}</Typography>
-            <Typography variant="body1"><strong>Principal:</strong> {selectedReportCard ? selectedReportCard.principal_name : 'Loading...'}</Typography>
-            <Typography variant="body1">
-              <strong>Address:</strong> {selectedReportCard ? `${selectedReportCard.school_address}, ${selectedReportCard.school_city}` : 'Loading...'}
-            </Typography>
+        <DialogTitle sx={{ backgroundColor: '#503dff', color: '#fff', textAlign: 'center', padding: '20px' }}>
+          <Typography variant="h5" fontWeight="bold">Student Report Card</Typography>
+        </DialogTitle>
+        <DialogContent sx={{ padding: 3, backgroundColor: '#f9f9f9', border: '2px solid #503dff', borderRadius: '8px' }}>
+          <Box sx={{ textAlign: 'center', marginBottom: 3, marginTop: 2 }}>
+            <Typography variant="h6" fontWeight="bold" color="#503dff">School Details</Typography>
+            <Box sx={{ marginTop: 1, lineHeight: 1.8 }}>
+              <Typography variant="body1"><strong>School Name:</strong> {selectedReportCard ? selectedReportCard.school_name : 'Loading...'}</Typography>
+              <Typography variant="body1"><strong>Principal:</strong> {selectedReportCard ? selectedReportCard.principal_name : 'Loading...'}</Typography>
+              <Typography variant="body1">
+                <strong>Address:</strong> {selectedReportCard ? `${selectedReportCard.school_address}, ${selectedReportCard.school_city}` : 'Loading...'}
+              </Typography>
+            </Box>
           </Box>
-        </Box>
 
-        <Divider sx={{ marginBottom: 3 }} />
+          <Divider sx={{ marginBottom: 3 }} />
 
-        <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: 3 }}>
-          <Avatar
-            src={selectedReportCard ? selectedReportCard.student_image : ''}
-            alt="Student Image"
-            sx={{ width: 100, height: 100, marginRight: 3, border: '2px solid #503dff' }}
-          />
+          <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: 3 }}>
+            <Avatar
+              src={selectedReportCard ? selectedReportCard.student_image : ''}
+              alt="Student Image"
+              sx={{ width: 100, height: 100, marginRight: 3, border: '2px solid #503dff' }}
+            />
+            <Box>
+              <Typography variant="h5" fontWeight="bold">
+                {selectedReportCard ? `${selectedReportCard.first_name} ${selectedReportCard.last_name}` : 'Loading...'}
+              </Typography>
+              <Typography variant="body1"><strong>Roll Number:</strong> {selectedReportCard ? selectedReportCard.rolenum : 'Loading...'}</Typography>
+              <Typography variant="body1"><strong>Grade:</strong> {selectedReportCard ? selectedReportCard.grade : 'Loading...'}</Typography>
+            </Box>
+          </Box>
+
+          <Divider sx={{ marginBottom: 3 }} />
+
           <Box>
-            <Typography variant="h5" fontWeight="bold">
-              {selectedReportCard ? `${selectedReportCard.first_name} ${selectedReportCard.last_name}` : 'Loading...'}
+            <Typography variant="h6" fontWeight="bold" color="#503dff" sx={{ textAlign: 'center', marginBottom: 2 }}>
+              Exam Details
             </Typography>
-            <Typography variant="body1"><strong>Roll Number:</strong> {selectedReportCard ? selectedReportCard.rolenum : 'Loading...'}</Typography>
-            <Typography variant="body1"><strong>Grade:</strong> {selectedReportCard ? selectedReportCard.grade : 'Loading...'}</Typography>
+            <Box sx={{ marginTop: 1, padding: 2, border: '1px solid #ddd', borderRadius: '8px', backgroundColor: '#fff' }}>
+              <Typography variant="body1"><strong>Exam Title:</strong> {selectedReportCard ? selectedReportCard.title : 'Loading...'}</Typography>
+              <Typography variant="body1"><strong>Subject:</strong> {selectedReportCard ? selectedReportCard.subject : 'Loading...'}</Typography>
+              <Typography variant="body1"><strong>Marks Obtained:</strong> {selectedReportCard ? selectedReportCard.gail_marks : 'Loading...'} / 100</Typography>
+              <Typography variant="body1"><strong>Status:</strong> {selectedReportCard ? selectedReportCard.pass_fail : 'Loading...'}</Typography>
+            </Box>
           </Box>
-        </Box>
+        </DialogContent>
 
-        <Divider sx={{ marginBottom: 3 }} />
+        <DialogActions sx={{ backgroundColor: '#503dff', padding: '10px 20px', justifyContent: 'center' }}>
+          <Button
+            onClick={handleCloseDialog}
+            variant="contained"
+            sx={{
+              backgroundColor: 'black',
+              color: 'white',
+              fontWeight: 'bold',
+              '&:hover': {
+                backgroundColor: '#333',
+              },
+            }}
+          >
+            Close
+          </Button>
 
-        <Box>
-          <Typography variant="h6" fontWeight="bold" color="#503dff" sx={{ textAlign: 'center', marginBottom: 2 }}>
-            Exam Details
-          </Typography>
-          <Box sx={{ marginTop: 1, padding: 2, border: '1px solid #ddd', borderRadius: '8px', backgroundColor: '#fff' }}>
-            <Typography variant="body1"><strong>Exam Title:</strong> {selectedReportCard ? selectedReportCard.title : 'Loading...'}</Typography>
-            <Typography variant="body1"><strong>Subject:</strong> {selectedReportCard ? selectedReportCard.subject : 'Loading...'}</Typography>
-            <Typography variant="body1"><strong>Marks Obtained:</strong> {selectedReportCard ? selectedReportCard.gail_marks : 'Loading...'} / 100</Typography>
-            <Typography variant="body1"><strong>Status:</strong> {selectedReportCard ? selectedReportCard.pass_fail : 'Loading...'}</Typography>
-          </Box>
-        </Box>
-      </DialogContent>
-
-      <DialogActions sx={{ backgroundColor: '#503dff', padding: '10px 20px', justifyContent: 'center' }}>
-        <Button
-          onClick={handleCloseDialog}
-          variant="contained"
-          sx={{
-            backgroundColor: 'black',
-            color: 'white',
-            fontWeight: 'bold',
-            '&:hover': {
-              backgroundColor: '#333',
-            },
-          }}
-        >
-          Close
-        </Button>
-
-        {/* Add the Download PDF button */}
-        <Button
-          onClick={handleGeneratePDF}  // Trigger PDF download when clicked
-          variant="contained"
-          sx={{
-            backgroundColor: '#000',
-            color: 'white',
-            fontWeight: 'bold',
-            '&:hover': {
-              backgroundColor: '#4029cc',
-            },
-          }}
-        >
-          Download PDF
-        </Button>
-      </DialogActions>
-    </Dialog>
+          {/* Add the Download PDF button */}
+          <Button
+            onClick={handleGeneratePDF}  // Trigger PDF download when clicked
+            variant="contained"
+            sx={{
+              backgroundColor: '#000',
+              color: 'white',
+              fontWeight: 'bold',
+              '&:hover': {
+                backgroundColor: '#4029cc',
+              },
+            }}
+          >
+            Download PDF
+          </Button>
+        </DialogActions>
+      </Dialog>
 
     </Box>
   );
@@ -796,7 +805,7 @@ const GenerateReportCard = () => {
 
 
 function App() {
-  
+
   const [activeComponent, setActiveComponent] = useState("upcoming");
 
   const renderComponent = () => {
@@ -816,24 +825,28 @@ function App() {
     <Box sx={{ padding: 3 }}>
       <Box sx={{
         display: 'flex',
-        justifyContent: 'space-around',
+        justifyContent: 'left',
         flexDirection: { xs: 'column', sm: 'row' },
         alignItems: 'center',
         mb: 2,
         gap: 2, // Add gap between items
       }}>
-        <IconButton onClick={() => setActiveComponent("upcoming")} sx={{ flexDirection: 'column', alignItems: 'center' }}>
-          <EventIcon fontSize="large" />
-          <Typography variant="caption">Upcoming Exams</Typography>
-        </IconButton>
-        <IconButton onClick={() => setActiveComponent("results")} sx={{ flexDirection: 'column', alignItems: 'center' }}>
-          <AssessmentIcon fontSize="large" />
-          <Typography variant="caption">Exam Results</Typography>
-        </IconButton>
-        <IconButton onClick={() => setActiveComponent("report")} sx={{ flexDirection: 'column', alignItems: 'center' }}>
-          <ReceiptIcon fontSize="large" />
-          <Typography variant="caption">Generate Report Card</Typography>
-        </IconButton>
+        <Box onClick={() => setActiveComponent("upcoming")} className="box">
+          <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" style={{ color: '#3d8cf2' }}
+          ><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 2v2M6 2v2m5.996 9h.008m-.008 4h.008m3.987-4H16m-8 0h.009M8 17h.009M3.5 8h17m-18 4.243c0-4.357 0-6.536 1.252-7.89C5.004 3 7.02 3 11.05 3h1.9c4.03 0 6.046 0 7.298 1.354C21.5 5.707 21.5 7.886 21.5 12.244v.513c0 4.357 0 6.536-1.252 7.89C18.996 22 16.98 22 12.95 22h-1.9c-4.03 0-6.046 0-7.298-1.354C2.5 19.293 2.5 17.114 2.5 12.756zM3 8h18" color="currentColor" /></svg>
+          <Typography variant="caption" sx={{fontWeight :'bold'}} >Upcoming Exams</Typography>
+        </Box>
+        <Box onClick={() => setActiveComponent("results")} className="box">
+
+         <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" style={{ color: '#16C47F' }}
+         ><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18v4m-3.5 0l.328-.328c.578-.578.867-.867 1.235-1.02c.367-.152.776-.152 1.594-.152h.686c.818 0 1.226 0 1.594.152c.367.152.656.441 1.234 1.02L15.5 22m-13-10c0 2.828 0 4.243.879 5.121C4.257 18 5.672 18 8.5 18h7c2.828 0 4.243 0 5.121-.879c.879-.878.879-2.293.879-5.121V8c0-2.828 0-4.243-.879-5.121C19.743 2 18.328 2 15.5 2h-7c-2.828 0-4.243 0-5.121.879C2.5 3.757 2.5 5.172 2.5 8zM8 13v-3m4 3V7m4 6v-2" color="currentColor"/></svg>
+          <Typography variant="caption" sx={{fontWeight :'bold'}} >Exam Results</Typography>
+        </Box>
+        <Box onClick={() => setActiveComponent("report")} className="box">
+        <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" style={{ color: '#FF9D23' }}>
+        <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" color="currentColor"><path d="M14 3.5h-4c-3.771 0-5.657 0-6.828 1.172S2 7.729 2 11.5v1c0 3.771 0 5.657 1.172 6.828S6.229 20.5 10 20.5h4c3.771 0 5.657 0 6.828-1.172S22 16.271 22 12.5v-1c0-3.771 0-5.657-1.172-6.828S17.771 3.5 14 3.5"/><path d="M5 16c1.036-2.581 4.896-2.75 6 0M9.75 9.75a1.75 1.75 0 1 1-3.5 0a1.75 1.75 0 0 1 3.5 0M14 8.5h5M14 12h5m-5 3.5h2.5"/></g></svg>
+          <Typography variant="caption" sx={{fontWeight :'bold'}} >Generate Report Card</Typography>
+        </Box>
       </Box>
 
       <Box>

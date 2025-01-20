@@ -6,6 +6,19 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
+.box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    cursor: pointer;
+    background-color: #fff;
+    width: 120px; aspect-ratio: 1;
+    text-align: center;
+    padding: 0 10px;
+    border-radius: 12px;
+    border: solid 1px #cecece;
+}
 
 .subject_buttom {
     padding-bottom: 10px;

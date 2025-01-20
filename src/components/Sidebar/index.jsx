@@ -1,8 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
-import SidebarLinkGroup from './SidebarLinkGroup.jsx';
-import { FaTh, FaGraduationCap, FaCalendarAlt, FaUser, FaSignOutAlt, FaCog, FaChalkboardTeacher, FaBook, FaGlobe, FaBell, FaCreditCard } from 'react-icons/fa';
-import { MdGridOn, MdPayment, MdHelp } from 'react-icons/md';
 
 const menuItems = [
   {
@@ -15,10 +12,10 @@ const menuItems = [
     icon: <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M18 2v2M6 2v2m5.996 9h.008m-.008 4h.008m3.987-4H16m-8 0h.009M8 17h.009M3.5 8h17m-18 4.243c0-4.357 0-6.536 1.252-7.89C5.004 3 7.02 3 11.05 3h1.9c4.03 0 6.046 0 7.298 1.354C21.5 5.707 21.5 7.886 21.5 12.244v.513c0 4.357 0 6.536-1.252 7.89C18.996 22 16.98 22 12.95 22h-1.9c-4.03 0-6.046 0-7.298-1.354C2.5 19.293 2.5 17.114 2.5 12.756zM3 8h18" color="currentColor" /></svg>,
     label: "Academic"
   },
-  {
-    to: "/app/student-attendance", icon:
-      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 2v2M6 2v2M3 8h18M2.5 12.243c0-4.357 0-6.536 1.252-7.89C5.004 3 7.02 3 11.05 3h1.9c4.03 0 6.046 0 7.298 1.354C21.5 5.707 21.5 7.886 21.5 12.244v.513c0 4.357 0 6.536-1.252 7.89C18.996 22 16.98 22 12.95 22h-1.9c-4.03 0-6.046 0-7.298-1.354C2.5 19.293 2.5 17.114 2.5 12.756zM9 15h6m-3-3v6" color="currentColor" /></svg>, label: "Attendance"
-  },
+  // {
+  //   to: "/app/student-attendance", icon:
+  //     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M18 2v2M6 2v2M3 8h18M2.5 12.243c0-4.357 0-6.536 1.252-7.89C5.004 3 7.02 3 11.05 3h1.9c4.03 0 6.046 0 7.298 1.354C21.5 5.707 21.5 7.886 21.5 12.244v.513c0 4.357 0 6.536-1.252 7.89C18.996 22 16.98 22 12.95 22h-1.9c-4.03 0-6.046 0-7.298-1.354C2.5 19.293 2.5 17.114 2.5 12.756zM9 15h6m-3-3v6" color="currentColor" /></svg>, label: "Attendance"
+  // },
   {
     to: "https://codt.in/",
     icon: <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6.583 7.238c3.007.53 4.799 1.639 5.417 2.276c.618-.637 2.41-1.746 5.418-2.276c1.523-.269 2.285-.403 2.933.112C21 7.864 21 8.7 21 10.372v6.007c0 1.529 0 2.293-.416 2.77c-.417.477-1.333.639-3.166.962c-1.635.288-2.91.747-3.833 1.208c-.909.454-1.363.681-1.585.681s-.677-.227-1.585-.68c-.923-.462-2.198-.921-3.832-1.21c-1.834-.322-2.75-.484-3.167-.961S3 17.908 3 16.379v-6.007C3 8.7 3 7.864 3.649 7.35c.648-.515 1.41-.38 2.933-.112M12 9v13M8.5 3.059a6.29 6.29 0 0 1 7 .01M13.622 5.5a3.14 3.14 0 0 0-3.244-.01" color="currentColor" /></svg>,
@@ -31,12 +28,12 @@ const menuItems = [
   },
   {
     to: "/abroad",
-    icon: <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.498 5c-1.303-.022-1.928.234-2.275 1.142C2.013 6.693 2 7.296 2 7.886V18c.108.634.288 1.055.742 1.4c.741.56 1.725.637 2.64.803c2.004.363 3.747.978 6.612 1.797m7.495-17c.577-.05 1.01-.023 1.354.13c1.372.615 1.144 2.632 1.144 4.136V17c.007.597-.031 1.061-.115 1.432c-.32 1.41-2.129 1.587-3.55 1.85c-1.778.328-3.675.897-6.328 1.718m0 0v-7m-.001-3a5 5 0 0 0 4.997-5c0-2.762-2.237-5-4.997-5m0 10a5 5 0 0 1-4.997-5c0-2.762 2.237-5 4.997-5m0 10c1.104 0 1.999-2.24 1.999-5c0-2.762-.895-5-2-5m0 10c-1.103 0-1.998-2.24-1.998-5c0-2.762.895-5 1.999-5" color="currentColor" /></svg>,
+    icon: <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.498 5c-1.303-.022-1.928.234-2.275 1.142C2.013 6.693 2 7.296 2 7.886V18c.108.634.288 1.055.742 1.4c.741.56 1.725.637 2.64.803c2.004.363 3.747.978 6.612 1.797m7.495-17c.577-.05 1.01-.023 1.354.13c1.372.615 1.144 2.632 1.144 4.136V17c.007.597-.031 1.061-.115 1.432c-.32 1.41-2.129 1.587-3.55 1.85c-1.778.328-3.675.897-6.328 1.718m0 0v-7m-.001-3a5 5 0 0 0 4.997-5c0-2.762-2.237-5-4.997-5m0 10a5 5 0 0 1-4.997-5c0-2.762 2.237-5 4.997-5m0 10c1.104 0 1.999-2.24 1.999-5c0-2.762-.895-5-2-5m0 10c-1.103 0-1.998-2.24-1.998-5c0-2.762.895-5 1.999-5" color="currentColor" /></svg>,
     label: "Education Abroad"
   },
   {
     to: "/app/notice",
-    icon: <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" color="currentColor"><path d="M12.5 3h-1C7.022 3 4.782 3 3.391 4.391S2 8.021 2 12.5c0 4.478 0 6.718 1.391 8.109S7.021 22 11.5 22c4.478 0 6.718 0 8.109-1.391S21 16.979 21 12.5v-1" /><path d="M22 5.5a3.5 3.5 0 1 1-7 0a3.5 3.5 0 0 1 7 0M7 11h4m-4 5h8" /></g></svg>,
+    icon: <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" color="currentColor"><path d="M12.5 3h-1C7.022 3 4.782 3 3.391 4.391S2 8.021 2 12.5c0 4.478 0 6.718 1.391 8.109S7.021 22 11.5 22c4.478 0 6.718 0 8.109-1.391S21 16.979 21 12.5v-1" /><path d="M22 5.5a3.5 3.5 0 1 1-7 0a3.5 3.5 0 0 1 7 0M7 11h4m-4 5h8" /></g></svg>,
     label: "Notice"
   },
   {
@@ -46,7 +43,7 @@ const menuItems = [
   },
   {
     to: "/app/pricing",
-    icon: <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 15V7c0-1.886 0-2.828.586-3.414S6.114 3 8 3h1m11 12v-3.5M3.498 16.015L4.02 15h15.932l.55 1.015c1.443 2.662 1.803 3.993 1.254 4.989s-2.002.996-4.91.996H7.154c-2.909 0-4.363 0-4.911-.996c-.549-.996-.19-2.327 1.254-4.989M19.5 4.146l.063-.045c1.058-.764 1.587-1.146 2.012-.961S22 3.935 22 5.158v.684c0 1.223 0 1.834-.425 2.018c-.425.185-.954-.197-2.012-.96l-.063-.046M15.5 9h.5c1.65 0 2.475 0 2.987-.448c.513-.449.513-1.17.513-2.614v-.875c0-1.444 0-2.166-.513-2.615C18.475 2 17.65 2 16 2h-.5c-1.65 0-2.475 0-2.987.448C12 2.897 12 3.618 12 5.063v.875c0 1.443 0 2.165.513 2.614C13.025 9 13.85 9 15.5 9" color="currentColor" /></svg>,
+    icon: <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" color="currentColor"><path d="M4.58 8.607L2 8.454C3.849 3.704 9.158 1 14.333 2.344c5.513 1.433 8.788 6.918 7.314 12.25c-1.219 4.411-5.304 7.337-9.8 7.406"/><path d="M12 22C6.5 22 2 17 2 11m11.604-1.278c-.352-.37-1.213-1.237-2.575-.62c-1.361.615-1.577 2.596.482 2.807c.93.095 1.537-.11 2.093.47c.556.582.659 2.198-.761 2.634s-2.341-.284-2.588-.509m1.653-6.484v.79m0 6.337v.873"/></g></svg>,
     label: "Transactions"
   },
   {
@@ -135,7 +132,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
     <aside style={{border : 'solid 1px #e8e8e8'}}
       ref={sidebar}
       className=
-      {`absolute left-0 top-0 z-9999 flex h-screen w-72.5 flex-col overflow-y-hidden bg-white text-grayCustom dark:text-white duration-300 ease-linear dark:bg-boxdark lg:static lg:translate-x-0 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'
+      {`absolute left-0 top-0 z-10 flex h-screen w-72.5 flex-col overflow-y-hidden bg-white text-grayCustom dark:text-white duration-300 ease-linear dark:bg-boxdark lg:static lg:translate-x-0 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
     >
       {/* SIDEBAR HEADER */}

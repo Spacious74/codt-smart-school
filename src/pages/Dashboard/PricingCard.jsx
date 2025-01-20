@@ -3,15 +3,15 @@ import { Card, CardContent, Typography, Button } from '@mui/material';
 
 const PricingCard = ({ price, duration, description, isActive = false }) => {
   return (
-    <Card
+    <Card elevation={0}
       sx={{
         textAlign: 'center',
         padding: 2,
         borderColor: isActive ? '#e8e8e8' : '#e8e8e8',
-        borderWidth: 2,
-        borderStyle: 'solid',
-        boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
-        height: '220px'
+        width : '300px',
+        border : 'solid 1px #cecece',
+        backgroundColor : '#fff',
+        borderRadius: '12px'
       }}
     >
       <CardContent>

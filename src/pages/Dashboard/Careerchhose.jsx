@@ -1,4 +1,4 @@
-import React , { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { fetchData } from '../../src/Service/apiService';
 import {
   Box,
@@ -14,7 +14,7 @@ import {
 } from '@mui/material';
 import { FaSearch } from 'react-icons/fa';
 
-const CareerCard = ({ title, tags, image ,desc}) => {
+const CareerCard = ({ title, tags, image, desc }) => {
   return (
     <Card
       variant="outlined"
@@ -22,10 +22,10 @@ const CareerCard = ({ title, tags, image ,desc}) => {
         display: 'flex',
         flexDirection: { xs: 'column', sm: 'row' }, // Stack vertically on small screens
         alignItems: 'center',
+        gap: '10px',
         padding: 2,
-        borderRadius: 2,
-        mb: 2,
-        boxShadow: 3
+        borderRadius: 3,
+        mb: 1,
       }}
     >
       <Avatar
@@ -35,24 +35,24 @@ const CareerCard = ({ title, tags, image ,desc}) => {
         sx={{
           width: { xs: 80, sm: 90 }, // Smaller width on phones
           height: { xs: 80, sm: 90 },
-          borderRadius: 1,
+          borderRadius: 2,
           mb: { xs: 2, sm: 0 }, // Add bottom margin on small screens
+          border : 'solid 1px #cecece'
         }}
       />
-     <CardContent sx={{ flexGrow: 1, textAlign: { xs: 'center', sm: 'left' } }}>
-  <Typography
-    variant="h6"
-    sx={{ color: 'primary.main', fontWeight: 'bold', mb: 1 }} // Added margin-bottom
-  >
-    {title}
-  </Typography>
-  <Typography
-    variant="h6"
-    sx={{ color: 'black' }}
-  >
-    {desc}
-  </Typography>
-</CardContent>
+      <CardContent sx={{ flexGrow: 1, textAlign: { xs: 'center', sm: 'left' } }}>
+        <Typography
+          variant="body"
+          sx={{ color: 'primary.main', fontWeight: 'bold', mb: 1 }} // Added margin-bottom
+        >
+          {title}
+        </Typography>
+        <Typography
+          variant="h6"
+        >
+          {desc}
+        </Typography>
+      </CardContent>
       {/* <CardActions sx={{ justifyContent: { xs: 'center', sm: 'flex-end' }, width: { xs: '100%', sm: 'auto' } }}>
         <Button
           variant="contained"
@@ -86,23 +86,23 @@ const CareerList = () => {
 
 
   useEffect(() => {
-      const fetchDataAsync = async () => {
-          const { data: fetchedData, error: fetchError } = await fetchData('SELECT * FROM careers Where notification_for = "students"'); // Replace with your actual SQL query
-          if (fetchedData) {
-              setData(fetchedData);
-          } else {
-              setError(fetchError);
-          }
-          setLoading(false);
-      };
+    const fetchDataAsync = async () => {
+      const { data: fetchedData, error: fetchError } = await fetchData('SELECT * FROM careers Where notification_for = "students"'); // Replace with your actual SQL query
+      if (fetchedData) {
+        setData(fetchedData);
+      } else {
+        setError(fetchError);
+      }
+      setLoading(false);
+    };
 
-      fetchDataAsync();
+    fetchDataAsync();
   }, []);
 
 
 
 
-console.log("data is sata " , data)
+  console.log("data is sata ", data)
 
 
   const careers = [
@@ -135,9 +135,9 @@ console.log("data is sata " , data)
   ];
 
   return (
-    <Box className="p-6">
+    <Box p={2}>
       {/* Search Bar */}
-     
+
 
       {/* Popular Careers */}
       <Typography variant="h6" className="font-semibold mb-8" style={{ marginBottom: '20px' }}>
@@ -156,7 +156,7 @@ console.log("data is sata " , data)
         ))}
       </Grid>
 
-    
+
     </Box>
   );
 };

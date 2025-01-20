@@ -5,8 +5,8 @@ import PricingCard from './PricingCard.jsx';
 const PricingSection = () => {
   const [purchasedPlan, setPurchasedPlan] = useState(null);
   const [plans] = useState([
-   
-  
+
+
   ]);
 
   useEffect(() => {
@@ -15,7 +15,7 @@ const PricingSection = () => {
       try {
         const response = await fetch(`https://codtsmartschool.strangeweb.in/studentapi/studplan.php?sid=${storedUser22}`);
         const data = await response.json();
-        
+
         console.log('API Response:', data); // Log the full response
 
         if (data && data.length > 0) {
@@ -35,24 +35,20 @@ const PricingSection = () => {
   }, []);
 
   return (
-    <Box sx={{ padding: 3, textAlign: 'start' }}>
+    <Box sx={{ padding: 2, textAlign: 'start' }}>
+
       {purchasedPlan && (
         <>
-         <Typography variant="h4" sx={{color:'#503dff'  }}>Your Purchased Plan</Typography>
-        <Box sx={{ marginBottom: 4, width: 300, backgroundColor: 'white', borderRadius: 2, padding: 2, color: 'white' }}>
-         
+          <Typography variant="h5" sx={{ color: '#503dff', mb: 2 }}>Your Purchased Plan</Typography>
           <PricingCard
-                      price={purchasedPlan.price} // Plan name
-
+            price={purchasedPlan.price} // Plan name
             planname={purchasedPlan.planename} // Plan name
             duration={`${purchasedPlan.Expiri} Days`} // Duration from Expiri
             description={`Plan Date: ${purchasedPlan.Date}`} // Description with date
             bgColor="transparent" // Use transparent to avoid double background
             isActive={true} // Indicate it's the active plan
           />
-        </Box>
         </>
-
       )}
 
       <Grid container spacing={2} justifyContent="center">
@@ -70,7 +66,7 @@ const PricingSection = () => {
         ))}
       </Grid>
 
-      <Box sx={{ textAlign: 'left', padding: 3, backgroundColor: '#f9f9f9', borderRadius: 2 }}>
+      <Box sx={{ textAlign: 'left', mt:2, backgroundColor: '#f9f9f9', borderRadius: 2 }}>
         <Typography variant="body1" sx={{ mt: 3 }}>
           Your plan will end on <Link href="#" sx={{ color: '#503dff' }}>21 April 2024</Link>
         </Typography>
@@ -78,7 +74,7 @@ const PricingSection = () => {
           Upgrade to a higher plan for uninterrupted services.
         </Typography>
       </Box>
-      
+
       <Box sx={{ textAlign: 'left', padding: 3, backgroundColor: '#f9f9f9', borderRadius: 2 }}>
         <Typography variant="h6">Need Help regarding Payment?</Typography>
         <Typography variant="body1" sx={{ mt: 1 }}>
