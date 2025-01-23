@@ -64,7 +64,7 @@ const SchoolProfile = () => {
 
 
   const [schoolData, setSchoolData] = useState({});
-  const [ratingData, setRatingData] = useState(null);
+  // const [ratingData, setRatingData] = useState(null);
   const navigate = useNavigate();
   const [activeUsers, setActiveUsers] = useState([]);
   const [inactiveUsers, setInactiveUsers] = useState([]);
@@ -256,7 +256,7 @@ const SchoolProfile = () => {
       if (data.length > 0) {
 
         setSchoolData(data[0]);
-        console.log('School Data ' + data[0])
+        // console.log('School Data ', data)
 
         // Extract the school code and save it locally
         const schoolCode = data[0]?.schoolcode; // Replace 'school_code' with the actual key if different
@@ -281,7 +281,7 @@ const SchoolProfile = () => {
         // }
 
         const { data: allUsers, error } = await fetchData(`SELECT * FROM students WHERE schoolcode='${schoolData.schoolcode}'`);
-        console.log("data is ", allUsers)
+        // console.log("data is ", allUsers)
         if (error) {
           setError(error);
           console.error("Fetch error:", error);
@@ -289,11 +289,10 @@ const SchoolProfile = () => {
         }
 
         if (allUsers) {
-          console.log("Fetched users:", allUsers);
+          // console.log("Fetched users:", allUsers);
           // Separate users into active and inactive
           const active = allUsers.filter(user => user.status === 'active');
           const inactive = allUsers.filter(user => user.status === "InActive");
-
           setActiveUsers(active);
           setInactiveUsers(inactive);
         }
@@ -314,8 +313,6 @@ const SchoolProfile = () => {
     <ClipLoader color="#000000" size={50} />
   </div>;
   // if (error) return <div>Error: {error}</div>;
-
-
 
   return (
 
@@ -369,11 +366,11 @@ const SchoolProfile = () => {
                     }} >
                     <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }} spacing={2} >
                       <Typography variant="body1">Total Students</Typography>
-                      <Typography variant="h6" sx={{ fontWeight: 'bold' }} >0</Typography>
+                      <Typography variant="h6" sx={{ fontWeight: 'bold' }} >{schoolData?.number_of_students}</Typography>
                     </Box>
                     <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }} spacing={2} >
                       <Typography variant="body1" >Total Teachers</Typography>
-                      <Typography variant="h6" sx={{ fontWeight: 'bold' }} >0</Typography>
+                      <Typography variant="h6" sx={{ fontWeight: 'bold' }} >{schoolData?.number_of_teachers}</Typography>
                     </Box>
                     <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }} spacing={2} >
                       <Typography variant="body1" >School Code</Typography>

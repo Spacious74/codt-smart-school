@@ -211,15 +211,7 @@ const AssignmentItem = ({ exam }) => {
   );
 };
 
-const Academics = ({
-  teacherData,
-  examData,
-  assignmentData,
-  setmanageteacher,
-  syllabusData
-}) => {
-
-  
+const Academics = ({ teacherData, examData, assignmentData, setmanageteacher, syllabusData }) => {
 
   function updateAttendanceData(present, absent) {
     // Update the data array with new values
@@ -261,79 +253,79 @@ const Academics = ({
   const [openattdence, setOpenAttdence] = useState(false);
   const handleOpenAttdence = () => setOpenAttdence(true);
   const handleCloseAttdence = () => setOpenAttdence(false);
-    const [uid, setUid] = useState('');  // To store user ID
-    const [attendance, setAttendance] = useState('present');  // Set default attendance as "present"
-    const [schoolCode, setSchoolCode] = useState('');  // To store school code
-    const [message, setMessage] = useState('');  // To display success/error messages
-    const [role, setRole] = useState('teacher');  // Default role is "teacher"
-    const [startDate, setStartDate] = useState('');
-    const [endDate, setEndDate] = useState('');
-    const [filteredData, setFilteredData] = useState(null);  // To hold filtered data
-    const [rowsPerPage] = useState(15); 
-    const [reviewsData, setReviewsData] = useState([]);
-    const [selectedReview, setSelectedReview] = useState(null); // State to store selected review
+  const [uid, setUid] = useState('');  // To store user ID
+  const [attendance, setAttendance] = useState('present');  // Set default attendance as "present"
+  const [schoolCode, setSchoolCode] = useState('');  // To store school code
+  const [message, setMessage] = useState('');  // To display success/error messages
+  const [role, setRole] = useState('teacher');  // Default role is "teacher"
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
+  const [filteredData, setFilteredData] = useState(null);  // To hold filtered data
+  const [rowsPerPage] = useState(15);
+  const [reviewsData, setReviewsData] = useState([]);
+  const [selectedReview, setSelectedReview] = useState(null); // State to store selected review
 
-    const [isPopupOpen, setIsPopupOpen] = useState(false);
-
-
-
-    const [openQuestions, setOpenQuestions] = useState(false);
-
-    const [dialogData, setDialogData] = useState(null); 
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
 
 
-    const handleClickOpenQuestions = (q) => {
-      setDialogData(q)
-      setOpen(true);
-    };
+
+  const [openQuestions, setOpenQuestions] = useState(false);
+
+  const [dialogData, setDialogData] = useState(null);
 
 
-    const handleCloseOpen = () => {
-      setOpen(false);
-    };
+  const handleClickOpenQuestions = (q) => {
+    setDialogData(q)
+    setOpen(true);
+  };
 
-    const togglePopup = () => {
-      setIsPopupOpen(!isPopupOpen);
-    };
 
-    
+  const handleCloseOpen = () => {
+    setOpen(false);
+  };
+
+  const togglePopup = () => {
+    setIsPopupOpen(!isPopupOpen);
+  };
+
+
 
   const handleSubmit = async (event) => {
-        
+
     event.preventDefault();
 
     // Prepare data to send to the API
     const data = {
-        uid: teacherData.id,
-        attendance: attendance,  // Attendance is always "present"
-        school_code: teacherData.schoolcode,
-        role: role  // Include the role in the data payload
+      uid: teacherData.id,
+      attendance: attendance,  // Attendance is always "present"
+      school_code: teacherData.schoolcode,
+      role: role  // Include the role in the data payload
     };
 
     try {
-        // Make POST request to your PHP API
-        const response = await axios.post('https://codtsmartschool.strangeweb.in/attendance.php', data, {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-
-        if (response.data.success) {
-            setMessage('Attendance recorded successfully!');
-             fetchAttendanceData()
-        } else {
-            setMessage('Error: ' + response.data.message);
+      // Make POST request to your PHP API
+      const response = await axios.post('https://codtsmartschool.strangeweb.in/attendance.php', data, {
+        headers: {
+          'Content-Type': 'application/json'
         }
+      });
+
+      if (response.data.success) {
+        setMessage('Attendance recorded successfully!');
+        fetchAttendanceData()
+      } else {
+        setMessage('Error: ' + response.data.message);
+      }
     } catch (error) {
-        alert(error)
-        setMessage('Error: Unable to record attendance.');
+      alert(error)
+      setMessage('Error: Unable to record attendance.');
     }
 
-};
+  };
 
-// attdence..
-const fetchAttendanceData = async () => {
-  try {
+  // attdence..
+  const fetchAttendanceData = async () => {
+    try {
 
 
       // Correct SQL Query: Ensure closing quotes are in place for role value
@@ -341,39 +333,39 @@ const fetchAttendanceData = async () => {
       const { data, error: fetchError } = await fetchData(query);
 
       if (fetchError) {
-          console.error('Error fetching data:', fetchError);
-          setError(fetchError);
-          setLoading(false);
-          return;
+        console.error('Error fetching data:', fetchError);
+        setError(fetchError);
+        setLoading(false);
+        return;
       }
 
       if (data && data.length > 0) {
 
         console.log('Attendance Data: ' + JSON.stringify(data));
-          setFilteredData(data); // Initially set filtered data to all fetched data
-          updateAttendanceData( 80 , 20 )
+        setFilteredData(data); // Initially set filtered data to all fetched data
+        updateAttendanceData(80, 20)
       } else {
-          setError('No attendance data found');
+        setError('No attendance data found');
       }
 
 
-  } catch (error) {
+    } catch (error) {
       setError(error);
-  } finally {
+    } finally {
       setLoading(false);
-  }
-};
+    }
+  };
 
-// Revies..
-const fetchReviews = async () => {
-  try {
+  // Revies..
+  const fetchReviews = async () => {
+    try {
 
 
-    console.log( 'Teacher data ' + teacherData.schoolcode)
-    console.log( ' School Code ' + teacherData.schoolcode)
+      console.log('Teacher data ' + teacherData.schoolcode)
+      console.log(' School Code ' + teacherData.schoolcode)
 
-    // SQL query to fetch reviews for the teacher
-    const reviewsQuery = `
+      // SQL query to fetch reviews for the teacher
+      const reviewsQuery = `
     SELECT 
         r.id AS review_id,
         r.review,
@@ -411,69 +403,69 @@ const fetchReviews = async () => {
 `;
 
 
-    const { data: reviewsData, error: reviewsError } = await fetchData(reviewsQuery);
+      const { data: reviewsData, error: reviewsError } = await fetchData(reviewsQuery);
 
-    if (reviewsError) {
-      console.error('Error fetching reviews data:', reviewsError);
-      setError(reviewsError);
+      if (reviewsError) {
+        console.error('Error fetching reviews data:', reviewsError);
+        setError(reviewsError);
+        setLoading(false);
+        return;
+      }
+
+      if (reviewsData && reviewsData.length > 0) {
+        console.log('Reviews Data: ' + JSON.stringify(reviewsData));
+        setReviewsData(reviewsData); // Store the fetched reviews data
+      } else {
+        setError('No reviews data found');
+      }
+    } catch (error) {
+      setError(error);
+    } finally {
       setLoading(false);
-      return;
     }
+  };
 
-    if (reviewsData && reviewsData.length > 0) {
-      console.log('Reviews Data: ' + JSON.stringify(reviewsData));
-      setReviewsData(reviewsData); // Store the fetched reviews data
-    } else {
-      setError('No reviews data found');
-    }
-  } catch (error) {
-    setError(error);
-  } finally {
-    setLoading(false);
-  }
-};
 
- 
-useEffect(() => {
-  if (teacherData.id) {
+  useEffect(() => {
+    if (teacherData.id) {
       fetchAttendanceData();  // Fetch data when UID is available
       fetchReviews();
-  }
-}, [teacherData.id]);
+    }
+  }, [teacherData.id]);
 
 
-const attdenceHistory = filteredData || [];
+  const attdenceHistory = filteredData || [];
 
-const total = 313;
+  const total = 313;
 
-// Calculate the percentage
-const percentage = (total * attdenceHistory.length) / 100 ;
-
-
-const attendanceData = {
-
-datasets: [
-  {
-    data: [attdenceHistory.length, attdenceHistory.length - 313],
-    backgroundColor: ["#d3d3d3", "#d3d3d3"], // Red and Blue colors
-  },
-]
+  // Calculate the percentage
+  const percentage = (total * attdenceHistory.length) / 100;
 
 
-};
+  const attendanceData = {
 
-console.log('assignmentData: ' + JSON.stringify(assignmentData));
+    datasets: [
+      {
+        data: [attdenceHistory.length, attdenceHistory.length - 313],
+        backgroundColor: ["#d3d3d3", "#d3d3d3"], // Red and Blue colors
+      },
+    ]
 
-const [openReviewDialog, setReviewOpenDialog] = useState(false);
 
-const handleOpenReviewDialog = (reviewData) => {
-  setReviewOpenDialog(true); // Open dialog
-  setSelectedReview(reviewData);
-};
+  };
 
-const handleReviewCloseDialog = () => {
-  setReviewOpenDialog(false); // Close dialog
-};
+  console.log('assignmentData: ' + JSON.stringify(assignmentData));
+
+  const [openReviewDialog, setReviewOpenDialog] = useState(false);
+
+  const handleOpenReviewDialog = (reviewData) => {
+    setReviewOpenDialog(true); // Open dialog
+    setSelectedReview(reviewData);
+  };
+
+  const handleReviewCloseDialog = () => {
+    setReviewOpenDialog(false); // Close dialog
+  };
 
 
   return (
@@ -483,46 +475,46 @@ const handleReviewCloseDialog = () => {
 
       {/* Header Section */}
       <div style={{ display: "flex", justifyContent: "space-between" }}>
-        
 
-        
+
+
         <Typography variant="h5" fontWeight="bold" color="#00000" mb={1}>
-        Manage Students
+          Manage Students
         </Typography>
 
 
         <button
-  onClick={() => {
-    setmanageteacher(false);
-  }}
-  style={{
-    backgroundColor: "#503dff", // Purple color
-    color: "white",
-    padding: "12px 24px", // Increased padding for a more spacious feel
-    fontSize: "16px", 
-    border: "none",
-    borderRadius: "8px", // Rounded corners for a smoother look
-    cursor: "pointer",
-    textDecoration: "none",
-    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)", // Subtle shadow for depth
-    transition: "background-color 0.3s, transform 0.2s", // Smooth transition effects
-  }}
-  onMouseEnter={(e) => {
-    e.target.style.backgroundColor = "#4023cc"; // Darker purple on hover
-    e.target.style.transform = "scale(1.05)"; // Slight zoom effect on hover
-  }}
-  onMouseLeave={(e) => {
-    e.target.style.backgroundColor = "#503dff"; // Reset to original color
-    e.target.style.transform = "scale(1)"; // Reset zoom effect
-  }}
->
-  Back to Page
+          onClick={() => {
+            setmanageteacher(false);
+          }}
+          style={{
+            backgroundColor: "#503dff", // Purple color
+            color: "white",
+            padding: "12px 24px", // Increased padding for a more spacious feel
+            fontSize: "16px",
+            border: "none",
+            borderRadius: "8px", // Rounded corners for a smoother look
+            cursor: "pointer",
+            textDecoration: "none",
+            boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)", // Subtle shadow for depth
+            transition: "background-color 0.3s, transform 0.2s", // Smooth transition effects
+          }}
+          onMouseEnter={(e) => {
+            e.target.style.backgroundColor = "#4023cc"; // Darker purple on hover
+            e.target.style.transform = "scale(1.05)"; // Slight zoom effect on hover
+          }}
+          onMouseLeave={(e) => {
+            e.target.style.backgroundColor = "#503dff"; // Reset to original color
+            e.target.style.transform = "scale(1)"; // Reset zoom effect
+          }}
+        >
+          Back to Page
         </button>
 
 
       </div>
 
-      
+
 
 
       {/* Profile Info */}
@@ -535,8 +527,8 @@ const handleReviewCloseDialog = () => {
             {teacherData.first_name + " " + teacherData.last_name}
           </Typography>
 
-         <Typography variant="h6" fontWeight="bold">
-            ( {teacherData.email } )
+          <Typography variant="h6" fontWeight="bold">
+            ( {teacherData.email} )
           </Typography>
 
           <Typography variant="body1">
@@ -551,192 +543,193 @@ const handleReviewCloseDialog = () => {
 
       <Box sx={{ overflowX: "auto", whiteSpace: "nowrap", mt: 4 }}>
 
-      <Typography variant="h6" color="textSecondary" mb={2} sx={{ fontSize: "16px" }}>
-  Quick Actions
-      </Typography>
+        <Typography variant="h6" color="textSecondary" mb={2} sx={{ fontSize: "16px" }}>
+          Quick Actions
+        </Typography>
 
 
-<div className="quick_actions_button" >
+        <div className="quick_actions_button" >
 
 
-<div className="button_sapce" >
-<Button
-      variant="contained"
-      sx={{
-        backgroundColor: "#503dff",
-        color: "white",
-        width: "200px", // Set width to 150px
-        borderRadius: "7px", // Set border-radius to 7px
-        margin: 0, // Remove margin if any
-        padding: 1.5,
-        fontWeight: "bold",
-      }}
-    >
-      Reviews
-</Button>
-</div>
+          <div className="button_sapce" >
+            <Button
+              variant="contained"
+              sx={{
+                backgroundColor: "#503dff",
+                color: "white",
+                width: "200px", // Set width to 150px
+                borderRadius: "7px", // Set border-radius to 7px
+                margin: 0, // Remove margin if any
+                padding: 1.5,
+                fontWeight: "bold",
+              }}
+              href="#review_section"
+            >
+              Reviews
+            </Button>
+          </div>
 
-<div>
-      <Button
-        variant="contained"
-        sx={{
-          backgroundColor: "#503dff",
-          color: "white",
-          width: "200px",
-          borderRadius: "7px",
-          margin: 0,
-          padding: 1.5,
-          fontWeight: "bold",
-        }}
-        onClick={handleOpenAttdence}
-      >
-        Attendance
-      </Button>
+          <div>
+            <Button
+              variant="contained"
+              sx={{
+                backgroundColor: "#503dff",
+                color: "white",
+                width: "200px",
+                borderRadius: "7px",
+                margin: 0,
+                padding: 1.5,
+                fontWeight: "bold",
+              }}
+              onClick={handleOpenAttdence}
+            >
+              Attendance
+            </Button>
 
-      <Dialog open={openattdence} onClose={handleCloseAttdence} className="width80"  >
+            <Dialog open={openattdence} onClose={handleCloseAttdence} className="width80"  >
 
 
 
-        <Box sx={{ bgcolor: 'white', padding: 3, borderRadius: 2, boxShadow: 3 }}>
+              <Box sx={{ bgcolor: 'white', padding: 3, borderRadius: 2, boxShadow: 3 }}>
 
 
                 <Typography variant="h4" align="center" sx={{ marginBottom: 2, color: 'black' }}>
-                    Manage  Attendance
+                  Manage  Attendance
                 </Typography>
 
 
-             <div className="fx_center" >
-             <form onSubmit={handleSubmit}>
+                <div className="fx_center" >
+                  <form onSubmit={handleSubmit}>
                     <Grid container spacing={2} alignItems="center">
-                        {/* UID Field (Hidden) */}
-                        <Grid item xs={3} sx={{ display: 'none' }}>
-                            <TextField
-                                label="UID"
-                                variant="outlined"
-                                fullWidth
-                                type="number"
-                                value={uid}
-                                onChange={(e) => setUid(e.target.value)}
-                                required
-                                sx={{ input: { color: 'black' }, label: { color: 'black' } }}
-                                disabled
-                            />
-                        </Grid>
+                      {/* UID Field (Hidden) */}
+                      <Grid item xs={3} sx={{ display: 'none' }}>
+                        <TextField
+                          label="UID"
+                          variant="outlined"
+                          fullWidth
+                          type="number"
+                          value={uid}
+                          onChange={(e) => setUid(e.target.value)}
+                          required
+                          sx={{ input: { color: 'black' }, label: { color: 'black' } }}
+                          disabled
+                        />
+                      </Grid>
 
-                        {/* Attendance Field (Hidden, Always "Present") */}
-                        <Grid item xs={3} sx={{ display: 'none' }}>
-                            <TextField
-                                label="Attendance"
-                                variant="outlined"
-                                fullWidth
-                                value="present"
-                                sx={{ input: { color: 'black' }, label: { color: 'black' } }}
-                                disabled
-                            />
-                        </Grid>
+                      {/* Attendance Field (Hidden, Always "Present") */}
+                      <Grid item xs={3} sx={{ display: 'none' }}>
+                        <TextField
+                          label="Attendance"
+                          variant="outlined"
+                          fullWidth
+                          value="present"
+                          sx={{ input: { color: 'black' }, label: { color: 'black' } }}
+                          disabled
+                        />
+                      </Grid>
 
-                        {/* School Code Field (Hidden) */}
-                        <Grid item xs={3} sx={{ display: 'none' }}>
-                            <TextField
-                                label="School Code"
-                                variant="outlined"
-                                fullWidth
-                                value={schoolCode}
-                                onChange={(e) => setSchoolCode(e.target.value)}
-                                required
-                                sx={{ input: { color: 'black' }, label: { color: 'black' } }}
-                                disabled
-                            />
-                        </Grid>
+                      {/* School Code Field (Hidden) */}
+                      <Grid item xs={3} sx={{ display: 'none' }}>
+                        <TextField
+                          label="School Code"
+                          variant="outlined"
+                          fullWidth
+                          value={schoolCode}
+                          onChange={(e) => setSchoolCode(e.target.value)}
+                          required
+                          sx={{ input: { color: 'black' }, label: { color: 'black' } }}
+                          disabled
+                        />
+                      </Grid>
 
-                        {/* Role Field (Hidden) */}
-                        <Grid item xs={3} sx={{ display: 'none' }}>
-                            <TextField
-                                label="Role"
-                                variant="outlined"
-                                fullWidth
-                                value={role}
-                                onChange={(e) => setRole(e.target.value)}
-                                required
-                                sx={{ input: { color: 'black' }, label: { color: 'black' } }}
-                                disabled
-                            />
-                        </Grid>
+                      {/* Role Field (Hidden) */}
+                      <Grid item xs={3} sx={{ display: 'none' }}>
+                        <TextField
+                          label="Role"
+                          variant="outlined"
+                          fullWidth
+                          value={role}
+                          onChange={(e) => setRole(e.target.value)}
+                          required
+                          sx={{ input: { color: 'black' }, label: { color: 'black' } }}
+                          disabled
+                        />
+                      </Grid>
 
-                        <Grid item xs={1}>
-     
+                      <Grid item xs={1}>
 
-     <div className="app_buttotn" >
 
-     <Button
-        type="submit"
-        variant="contained"
-        color="primary"
-        sx={{
-            backgroundColor: '#503dff',
-            '&:hover': {
-                backgroundColor: '#402cc0',
-            },
-            color: 'white',
-            padding: '10px 20px',
-            fontWeight: 'bold',
-        }}
-    >
-        Mark
-    </Button>
+                        <div className="app_buttotn" >
 
-     </div>
- 
+                          <Button
+                            type="submit"
+                            variant="contained"
+                            color="primary"
+                            sx={{
+                              backgroundColor: '#503dff',
+                              '&:hover': {
+                                backgroundColor: '#402cc0',
+                              },
+                              color: 'white',
+                              padding: '10px 20px',
+                              fontWeight: 'bold',
+                            }}
+                          >
+                            Mark
+                          </Button>
 
-                        </Grid>
+                        </div>
+
+
+                      </Grid>
                     </Grid>
-                </form>
-             </div>
+                  </form>
+                </div>
 
                 {/* Message Display (Optional) */}
                 {message && (
-                    <Typography variant="body2" sx={{ marginTop: 2, textAlign: 'center', color: message.includes('Error') ? 'red' : 'green' }}>
-                        {message}
-                    </Typography>
+                  <Typography variant="body2" sx={{ marginTop: 2, textAlign: 'center', color: message.includes('Error') ? 'red' : 'green' }}>
+                    {message}
+                  </Typography>
                 )}
 
 
-         <div style={containerStyle}>
-            <h6 style={headerStyle}>History</h6>
+                <div style={containerStyle}>
+                  <h6 style={headerStyle}>History</h6>
 
-            <div>
-      <table border="1" style={{ width: "100%", borderCollapse: "collapse" }}>
-        <thead>
-          <tr>
-            <th>Attendance</th>
-            <th>Date</th>
-          </tr>
-        </thead>
-        <tbody> 
-          {attdenceHistory.map((item) => (
-            <tr key={item.id}>
-              <td>{item.attendance}</td>
-              <td>{item.created_at}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+                  <div>
+                    <table border="1" style={{ width: "100%", borderCollapse: "collapse" }}>
+                      <thead>
+                        <tr>
+                          <th>Attendance</th>
+                          <th>Date</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {attdenceHistory.map((item) => (
+                          <tr key={item.id}>
+                            <td>{item.attendance}</td>
+                            <td>{item.created_at}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+
+                </div>
+
+              </Box>
+
+
+              <DialogActions>
+                <Button onClick={handleCloseAttdence} color="primary">
+                  Close
+                </Button>
+              </DialogActions>
+            </Dialog>
+          </div>
 
         </div>
-
-        </Box>
-
-
-        <DialogActions>
-          <Button onClick={handleCloseAttdence} color="primary">
-            Close
-          </Button>
-        </DialogActions>
-      </Dialog>
-</div>
-
-</div>
 
 
 
@@ -744,91 +737,91 @@ const handleReviewCloseDialog = () => {
 
       {/* Performance and Attendance */}
       <Grid container spacing={1} mt={4}>
-        
+
         <Grid item xs={12} md={4}>
           <Paper elevation={0} sx={{ padding: "10px", height: "200px" }}>
-          <Grid
-  container
-  justifyContent="center"
-  alignItems="center"
-  sx={{
-    height: "13.5rem",
-    border: '1px solid #e8e8e8', // Border with the color #e8e8e8
-    borderRadius: '8px', // Rounded corners
-    padding: '10px', // Optional: add padding inside the Grid container
-  }}
->
-  <img
-    src={prefor}
-    alt="Performance Meter"
-    style={{  
-      maxWidth: "100%",
-      height: "auto",
-      borderRadius: '8px', // Optional: if you want to apply rounded corners to the image itself
-    }}
-  />
-</Grid>
+            <Grid
+              container
+              justifyContent="center"
+              alignItems="center"
+              sx={{
+                height: "13.5rem",
+                border: '1px solid #e8e8e8', // Border with the color #e8e8e8
+                borderRadius: '8px', // Rounded corners
+                padding: '10px', // Optional: add padding inside the Grid container
+              }}
+            >
+              <img
+                src={prefor}
+                alt="Performance Meter"
+                style={{
+                  maxWidth: "100%",
+                  height: "auto",
+                  borderRadius: '8px', // Optional: if you want to apply rounded corners to the image itself
+                }}
+              />
+            </Grid>
 
           </Paper>
         </Grid>
 
         <Grid item xs={12} md={4}>
-        <Paper elevation={0} sx={{ padding: "10px" }}>
-  <Box
-    display="flex"
-    justifyContent="center"
-    alignItems="center"
-    flexDirection="column"
-    p={1}
-    sx={{
-      border: '1px solid #e8e8e8', // Adding the border with color #e8e8e8
-      borderRadius: '8px', // Adding rounded corners, adjust value as needed
-    }}
-  >
-    <Grid container spacing={2} justifyContent="center">
-  
-      <Grid item xs={12} md={6}>
-        <Box
-          mt={2}
-          sx={{
-            boxShadow: 'none', // Removing any shadow
-            borderRadius: '8px', // Rounded corners for the Box
-            padding: '10px', // Optional: add padding for internal space
-          }}
-        >
-          <Typography variant="h6" fontWeight="bold">
-            Attendance
-          </Typography>
-          <Typography variant="h3" color="primary" fontWeight="bold">
-             {percentage + '%'} 
-          </Typography>
-          <Typography>
-            You were present for <strong>{attdenceHistory.length} days</strong> out of{" "}
-            <strong>313 days</strong>
-          </Typography>
-        </Box>
-      </Grid>
+          <Paper elevation={0} sx={{ padding: "10px" }}>
+            <Box
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+              flexDirection="column"
+              p={1}
+              sx={{
+                border: '1px solid #e8e8e8', // Adding the border with color #e8e8e8
+                borderRadius: '8px', // Adding rounded corners, adjust value as needed
+              }}
+            >
+              <Grid container spacing={2} justifyContent="center">
 
-      <Grid item xs={12} md={6}>
-        <Box
-          mt={2}
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-          height="148px" // Set your desired height here
-          sx={{
-            boxShadow: 'none', // Removing any shadow
-            borderRadius: '8px', // Rounded corners for the Box
-            padding: '10px', // Optional: add padding for internal space
-          }}
-        >
-          <Doughnut data={attendanceData} />
-        </Box>
-      </Grid>
+                <Grid item xs={12} md={6}>
+                  <Box
+                    mt={2}
+                    sx={{
+                      boxShadow: 'none', // Removing any shadow
+                      borderRadius: '8px', // Rounded corners for the Box
+                      padding: '10px', // Optional: add padding for internal space
+                    }}
+                  >
+                    <Typography variant="h6" fontWeight="bold">
+                      Attendance
+                    </Typography>
+                    <Typography variant="h3" color="primary" fontWeight="bold">
+                      {percentage + '%'}
+                    </Typography>
+                    <Typography>
+                      You were present for <strong>{attdenceHistory.length} days</strong> out of{" "}
+                      <strong>313 days</strong>
+                    </Typography>
+                  </Box>
+                </Grid>
 
-    </Grid>
-  </Box>
-</Paper>
+                <Grid item xs={12} md={6}>
+                  <Box
+                    mt={2}
+                    display="flex"
+                    justifyContent="center"
+                    alignItems="center"
+                    height="148px" // Set your desired height here
+                    sx={{
+                      boxShadow: 'none', // Removing any shadow
+                      borderRadius: '8px', // Rounded corners for the Box
+                      padding: '10px', // Optional: add padding for internal space
+                    }}
+                  >
+                    <Doughnut data={attendanceData} />
+                  </Box>
+                </Grid>
+
+              </Grid>
+            </Box>
+          </Paper>
 
         </Grid>
 
@@ -837,57 +830,57 @@ const handleReviewCloseDialog = () => {
 
       </Grid>
 
-         
-{/* {this is for exam section} */}
 
-<Box mt={4}>
+      {/* {this is for exam section} */}
 
-
-      <Card variant="outlined"   sx={{
-    borderColor: '#503dff', // Set the border color of the Card
-    borderWidth: 1, // Optional: Adjust border width
-  }} >
-        <CardContent>
-         
-          <Typography variant="h6" fontWeight="bold"  sx={{
-    mb: 2,
-    mt: 4,
-    alignContent: { sm: "center" },
-    textAlign: { xs: "center", sm: "left" },
-    fontWeight: 'bold', // Making the text bold
-  }} >
-            Assignments Posted by {teacherData.first_name} {teacherData.last_name}
-          </Typography>
-
-         
-          <Box mt={2}>
-            
-          {assignmentData && assignmentData.length > 0 ? (
+      <Box mt={4}>
 
 
-  assignmentData.map((assignment, index) => (
+        <Card variant="outlined" sx={{
+          borderColor: '#503dff', // Set the border color of the Card
+          borderWidth: 1, // Optional: Adjust border width
+        }} >
+          <CardContent>
 
-    <div className="assinmnet_grid">
-        <div className="assinmne_name" > {assignment.assignment_title?.trim() || 'Untitled Assignment'} </div>
-        <div className="last_date" > Last date to submit -{''} {assignment.submission_date && assignment.submission_date !== '0000-00-00' ? assignment.submission_date: 'N/A'}</div>
-        <div className="questins" > <button onClick={() => handleClickOpenQuestions(assignment.questions)} >  ? Questions </button> </div>
-        <div className="submitd_student" > {assignment.submission_count || '0'} students submitted </div>
-    </div>
+            <Typography variant="h6" fontWeight="bold" sx={{
+              mb: 2,
+              mt: 4,
+              alignContent: { sm: "center" },
+              textAlign: { xs: "center", sm: "left" },
+              fontWeight: 'bold', // Making the text bold
+            }} >
+              Assignments Posted by {teacherData.first_name} {teacherData.last_name}
+            </Typography>
 
-  ))
-) : (
-  // Fallback if no assignments are available
-  <Typography variant="body1" color="textSecondary" textAlign="center">
-    No assignments available.
-  </Typography>
-)}
- 
 
-          </Box>
+            <Box mt={2}>
 
-          
-          <Box mt={2} textAlign="center">
-            {/* <Button
+              {assignmentData && assignmentData.length > 0 ? (
+
+
+                assignmentData.map((assignment, index) => (
+
+                  <div className="assinmnet_grid">
+                    <div className="assinmne_name" > {assignment.assignment_title?.trim() || 'Untitled Assignment'} </div>
+                    <div className="last_date" > Last date to submit -{''} {assignment.submission_date && assignment.submission_date !== '0000-00-00' ? assignment.submission_date : 'N/A'}</div>
+                    <div className="questins" > <button onClick={() => handleClickOpenQuestions(assignment.questions)} >  ? Questions </button> </div>
+                    <div className="submitd_student" > {assignment.submission_count || '0'} students submitted </div>
+                  </div>
+
+                ))
+              ) : (
+                // Fallback if no assignments are available
+                <Typography variant="body1" color="textSecondary" textAlign="center">
+                  No assignments available.
+                </Typography>
+              )}
+
+
+            </Box>
+
+
+            <Box mt={2} textAlign="center">
+              {/* <Button
               variant="contained"
               style={{ backgroundColor: '#503dff', color: 'white', textTransform: 'none', borderRadius: '8px' }}
               sx={{
@@ -896,174 +889,165 @@ const handleReviewCloseDialog = () => {
             >
               See More
             </Button> */}
-          </Box>
-        </CardContent>
-      </Card>
+            </Box>
+          </CardContent>
+        </Card>
 
 
-    </Box>
+      </Box>
 
-<Box border="1px solid#503dff" paddingLeft={3} mt={4} sx={{
-    borderRadius: "8px", // Add border radius for rounded corners
-  }} >
-
-
-  <Typography variant="h5" sx={{ mb: 2, mt: 4 , alignContent:{sm:"center"} , fontWeight: 'bold', textAlign: { xs: "center", sm: "left" } }}>
-  Exams Posted by {teacherData.first_name} {teacherData.last_name}
-  </Typography>
-
-  {examData?.length > 0 ? (
-    examData.map((exam, index) => (
-     
-
-   <div className="exam_item" >
-       <Grid
-        container
-        key={index}
-        spacing={2}
-        alignItems="center"
-        justifyContent="space-between"
-        sx={{
-          mb: 2,
-          flexWrap: { xs: "wrap", md: "nowrap" }, // Wrapping on mobile, no wrap on laptop
-        }}
-      >
-        {/* Subject */}
-        <Grid item xs={12} sm={6} md={2}>
-       <Typography
-  variant="h6"
-  fontWeight="bold"
-  textAlign={{ xs: "center", sm: "left" }}
-  sx={{ fontSize: { xs: '0.5rem', sm: '0.9rem' } }}  // Adjust the font size as needed
->
-  {exam.subject || "Subject"}
-</Typography>
-
-        </Grid>
-
-        {/* Assignment Title */}
-        <Grid item xs={12} sm={6} md={3}>
-          <Typography
-            variant="body1"
-            textAlign={{ xs: "center", sm: "left" }}
-            sx={{ fontSize: { xs: '0.5rem', sm: '0.9rem' } }}  // Adjust the font size as needed
-          >
-            {exam.title || "Untitled Assignment"}
-          </Typography>
-        </Grid>
-
-        {/* Questions Button */}
-
-        {/* Dates */}
+      <Box border="1px solid#503dff" paddingLeft={3} mt={4} sx={{
+        borderRadius: "8px", // Add border radius for rounded corners
+      }} >
 
 
-<div className="exam_flex" >
-  Date: {new Date(exam.exam_date).toLocaleDateString()}
-</div>
+        <Typography variant="h5" sx={{ mb: 2, mt: 4, alignContent: { sm: "center" }, fontWeight: 'bold', textAlign: { xs: "center", sm: "left" } }}>
+          Exams Posted by {teacherData.first_name} {teacherData.last_name}
+        </Typography>
+
+        {examData?.length > 0 ? (
+          examData.map((exam, index) => (
 
 
-        {/* Timetable Link */}
-        <Grid
-          item
-          xs={12}
-          sm={6}
-          md={2}
-          textAlign="center"
-          sx={{ mt: { xs: 1, sm: 0 } }}
-        >
-          <a
-            href={exam.timetable_path || "#"}
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              textDecoration: "none",
-              color: "#503dff",
-              fontWeight: "bold",
-              fontSize: "13px"
-            }}
-          >
-            TimeTable
-          </a>
-        </Grid>
+            <div className="exam_item" key={index} >
+              <Grid
+                container
+                key={index}
+                spacing={2}
+                alignItems="center"
+                justifyContent="space-between"
+                sx={{
+                  mb: 2,
+                  flexWrap: { xs: "wrap", md: "nowrap" }, // Wrapping on mobile, no wrap on laptop
+                }}
+              >
+                {/* Subject */}
+                <Grid item xs={12} sm={6} md={2}>
+                  <Typography
+                    variant="h6"
+                    fontWeight="bold"
+                    textAlign={{ xs: "center", sm: "left" }}
+                    sx={{ fontSize: { xs: '0.5rem', sm: '0.9rem' } }}  // Adjust the font size as needed
+                  >
+                    {exam.subject || "Subject"}
+                  </Typography>
 
-        {/* Questions Dialog */}
-        <Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm">
-          <DialogTitle>Questions</DialogTitle>
-          <DialogContent>
+                </Grid>
 
-{dialogData}
-           
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleClose} color="primary" variant="contained">
-              Close
-            </Button>
-          </DialogActions>
-        </Dialog>
-      </Grid>
-   </div>
+                {/* Assignment Title */}
+                <Grid item xs={12} sm={6} md={3}>
+                  <Typography
+                    variant="body1"
+                    textAlign={{ xs: "center", sm: "left" }}
+                    sx={{ fontSize: { xs: '0.5rem', sm: '0.9rem' } }}  // Adjust the font size as needed
+                  >
+                    {exam.title || "Untitled Assignment"}
+                  </Typography>
+                </Grid>
 
+                {/* Questions Button */}
+
+                {/* Dates */}
 
 
-    ))
-  ) : (
-    <Typography textAlign="center">No exams posted yet.</Typography>
-  )}
-</Box>
+                <div className="exam_flex" >
+                  Date: {new Date(exam.exam_date).toLocaleDateString()}
+                </div>
+
+
+                {/* Timetable Link */}
+                <Grid
+                  item
+                  xs={12}
+                  sm={6}
+                  md={2}
+                  textAlign="center"
+                  sx={{ mt: { xs: 1, sm: 0 } }}
+                >
+                  <a
+                    href={exam.timetable_path || "#"}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      textDecoration: "none",
+                      color: "#503dff",
+                      fontWeight: "bold",
+                      fontSize: "13px"
+                    }}
+                  >
+                    TimeTable
+                  </a>
+                </Grid>
+
+                {/* Questions Dialog */}
+                <Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm">
+                  <DialogTitle>Questions</DialogTitle>
+                  <DialogContent>
+
+                    {dialogData}
+
+                  </DialogContent>
+                  <DialogActions>
+                    <Button onClick={handleClose} color="primary" variant="contained">
+                      Close
+                    </Button>
+                  </DialogActions>
+                </Dialog>
+              </Grid>
+            </div>
+
+
+
+          ))
+        ) : (
+          <Typography textAlign="center">No exams posted yet.</Typography>
+        )}
+      </Box>
 
       {/* Syllabus Section */}
-       <Box mt={4}>
+      <Box mt={4}>
         <Card variant="outlined" sx={{
-    borderColor: '#503dff', // Set the border color of the Card
-    borderWidth: 1, // Optional: Adjust border width
-    padding: 1
-  }} >
+          borderColor: '#503dff', // Set the border color of the Card
+          borderWidth: 1, // Optional: Adjust border width
+          padding: 1
+        }} >
           <CardContent>
 
 
             <div className="Syllabus" >
-            <Typography variant="h6" fontWeight="bold">
-              Syllabus Status
-            </Typography>
+              <Typography variant="h6" fontWeight="bold">
+                Syllabus Status
+              </Typography>
             </div>
-         
+
 
             <div>
-      {syllabusData.length > 0 ? (
-        syllabusData.map((course, index) => (
+              {syllabusData.length > 0 ? (
+                syllabusData.map((course, index) => (
+                  <>
+                    <div className="subject" >{course.subject}</div>
+                    <div className="subject_buttom" >
+                      {course.syllabus.split(',').map((item, idx) => (
+                        <span key={idx} className="cources_items" >
+                          {item}<br></br>
+                          {idx < course.syllabus.split(',').length - 1 && <br />}
+                        </span>
+                      ))}
+                    </div>
+                  </>
+                ))
+              ) : (
+                <p>No course data available</p>
+              )}
+            </div>
 
-       <>
-       
 
-<div className="subject" >  {course.subject}  </div>
-
-
-<div className="subject_buttom" >
-{course.syllabus.split(',').map((item, idx) => (
-  <span key={idx} className="cources_items" >
-    {item}<br></br>
-    {idx < course.syllabus.split(',').length - 1 && <br />}
-  </span>
-))}
-</div>
-
-
-       </>
-
-          
-        ))
-      ) : (
-        <p>No course data available</p>
-      )}
-    </div>
-
-           
           </CardContent>
         </Card>
-      </Box> 
+      </Box>
 
       {/* Review Section */}
-     <Box mt={4}>
+      <Box mt={4}>
         <Card variant="outlined">
           <Box sx={{ width: "auto", margin: 4, mt: 4 }}>
 
@@ -1072,163 +1056,155 @@ const handleReviewCloseDialog = () => {
             </Typography>
 
             {reviewsData.length > 0 ? (
-  <div>
+              <div id="review_section">
+                {reviewsData.map((review, index) => (
+                  <div key={index}>
+
+                    <Card
+                      variant="outlined"
+                      sx={{
+                        display: "flex", justifyContent: "space-between",
+                        alignItems: "center", mb: 2, p: 1,
+                        borderColor: "#503dff", // Set border color to #503dff
+                        borderWidth: 1, // Set border width
+                        borderRadius: "8px", // Set border radius to round corners
+                      }}
+                    >
 
 
-    {reviewsData.map((review, index) => (
-      <div key={index}>
+                      <Grid container alignItems="center">
 
-<Card
-  variant="outlined"
-  sx={{
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    mb: 2,
-    p: 1,
-    borderColor: "#503dff", // Set border color to #503dff
-    borderWidth: 1, // Set border width
-    borderRadius: "8px", // Set border radius to round corners
-  }}
->
+                        <Grid item sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }} xs={7}>
+                          <Avatar src={'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png'} alt={review.name} sx={{ width: 56, height: 56 }} />
+                          <Typography variant="h6"> {review.first_name} {review.last_name}  </Typography>
+                        </Grid>
 
+                        <Grid item xs={3}>
 
-  <Grid container alignItems="center">
-
-    <Grid item sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }} xs={7}>
-    <Avatar src={'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png'} alt={review.name} sx={{ width: 56, height: 56 }} />
-    <Typography variant="h6"> {review.first_name} {review.last_name}  </Typography>
-    </Grid>
-
-    <Grid item xs={3}>
-      
-      <Box display="flex" alignItems="center">
+                          <Box display="flex" alignItems="center">
 
 
 
-      <Typography variant="body2" sx={{ ml: 1 }}>
-        </Typography>
+                            <Typography variant="body2" sx={{ ml: 1 }}>
+                            </Typography>
 
-        <Typography variant="body2" sx={{ ml: 1 }}>
-          {review.rating}/5
-        </Typography>
+                            <Typography variant="body2" sx={{ ml: 1 }}>
+                              {review.rating}/5
+                            </Typography>
 
-        <Rating
-          name="read-only"
-          value={review.rating}
-          precision={0.5}
-          readOnly
-        />
-   
-      </Box>
-    </Grid>
+                            <Rating
+                              name="read-only"
+                              value={review.rating}
+                              precision={0.5}
+                              readOnly
+                            />
 
-    <Grid item xs={1}>
+                          </Box>
+                        </Grid>
 
-    <Button
-  variant="contained"
-  color="primary"
-  style={{
-    backgroundColor: "#503dff",
-    color: "white",
-    textTransform: "none",
-    borderRadius: "8px",
-    marginBottom: "2px",
-    padding: "5px 10px",
-  }}
-  sx={{
-    width: "100px", // Set fixed width
-  }}
-  onClick={() => handleOpenReviewDialog(review)} 
->
-  See More
-    </Button>
-   
-    </Grid>
-  </Grid>
+                        <Grid item xs={1}>
 
-</Card>
+                          <Button variant="contained" color="primary" style={{
+                            backgroundColor: "#503dff",
+                            color: "white",
+                            textTransform: "none",
+                            borderRadius: "8px",
+                            marginBottom: "2px",
+                            padding: "5px 10px",
+                          }}
+                            sx={{
+                              width: "100px", // Set fixed width
+                            }}
+                            onClick={() => handleOpenReviewDialog(review)}
+                          >
+                            See More
+                          </Button>
 
-      </div>
-    ))}
-  </div>
-) : (
-  <p>No reviews available.</p>
-)}
+                        </Grid>
+                      </Grid>
+
+                    </Card>
+
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p id="review_section" >No reviews available.</p>
+            )}
 
 
-<Dialog open={openReviewDialog} onClose={handleReviewCloseDialog}>
-  <DialogTitle>Review Details</DialogTitle>
+            <Dialog open={openReviewDialog} onClose={handleReviewCloseDialog}>
+              <DialogTitle>Review Details</DialogTitle>
 
-  <DialogContent>
-    {selectedReview && Object.keys(selectedReview).length > 0 ? (
-      <div className="review-card">
-        <h3 className="reviewer-name">
-          {selectedReview.first_name} {selectedReview.last_name}
-        </h3>
+              <DialogContent>
+                {selectedReview && Object.keys(selectedReview).length > 0 ? (
+                  <div className="review-card">
+                    <h3 className="reviewer-name">
+                      {selectedReview.first_name} {selectedReview.last_name}
+                    </h3>
 
-        <div className="review-header">
-          <div className="review-rating">
-            {"⭐".repeat(selectedReview.rating)}
-            <span className="rating-text">({selectedReview.rating} / 5)</span>
-          </div>
-        </div>
-        <p className="review-text">{selectedReview.review}</p>
-        <style jsx>{`
-          .review-card {
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 16px;
-            margin: 16px 0;
-            background-color: #f9f9f9;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-          }
-          .review-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 8px;
-            margin-bottom: 8px;
-            padding-top: 10px;
-          }
-          .reviewer-name {
-            font-size: 18px;
-            font-weight: bold;
-            margin: 0;
-            color: #333;
-          }
-          .review-rating {
-            font-size: 16px;
-            font-weight: 600;
-            color: #f4c542;
-          }
-          .rating-text {
-            font-size: 14px;
-            color: #555;
-            margin-left: 8px;
-          }
-          .review-text {
-            font-size: 14px;
-            line-height: 1.6;
-            color: #555;
-            margin-top: -10px;
-          }
-        `}</style>
-      </div>
-    ) : (
-      <Typography variant="body2" color="textSecondary">
-        No reviews available
-      </Typography>
-    )}
-  </DialogContent>
+                    <div className="review-header">
+                      <div className="review-rating">
+                        {"⭐".repeat(selectedReview.rating)}
+                        <span className="rating-text">({selectedReview.rating} / 5)</span>
+                      </div>
+                    </div>
+                    <p className="review-text">{selectedReview.review}</p>
+                    <style jsx>{`
+                          .review-card {
+                            border: 1px solid #ddd;
+                            border-radius: 8px;
+                            padding: 16px;
+                            margin: 16px 0;
+                            background-color: #f9f9f9;
+                            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                          }
+                          .review-header {
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                            border-bottom: 1px solid #eee;
+                            padding-bottom: 8px;
+                            margin-bottom: 8px;
+                            padding-top: 10px;
+                          }
+                          .reviewer-name {
+                            font-size: 18px;
+                            font-weight: bold;
+                            margin: 0;
+                            color: #333;
+                          }
+                          .review-rating {
+                            font-size: 16px;
+                            font-weight: 600;
+                            color: #f4c542;
+                          }
+                          .rating-text {
+                            font-size: 14px;
+                            color: #555;
+                            margin-left: 8px;
+                          }
+                          .review-text {
+                            font-size: 14px;
+                            line-height: 1.6;
+                            color: #555;
+                            margin-top: -10px;
+                          }
+                        `}</style>
+                  </div>
+                ) : (
+                  <Typography variant="body2" color="textSecondary">
+                    No reviews available
+                  </Typography>
+                )}
+              </DialogContent>
 
-  <DialogActions>
-    <Button onClick={handleReviewCloseDialog} color="primary">
-      Close
-    </Button>
-  </DialogActions>
-</Dialog>
+              <DialogActions>
+                <Button onClick={handleReviewCloseDialog} color="primary">
+                  Close
+                </Button>
+              </DialogActions>
+            </Dialog>
 
 
 
@@ -1317,7 +1293,7 @@ const handleReviewCloseDialog = () => {
 
           </Box>
         </Card>
-      </Box> 
+      </Box>
     </Box>
 
   );
@@ -1397,4 +1373,3 @@ const inputStyle = {
 
 export default Academics;
 
- 

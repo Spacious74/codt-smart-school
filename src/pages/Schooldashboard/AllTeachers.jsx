@@ -8,13 +8,13 @@ import { Link as RouterLink } from 'react-router-dom';
 import Academics from "./Manageteacher"
 
 
-const Teachers = ({ setmanageteacher, setteacherData, teacherDetiles }) => {
+const Teachers = ({ setmanageteacher, setteacherData, teacherDetails }) => {
 
-  // Destructuring the teacherDetiles object to access all required fields
+  // Destructuring the teacherDetails object to access all required fields
   const {
     id, first_name, last_name, email, phone_number, educational_board, address, city,
     pin_code, state, password, image, selected_subjects, class_selection, selected_divisions, experience,
-  } = teacherDetiles;
+  } = teacherDetails;
 
   // State to control dialog visibility
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -28,7 +28,7 @@ const Teachers = ({ setmanageteacher, setteacherData, teacherDetiles }) => {
 
 
   const handleManageClick = () => {
-    setteacherData(teacherDetiles);
+    setteacherData(teacherDetails);
     setmanageteacher(true);
   };
 
@@ -374,7 +374,7 @@ const AllTeachers = () => {
   return (
     <>
       {!manageteacher ?
-        <>
+        < >
           <Box textAlign="start" >
 
             <Typography variant="h6" color="#8a8a8a" mb={3} fontWeight="bold">
@@ -418,13 +418,9 @@ const AllTeachers = () => {
             <Grid container direction="column" spacing={2}>
               {/* Check if filteredData has any content */}
               {filteredData.length > 0 ? (
-                filteredData.map((teacherDetiles, index) => (
+                filteredData.map((teacherDetails, index) => (
                   <Grid item key={index}>
-                    <Teachers
-                      setmanageteacher={setmanageteacher}
-                      setteacherData={setteacherData}
-                      teacherDetiles={teacherDetiles}
-                    />
+                    <Teachers setmanageteacher={setmanageteacher} setteacherData={setteacherData} teacherDetails={teacherDetails} />
                   </Grid>
                 ))
               ) : (

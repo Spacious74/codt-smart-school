@@ -1,3 +1,7 @@
+body{
+    scroll-behavior: smooth;
+}
+
 .showMoreText {
     display: -webkit-box;
     /* Change here the number of lines you want to show in a paragraph */

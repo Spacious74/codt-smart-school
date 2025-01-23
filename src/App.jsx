@@ -193,7 +193,6 @@ function App() {
                       <Route path="notice" element={<Notices />} />
                       <Route path="editstud" element={<Editstud />} />
                       <Route path="reviewteacher" element={<Reviewteacher />} />
-
                       <Route path="/assignment/:id" element={<DetailedAssignment />} />
                       <Route path="/assignment/submit" element={<SubmitAssignment></SubmitAssignment>} />
                       <Route path="*" element={<Navigate to="/app" />} />

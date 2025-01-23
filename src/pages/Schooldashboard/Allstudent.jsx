@@ -440,7 +440,8 @@ const AllTeachers = () => {
           </Box>
 
         </>
-        : <Academics setmanageteacher={setmanageteacher} assignmentData={assignmentData} examData={examData} teacherData={teacherData} syllabusData={syllabusData} />}
+        : <Academics setmanageteacher={setmanageteacher} assignmentData={assignmentData} 
+          examData={examData} teacherData={teacherData} syllabusData={syllabusData} />}
     </>
   );
 };

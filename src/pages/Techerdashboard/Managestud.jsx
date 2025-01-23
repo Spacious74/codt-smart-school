@@ -41,7 +41,7 @@ import { fetchData } from "../../src/Service/apiService";
 import Reviewtostud from './Reviewtostud'
 
 const AssignmentItem = ({ exam }) => {
- 
+
 
   return (
     <Grid container spacing={2} display="flex" sx={{ mb: 2 }}>
@@ -112,9 +112,6 @@ const AssignmentItem = ({ exam }) => {
 ChartJS.register(ArcElement, Tooltip, Legend);
 const Academics = () => {
 
-
- 
-
   const { studentId } = useParams();
   // Get the student ID from URL parameters
   const [studentData, setStudentData] = useState(null);
@@ -122,16 +119,16 @@ const Academics = () => {
   const [error, setError] = useState(null);
   const [examData, setExamData] = useState([]);
   const [assignmentData, setAssignmentData] = useState([]);
- // console.log(examData)
- const [attendanceData, setAttendanceData] = useState(null);
- const [FilteredData, setFilteredData] = useState(null);
+  // console.log(examData)
+  const [attendanceData, setAttendanceData] = useState(null);
+  const [FilteredData, setFilteredData] = useState(null);
 
- const [uid, setUid] = useState('');
- const [totalDays, setTotalDays] = useState(0); // Total days in the period
- const [presentDays, setPresentDays] = useState(0); // Number of present days
- const [openDialog, setOpenDialog] = useState(false);
+  const [uid, setUid] = useState('');
+  const [totalDays, setTotalDays] = useState(0); // Total days in the period
+  const [presentDays, setPresentDays] = useState(0); // Number of present days
+  const [openDialog, setOpenDialog] = useState(false);
 
- const sid = localStorage.getItem('sid'); // Teacher ID (sid) from localStorage
+  const sid = localStorage.getItem('sid'); // Teacher ID (sid) from localStorage
   useEffect(() => {
     const fetchStudentData = async () => {
       setLoading(true); // Set loading state
@@ -185,24 +182,24 @@ const Academics = () => {
   const questionsArray = assignmentData[0]?.questions
     ? assignmentData[0]?.questions.split(",")
     : [];
- 
 
- const fetchAttendanceData = async () => {
-  try {
+
+  const fetchAttendanceData = async () => {
+    try {
       const query = `SELECT * FROM attendance_table WHERE uid = ${sid};`;
       const { data, error: fetchError } = await fetchData(query);
 
       if (fetchError) {
-          console.error('Error fetching data:', fetchError);
-          setError(fetchError);
-          setLoading(false);
-          return;
+        console.error('Error fetching data:', fetchError);
+        setError(fetchError);
+        setLoading(false);
+        return;
       }
 
       if (data && data.length > 0) {
-          setAttendanceData(data);
-          setFilteredData(data); // Initially set filtered data to all fetched data
-               // Calculate present days and total days from the fetched data
+        setAttendanceData(data);
+        setFilteredData(data); // Initially set filtered data to all fetched data
+        // Calculate present days and total days from the fetched data
         const present = data.length; // Since the query already filters for present attendance
         const total = 313; // Total number of "present" days will be equal to length of filtered data
 
@@ -214,47 +211,47 @@ const Academics = () => {
     } finally {
       setLoading(false);
     }
-     
-};
 
-useEffect(() => {
-  if (sid) {
+  };
+
+  useEffect(() => {
+    if (sid) {
       fetchAttendanceData();
+    }
+  }, [sid]);
+  // Attendance chart data
+  const attendanceChartData = {
+    datasets: [
+      {
+        data: [presentDays, totalDays - presentDays],
+        backgroundColor: ['#41b8d5', '#6ce5e8'],
+        cutout: '70%',
+      },
+    ],
+  };
+
+  // If loading, show a loading message
+  if (loading) {
+    return <Typography>Loading attendance data...</Typography>;
   }
-}, [sid]);
- // Attendance chart data
- const attendanceChartData = {
-  datasets: [
-    {
-      data: [presentDays, totalDays - presentDays],
-      backgroundColor: ['#41b8d5', '#6ce5e8'],
-      cutout: '70%',
-    },
-  ],
-};
 
-// If loading, show a loading message
-if (loading) {
-  return <Typography>Loading attendance data...</Typography>;
-}
+  // If there's an error, show the error message
+  if (error) {
+    // If `error` is a non-string (like an object or array), we ensure it's converted to a string.
+    return <Typography color="error">Error: {String(error) || 'Unknown error'}</Typography>;
+  }
 
-// If there's an error, show the error message
-if (error) {
-  // If `error` is a non-string (like an object or array), we ensure it's converted to a string.
-  return <Typography color="error">Error: {String(error) || 'Unknown error'}</Typography>;
-}
+  // State to manage dialog visibility
 
-// State to manage dialog visibility
+  // Function to handle opening of the dialog
+  const handleOpenDialog = () => {
+    setOpenDialog(true);
+  };
 
-// Function to handle opening of the dialog
-const handleOpenDialog = () => {
-  setOpenDialog(true);
-};
-
-// Function to handle closing of the dialog
-const handleCloseDialog = () => {
-  setOpenDialog(false);
-};
+  // Function to handle closing of the dialog
+  const handleCloseDialog = () => {
+    setOpenDialog(false);
+  };
 
   return (
     <Box p={3}>
@@ -294,7 +291,7 @@ const handleCloseDialog = () => {
             spacing={0} // Remove default spacing
             sx={{ display: "flex", gap: "5px" }} // Use flex display with custom gap
           >
-            <Grid item xs={12} sm={2} md={2.2}>
+            {/* <Grid item xs={12} sm={2} md={2.2}>
               <Button
                 fullWidth
                 variant="contained"
@@ -304,7 +301,7 @@ const handleCloseDialog = () => {
                   color: "white",
                 }}
               >
-               Update Exam Status
+                Update Exam Status
               </Button>
             </Grid>
             <Grid item xs={12} sm={2} md={2.5}>
@@ -319,35 +316,22 @@ const handleCloseDialog = () => {
               >
                 Update Assignments Status
               </Button>
-            </Grid>
-            <Grid item xs={12} sm={2} md={2.2}>
-        <Button
-          fullWidth
-          variant="contained"
-          sx={{
-            width: { xs: '180px', sm: '190px' },
-            backgroundColor: '#503dff',
-            color: 'white',
-          }}
-          onClick={handleOpenDialog}  // Open the dialog on button click
-        >
-          Give Reviews
-        </Button>
-      </Grid>
+            </Grid> */}
 
-      {/* Dialog component */}
-      <Dialog open={openDialog} onClose={handleCloseDialog} fullWidth>
-        <DialogTitle>Give Review</DialogTitle>
-        <DialogContent>
-          {/* Include your Reviewtostud component inside Dialog */}
-          <Reviewtostud />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseDialog} color="primary">Cancel</Button>
-          <Button onClick={handleCloseDialog} color="primary">Submit</Button>
-        </DialogActions>
-      </Dialog>
-            <Grid item xs={12} sm={2} md={1.7}>
+
+            {/* Dialog component */}
+            <Dialog open={openDialog} onClose={handleCloseDialog} fullWidth>
+              <DialogTitle>Give Review</DialogTitle>
+              <DialogContent>
+                {/* Include your Reviewtostud component inside Dialog */}
+                <Reviewtostud />
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={handleCloseDialog} color="primary">Cancel</Button>
+                <Button onClick={handleCloseDialog} color="primary">Submit</Button>
+              </DialogActions>
+            </Dialog>
+            <Grid item xs={12} sm={2} md={1.7} spacing={3}>
               <Button
                 fullWidth
                 variant="contained"
@@ -358,6 +342,18 @@ const handleCloseDialog = () => {
                 }}
               >
                 Attendence
+              </Button>
+              <Button
+                fullWidth
+                variant="contained"
+                sx={{
+                  width: { xs: '180px', sm: '190px' },
+                  backgroundColor: '#503dff',
+                  color: 'white',
+                }}
+                onClick={handleOpenDialog}  // Open the dialog on button click
+              >
+                Give Reviews
               </Button>
             </Grid>
           </Grid>
@@ -441,8 +437,8 @@ const handleCloseDialog = () => {
         <Card variant="outlined">
           <CardContent>
             <Typography variant="h6" fontWeight={400} sx={{
-          textAlign: { xs: "center", sm: "left" }, // Center on mobile, left-align on larger screens
-        }}>
+              textAlign: { xs: "center", sm: "left" }, // Center on mobile, left-align on larger screens
+            }}>
               Assignments
             </Typography>
 
@@ -489,10 +485,10 @@ const handleCloseDialog = () => {
                     <Typography variant="body2" color={"#503dff"}>
                       Last date to submit -{" "}
                       {assignment.submission_date &&
-                      assignment.submission_date !== "0000-00-00"
+                        assignment.submission_date !== "0000-00-00"
                         ? new Date(
-                            assignment.submission_date
-                          ).toLocaleDateString()
+                          assignment.submission_date
+                        ).toLocaleDateString()
                         : "N/A"}
                     </Typography>
                   </Grid>
@@ -587,137 +583,137 @@ const handleCloseDialog = () => {
         </Card>
       </Box>
       <Box border="1px solid #ddd" paddingLeft={3} mt={4}>
-  <Typography variant="h5" sx={{ mb: 2, mt: 4 , alignContent:{sm:"center"}  ,  textAlign: { xs: "center", sm: "left" },}}
-     >
-    Exam List
-  </Typography>
-
-  {examData?.length > 0 ? (
-    examData.map((exam, index) => (
-      <Grid
-        container
-        key={index}
-        spacing={2}
-        alignItems="center"
-        justifyContent="space-between"
-        sx={{
-          mb: 2,
-          flexWrap: { xs: "wrap", md: "nowrap" }, // Wrapping on mobile, no wrap on laptop
-        }}
-      >
-        {/* Subject */}
-        <Grid item xs={12} sm={6} md={2}>
-          <Typography
-            variant="h6"
-            fontWeight="bold"
-            textAlign={{ xs: "center", sm: "left" }}
-          >
-            {exam.subject || "Subject"}
-          </Typography>
-        </Grid>
-
-        {/* Assignment Title */}
-        <Grid item xs={12} sm={6} md={3}>
-          <Typography
-            variant="body1"
-            textAlign={{ xs: "center", sm: "left" }}
-          >
-            {exam.title || "Untitled Assignment"}
-          </Typography>
-        </Grid>
-
-        {/* Questions Button */}
-        <Grid item xs={12} sm={6} md={2} textAlign="center">
-          <Button
-            variant="contained"
-            sx={{
-              backgroundColor: "#503dff",
-              color: "white",
-              textTransform: "none",
-              borderRadius: "20px",
-              ":hover": {
-                backgroundColor: "#4a37e2",
-              },
-            }}
-            size="small"
-            onClick={handleOpen}
-          >
-            Questions
-          </Button>
-        </Grid>
-
-        {/* Dates */}
-        <Grid item xs={12} sm={6} md={2}>
-          <Typography
-            variant="body2"
-            textAlign={{ xs: "center", sm: "left" }}
-          >
-            Start Date: {new Date(exam.exam_date).toLocaleDateString()}
-          </Typography>
-          <Typography
-            variant="body2"
-            textAlign={{ xs: "center", sm: "left" }}
-          >
-            End Date: {new Date(exam.exam_date).toLocaleDateString()}
-          </Typography>
-        </Grid>
-
-        {/* Timetable Link */}
-        <Grid
-          item
-          xs={12}
-          sm={6}
-          md={2}
-          textAlign="center"
-          sx={{ mt: { xs: 1, sm: 0 } }}
+        <Typography variant="h5" sx={{ mb: 2, mt: 4, alignContent: { sm: "center" }, textAlign: { xs: "center", sm: "left" }, }}
         >
-          <a
-            href={exam.timetable_path || "#"}
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              textDecoration: "none",
-              color: "#503dff",
-              fontWeight: "bold",
-            }}
-          >
-            TimeTable
-          </a>
-        </Grid>
+          Exam List
+        </Typography>
 
-        {/* Questions Dialog */}
-        <Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm">
-          <DialogTitle>Questions</DialogTitle>
-          <DialogContent>
-            {questionsArray.length > 0 ? (
-              <List>
-                {questionsArray.map((question, index) => (
-                  <ListItem key={index} divider>
-                    <ListItemText
-                      primary={`${index + 1}. ${question.trim()}`}
-                    />
-                  </ListItem>
-                ))}
-              </List>
-            ) : (
-              <Typography variant="body2" color="textSecondary">
-                No questions available.
-              </Typography>
-            )}
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleClose} color="primary" variant="contained">
-              Close
-            </Button>
-          </DialogActions>
-        </Dialog>
-      </Grid>
-    ))
-  ) : (
-    <Typography textAlign="center">No exams posted yet.</Typography>
-  )}
-</Box>
-     
+        {examData?.length > 0 ? (
+          examData.map((exam, index) => (
+            <Grid
+              container
+              key={index}
+              spacing={2}
+              alignItems="center"
+              justifyContent="space-between"
+              sx={{
+                mb: 2,
+                flexWrap: { xs: "wrap", md: "nowrap" }, // Wrapping on mobile, no wrap on laptop
+              }}
+            >
+              {/* Subject */}
+              <Grid item xs={12} sm={6} md={2}>
+                <Typography
+                  variant="h6"
+                  fontWeight="bold"
+                  textAlign={{ xs: "center", sm: "left" }}
+                >
+                  {exam.subject || "Subject"}
+                </Typography>
+              </Grid>
+
+              {/* Assignment Title */}
+              <Grid item xs={12} sm={6} md={3}>
+                <Typography
+                  variant="body1"
+                  textAlign={{ xs: "center", sm: "left" }}
+                >
+                  {exam.title || "Untitled Assignment"}
+                </Typography>
+              </Grid>
+
+              {/* Questions Button */}
+              <Grid item xs={12} sm={6} md={2} textAlign="center">
+                <Button
+                  variant="contained"
+                  sx={{
+                    backgroundColor: "#503dff",
+                    color: "white",
+                    textTransform: "none",
+                    borderRadius: "20px",
+                    ":hover": {
+                      backgroundColor: "#4a37e2",
+                    },
+                  }}
+                  size="small"
+                  onClick={handleOpen}
+                >
+                  Questions
+                </Button>
+              </Grid>
+
+              {/* Dates */}
+              <Grid item xs={12} sm={6} md={2}>
+                <Typography
+                  variant="body2"
+                  textAlign={{ xs: "center", sm: "left" }}
+                >
+                  Start Date: {new Date(exam.exam_date).toLocaleDateString()}
+                </Typography>
+                <Typography
+                  variant="body2"
+                  textAlign={{ xs: "center", sm: "left" }}
+                >
+                  End Date: {new Date(exam.exam_date).toLocaleDateString()}
+                </Typography>
+              </Grid>
+
+              {/* Timetable Link */}
+              <Grid
+                item
+                xs={12}
+                sm={6}
+                md={2}
+                textAlign="center"
+                sx={{ mt: { xs: 1, sm: 0 } }}
+              >
+                <a
+                  href={exam.timetable_path || "#"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    textDecoration: "none",
+                    color: "#503dff",
+                    fontWeight: "bold",
+                  }}
+                >
+                  TimeTable
+                </a>
+              </Grid>
+
+              {/* Questions Dialog */}
+              <Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm">
+                <DialogTitle>Questions</DialogTitle>
+                <DialogContent>
+                  {questionsArray.length > 0 ? (
+                    <List>
+                      {questionsArray.map((question, index) => (
+                        <ListItem key={index} divider>
+                          <ListItemText
+                            primary={`${index + 1}. ${question.trim()}`}
+                          />
+                        </ListItem>
+                      ))}
+                    </List>
+                  ) : (
+                    <Typography variant="body2" color="textSecondary">
+                      No questions available.
+                    </Typography>
+                  )}
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={handleClose} color="primary" variant="contained">
+                    Close
+                  </Button>
+                </DialogActions>
+              </Dialog>
+            </Grid>
+          ))
+        ) : (
+          <Typography textAlign="center">No exams posted yet.</Typography>
+        )}
+      </Box>
+
     </Box>
   );
 };
