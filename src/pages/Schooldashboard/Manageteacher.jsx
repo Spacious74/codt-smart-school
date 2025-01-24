@@ -476,12 +476,9 @@ const Academics = ({ teacherData, examData, assignmentData, setmanageteacher, sy
       {/* Header Section */}
       <div style={{ display: "flex", justifyContent: "space-between" }}>
 
-
-
         <Typography variant="h5" fontWeight="bold" color="#00000" mb={1}>
           Manage Students
         </Typography>
-
 
         <button
           onClick={() => {
@@ -490,10 +487,10 @@ const Academics = ({ teacherData, examData, assignmentData, setmanageteacher, sy
           style={{
             backgroundColor: "#503dff", // Purple color
             color: "white",
-            padding: "12px 24px", // Increased padding for a more spacious feel
+            padding: "12px 24px", 
             fontSize: "16px",
             border: "none",
-            borderRadius: "8px", // Rounded corners for a smoother look
+            borderRadius: "8px",
             cursor: "pointer",
             textDecoration: "none",
             boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)", // Subtle shadow for depth
@@ -593,7 +590,7 @@ const Academics = ({ teacherData, examData, assignmentData, setmanageteacher, sy
               <Box sx={{ bgcolor: 'white', padding: 3, borderRadius: 2, boxShadow: 3 }}>
 
 
-                <Typography variant="h4" align="center" sx={{ marginBottom: 2, color: 'black' }}>
+                <Typography variant="h5" align="center" sx={{ marginBottom: 2, color: 'black' }}>
                   Manage  Attendance
                 </Typography>
 
