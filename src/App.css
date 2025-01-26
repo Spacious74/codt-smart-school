@@ -175,8 +175,7 @@ form p {
 /* Default styles for larger screens (desktops and laptops) */
 .buttons_actions {
     position: absolute;
-    bottom: 5px;
-    right: 5px;
+    bottom: 10px;
     display: flex;
     gap: 10px;
 }

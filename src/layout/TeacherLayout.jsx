@@ -1,4 +1,4 @@
-import React, { useState , useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import Header from '../components/Header/index';
 import TecherSidebar from '../components/Teachersidebar/index';
 import { useNavigate } from 'react-router-dom';
@@ -8,17 +8,16 @@ import { useNavigate } from 'react-router-dom';
 const TecherLayout = ({ children }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const navigate = useNavigate();
+
   useEffect(() => {
     const email = sessionStorage.getItem('teacherEmail'); // Retrieve email from sessionStorage
     if (!email) {
       navigate('/auth/teacherlogin');
-
     }
-    else{
+    else {
       console.log(email);
-
-    }
-  }, []);
+    }
+  }, []);
 
   return (
     <div className="dark:bg-boxdark-2 dark:text-bodydark">

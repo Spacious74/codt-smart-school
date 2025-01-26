@@ -31,6 +31,7 @@ import AddExam from "./pages/Techerdashboard/Postexam.jsx";
 import Training from "./pages/Techerdashboard/Training.jsx";
 import AcademicCard from "./pages/Techerdashboard/AcademicCard.jsx"
 import TeacherExamCard from "./pages/Techerdashboard/ExamCard.jsx"
+import StudentSettings from "./pages/Dashboard/StudentSettings.jsx";
 
 import DefaultLayout from "./layout/DefaultLayout";
 import Home from "./pages/Dashboard/Home.jsx";
@@ -44,6 +45,7 @@ import TecherLayout from "./layout/TeacherLayout.jsx";
 import Teacherdashboards from "./pages/Techerdashboard/teacherdashborad.jsx";
 import Syallabus from "./pages/Techerdashboard/Syllabus.jsx"
 import TeacherCareer from "./pages/Techerdashboard/TeacherCareer.jsx"
+import TeacherSettings from "./pages/Techerdashboard/TeacherSettings.jsx";
 import TeacherNotice from "./pages/Techerdashboard/TeacherNotice.jsx"
 import AttendanceTeacher from "./pages/Techerdashboard/AttendanceTeacher.jsx"
 import Syllabusupdate from "./pages/Techerdashboard/Syallabusupdate.jsx";
@@ -58,6 +60,7 @@ import Noticeschool from "./pages/Schooldashboard/Notice.jsx";
 import Manageteacher from "./pages/Schooldashboard/Manageteacher.jsx";
 import DetailedAssignment from "./pages/Dashboard/DetailedAssignment.jsx";
 import SubmitAssignment from "./pages/Dashboard/SubmitAssignment.jsx"
+import SchoolSettings from "./pages/Schooldashboard/SchoolSettings.jsx";
 import ExamCard from "./pages/Dashboard/Examcard.jsx";
 import Assignments from "./pages/Dashboard/Assignments.jsx";
 import Techerrevie from "./pages/Dashboard/Techerrevie.jsx"
@@ -106,6 +109,8 @@ import Subscriptions from "./pages/Admindashboard/Admindashboard/Subscriptions.j
 import Settings from "./pages/Admindashboard/Admindashboard/Settings.jsx"
 import SupportPage from "./pages/Admindashboard/Admindashboard/Support.jsx"
 import SchoolSyllabus from "./pages/Schooldashboard/Syllabus.jsx"
+import TeacherHelp from "./pages/Techerdashboard/Help.jsx";
+import StudentHelp from "./pages/Dashboard/StudentHelp.jsx";
 
 
 
@@ -192,7 +197,9 @@ function App() {
                       <Route path="career" element={<Career />} />
                       <Route path="notice" element={<Notices />} />
                       <Route path="editstud" element={<Editstud />} />
+                      <Route path="help" element={<StudentHelp />} />
                       <Route path="reviewteacher" element={<Reviewteacher />} />
+                      <Route path="student-settings" element={<StudentSettings />} />
                       <Route path="/assignment/:id" element={<DetailedAssignment />} />
                       <Route path="/assignment/submit" element={<SubmitAssignment></SubmitAssignment>} />
                       <Route path="*" element={<Navigate to="/app" />} />
@@ -220,7 +227,9 @@ function App() {
                       <Route path="academics/syllabus/create" element={<SyllabusCreate />} />
                       <Route path="/academics/syllabus/:id" element={<Syllabusupdate />} />
                       <Route path="training" element={<Training />} />
+                      <Route path="help" element={<TeacherHelp />} />
                       <Route path="attendance" element={<MarkAttendanceTeacher />} />
+                      <Route path="teacher-settings" element={<TeacherSettings />} />
                       <Route path="managestud/:studentId" element={<Managestud />} />
                       <Route path="*" element={<Navigate to="/teacher" />} />
                     </Routes>
@@ -251,6 +260,7 @@ function App() {
                       <Route path="traning" element={<SchoolTraniing />} />
                       <Route path="manageteacher" element={<Manageteacher />} />
                       <Route path="help" element={<HelpSection />} />
+                      <Route path="school-settings" element={<SchoolSettings />} />
                       <Route path="*" element={<Navigate to="/school" />} />
                     </Routes>
                   </SchoolLayout>

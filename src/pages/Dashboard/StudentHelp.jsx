@@ -1,8 +1,8 @@
-// src/components/HelpCenter.js
+// src/components/StudentHelp.js
 import { Box, Typography, TextField, Button, Grid, Paper, Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-const HelpCenter = () => {
+const StudentHelp = () => {
   return (
     <Box sx={{ width: '100%', padding: 4 }}>
       {/* Header Section */}
@@ -131,4 +131,4 @@ const HelpCenter = () => {
   );
 };
 
-export default HelpCenter;
+export default StudentHelp;

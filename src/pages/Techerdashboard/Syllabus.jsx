@@ -21,9 +21,9 @@ const Syllabus = () => {
 
   // Fetch school code from localStorage when the component mountss
   useEffect(() => {
-    const schoolCodel = localStorage.getItem('schoolCode');
-    setSchoolCode(schoolCodel);
-    console.log('School Code:', schoolCodel);
+    const schoolCode = localStorage.getItem('schoolCode');
+    setSchoolCode(schoolCode);
+    fetchSyllabus();
   }, []);
 
   // Fetch the list of subjects
@@ -34,13 +34,14 @@ const Syllabus = () => {
       const query = `SELECT id, subject FROM syllabus WHERE schoolcode = '${schoolCode}'`;
       const response = await axios.get('https://codtsmartschool.strangeweb.in/sallaybers.php', { params: { query } });
 
-      if (response.data && response.data.length > 0) {
-        setSubjects(response.data);
+      if (response.data) {
+        setSubjects(response.data.data);
       } else {
         setError('No subjects found');
       }
     } catch (err) {
       setError(err.message);
+      console.log(err);
     } finally {
       setLoading(false);
     }
@@ -51,11 +52,12 @@ const Syllabus = () => {
     if (!subjectId) return;
 
     try {
-      const query = `SELECT * FROM syllabus_details WHERE subject_id = '${subjectId}'`;
-      const response = await axios.get('https://codtsmartschool.strangeweb.in/sallaybers.php', { params: { query } });
+      const query = `SELECT * FROM syllabus WHERE id = '${subjectId}'`;
+      const response = await axios.get('https://codtsmartschool.strangeweb.in/get.php', { params: { query } });
 
       if (response.data) {
-        setSyllabusData(response.data);
+        setSyllabusData(response.data.data);
+        console.log(response.data.data[0]);
       } else {
         setError('No syllabus data found');
       }
@@ -115,6 +117,17 @@ const Syllabus = () => {
   if (loading) return <Typography>Loading...</Typography>;
   if (error) return <Typography>Error: {error}</Typography>;
 
+  const parseResponseString = (str) => {
+    return str.split(',').map((item) => {
+      // Split each part into chapterName and status
+      const [chapterName, status] = item.split(' - ');
+      return {
+        chapterName: chapterName.trim(),
+        status: status.trim(),
+      };
+    });
+  };
+
   return (
     <>
       <Box sx={{ padding: '2rem' }}>
@@ -157,8 +170,8 @@ const Syllabus = () => {
               {syllabusData.map((item) => (
                 <ListItem key={item.id}>
                   <ListItemText
-                    primary={`Chapter: ${item.chapter_name}`}
-                    secondary={`Progress: ${item.progress}%`}
+                    primary={`Chapter: ${item.chapterName}`}
+                    secondary={`Status : ${item.status}`}
                   />
                 </ListItem>
               ))}

@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { TextField, Button, Box, Typography, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import { Edit, Delete } from '@mui/icons-material';
 
 const App = () => {
+
   const [syllabuses, setSyllabuses] = useState([]);
   const [subject, setSubject] = useState('');
   const [schoolcode, setSchoolcode] = useState('');
@@ -13,23 +14,25 @@ const App = () => {
   const [openUpdateDialog, setOpenUpdateDialog] = useState(false); 
 
   useEffect(() => {
-    fetchSyllabuses();
     const storedSchoolCode = localStorage.getItem('schoolCode');
     if (storedSchoolCode) {
       setSchoolcode(storedSchoolCode);
     }
+    fetchSyllabuses();
   }, []);
-  const fetchSyllabuses = () => {
+
+  const fetchSyllabuses = async() => {
     const storedSchoolCode = localStorage.getItem('schoolCode');
     if (storedSchoolCode) {
-      axios
-        .get(`https://codtsmartschool.strangeweb.in/sallaybers.php?schoolcode=${storedSchoolCode}`)
-        .then((response) => {
-          setSyllabuses(response.data);
-        })
-        .catch((error) => {
-          console.error('There was an error fetching the syllabuses!', error);
-        });
+      try {
+        let res = await axios.get(`https://codtsmartschool.strangeweb.in/sallaybers.php?schoolcode=${storedSchoolCode}`)
+        if(res){
+          setSyllabuses(res.data.data);
+        }
+        
+      } catch (error) {
+        console.error('There was an error while fetching the syllabus!', error); 
+      }
     }
   };
   const handleAddSyllabus = (e) => {
@@ -119,14 +122,14 @@ const App = () => {
 
       <Typography variant="h5" gutterBottom>Subjects</Typography>
 
-      <div className='grid'>
-        {syllabuses.map((syllabusItem) => (
+      <div className='grid' style={{gap : '20px'}}>
+        {syllabuses && syllabuses.map((syllabusItem) => (
           <div className='card' key={syllabusItem.id}>
             <span className='subject'>{syllabusItem.subject}</span>
             <div className='buttons_actions'>
               <Button
                 variant="contained"
-                color="secondary"
+                color="primary"
                 onClick={() => handleSyllabusSelect(syllabusItem)} // Open the update dialog
                 startIcon={<Edit />}
               >
@@ -136,7 +139,7 @@ const App = () => {
                 variant="outlined"
                 color="error"
                 onClick={() => handleDeleteSyllabus(syllabusItem.id)}
-                endIcon={<Delete />}
+                startIcon={<Delete />}
               >
                 Delete
               </Button>
