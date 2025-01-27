@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { fetchData } from '../../src/Service/apiService';
-import { Box, Card, CardContent, CardActions, Avatar, Button, Typography, Grid, Divider } from '@mui/material';
+import { Box, Card, CardContent, Alert, CardActions, Avatar, Button, Typography, Grid, Divider, Snackbar } from '@mui/material';
 
 function MarkAttendanceTeacher() {
     const [data, setData] = useState([]);
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(true);
+    const [message, setMessage] = useState('');
     const myschoolCode = localStorage.getItem("schoolCode");
     const [selectedClass, setSelectedClass] = useState(null);
 
@@ -23,10 +24,63 @@ function MarkAttendanceTeacher() {
         fetchDataAsync();
     }, []);
 
+    const [open, setOpen] = useState(false);
+
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setOpen(false);
+    };
+
+    let markAttendance = async (teacherData, type) => {
+        setOpen(true);
+        const data = {
+            uid: teacherData.id,
+            attendance: type,  // Attendance is always "present"
+            school_code: myschoolCode,
+            role: "student"  // Include the role in the data payload
+        };
+
+        try {
+            // Make POST request to your PHP API
+            const response = await axios.post('https://codtsmartschool.strangeweb.in/attendance.php', data, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (response.data.success) {
+                setMessage('Attendance recorded successfully!');
+                setOpen(true);
+            } else {
+                setMessage('Error: ' + response.data.message);
+            }
+        } catch (error) {
+            alert(error)
+            setMessage('Error: Unable to record attendance.');
+        }
+    }
+
     const classes = ['all', 'class 1', 'class 2', 'class 3', 'class 4', 'class 5', 'class 6', 'class 7', 'class 8'];
 
     return (
         <>
+            <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}
+                anchorOrigin={{
+                    vertical: 'top',  // Position vertically at the top
+                    horizontal: 'right', // Position horizontally at the right
+                }}>
+                <Alert
+                    onClose={handleClose}
+                    severity={message.includes('Error') ? 'error' : 'success'}
+                    variant="filled"
+                    sx={{ width: '100%' }}
+                >
+                    {message}
+                </Alert>
+            </Snackbar>
             <Box textAlign="start" >
 
                 <Typography variant="h6" color="#808080" mb={3} fontWeight="bold">
@@ -137,23 +191,26 @@ function MarkAttendanceTeacher() {
                                                 borderRadius: '8px',
                                                 textTransform: 'none',
                                                 width: '120px',
-                                                display: 'flex', gap:'7px'
+                                                display: 'flex', gap: '7px'
                                             }}
+                                            onClick={() => markAttendance(teacherDetails, "present")}
                                         >
                                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
-                                            <path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2 12.5a2 2 0 0 1 2-2a3 3 0 0 1 3 3v4a3 3 0 0 1-3 3a2 2 0 0 1-2-2zm13.479-4.694l-.267.86c-.218.705-.327 1.057-.243 1.336a1 1 0 0 0 .42.547c.251.158.63.158 1.39.158h.404c2.57 0 3.855 0 4.462.76q.104.131.185.277c.467.848-.064 1.991-1.126 4.277c-.974 2.098-1.462 3.147-2.366 3.764q-.132.09-.27.17c-.952.545-2.132.545-4.492.545h-.511c-2.86 0-4.289 0-5.177-.86C7 18.779 7 17.394 7 14.624v-.974c0-1.455 0-2.183.258-2.85c.259-.666.753-1.213 1.743-2.309l4.091-4.53c.103-.114.154-.17.2-.21a1.033 1.033 0 0 1 1.442.091c.04.045.083.108.17.234c.135.196.202.294.261.392c.528.871.687 1.906.446 2.89c-.027.109-.062.222-.132.448" color="currentColor"/></svg>
+                                                <path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2 12.5a2 2 0 0 1 2-2a3 3 0 0 1 3 3v4a3 3 0 0 1-3 3a2 2 0 0 1-2-2zm13.479-4.694l-.267.86c-.218.705-.327 1.057-.243 1.336a1 1 0 0 0 .42.547c.251.158.63.158 1.39.158h.404c2.57 0 3.855 0 4.462.76q.104.131.185.277c.467.848-.064 1.991-1.126 4.277c-.974 2.098-1.462 3.147-2.366 3.764q-.132.09-.27.17c-.952.545-2.132.545-4.492.545h-.511c-2.86 0-4.289 0-5.177-.86C7 18.779 7 17.394 7 14.624v-.974c0-1.455 0-2.183.258-2.85c.259-.666.753-1.213 1.743-2.309l4.091-4.53c.103-.114.154-.17.2-.21a1.033 1.033 0 0 1 1.442.091c.04.045.083.108.17.234c.135.196.202.294.261.392c.528.871.687 1.906.446 2.89c-.027.109-.062.222-.132.448" color="currentColor" /></svg>
                                             Present
                                         </Button>
 
                                         <Button fullWidth variant="contained" sx={{
-                                            backgroundColor : '#FB4141',
+                                            backgroundColor: '#FB4141',
                                             borderRadius: '8px', width: '120px',
                                             textTransform: 'none',
                                             marginRight: '16px',
-                                            display: 'flex', gap:'7px'
-                                        }}>
+                                            display: 'flex', gap: '7px'
+                                        }}
+                                            onClick={() => markAttendance(teacherDetails, "absent")}
+                                        >
                                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
-                                            <path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2 11.5a2 2 0 0 0 2 2a3 3 0 0 0 3-3v-4a3 3 0 0 0-3-3a2 2 0 0 0-2 2zm13.479 4.694l-.267-.86c-.218-.705-.327-1.057-.243-1.336a.98.98 0 0 1 .42-.547c.251-.158.63-.158 1.39-.158h.404c2.57 0 3.855 0 4.462-.76q.104-.131.185-.277c.467-.848-.064-1.991-1.126-4.277c-.974-2.098-1.462-3.147-2.366-3.764a4 4 0 0 0-.27-.17c-.952-.545-2.132-.545-4.492-.545h-.511c-2.86 0-4.289 0-5.177.86C7 5.222 7 6.607 7 9.377v.974c0 1.455 0 2.183.258 2.85c.259.666.753 1.213 1.743 2.309l4.091 4.53c.103.114.154.17.2.21a1.033 1.033 0 0 0 1.442-.091c.04-.045.083-.108.17-.234a9 9 0 0 0 .261-.392a3.8 3.8 0 0 0 .446-2.89a8 8 0 0 0-.132-.448" color="currentColor"/></svg>
+                                                <path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2 11.5a2 2 0 0 0 2 2a3 3 0 0 0 3-3v-4a3 3 0 0 0-3-3a2 2 0 0 0-2 2zm13.479 4.694l-.267-.86c-.218-.705-.327-1.057-.243-1.336a.98.98 0 0 1 .42-.547c.251-.158.63-.158 1.39-.158h.404c2.57 0 3.855 0 4.462-.76q.104-.131.185-.277c.467-.848-.064-1.991-1.126-4.277c-.974-2.098-1.462-3.147-2.366-3.764a4 4 0 0 0-.27-.17c-.952-.545-2.132-.545-4.492-.545h-.511c-2.86 0-4.289 0-5.177.86C7 5.222 7 6.607 7 9.377v.974c0 1.455 0 2.183.258 2.85c.259.666.753 1.213 1.743 2.309l4.091 4.53c.103.114.154.17.2.21a1.033 1.033 0 0 0 1.442-.091c.04-.045.083-.108.17-.234a9 9 0 0 0 .261-.392a3.8 3.8 0 0 0 .446-2.89a8 8 0 0 0-.132-.448" color="currentColor" /></svg>
                                             Absent
                                         </Button>
 

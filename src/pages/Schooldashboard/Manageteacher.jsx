@@ -211,7 +211,7 @@ const AssignmentItem = ({ exam }) => {
   );
 };
 
-const Academics = ({ teacherData, examData, assignmentData, setmanageteacher, syllabusData }) => {
+const Academics = ({ teacherData, examData, assignmentData, setmanageteacher, syllabusData, attendanceRole }) => {
 
   function updateAttendanceData(present, absent) {
     // Update the data array with new values
@@ -220,30 +220,30 @@ const Academics = ({ teacherData, examData, assignmentData, setmanageteacher, sy
     chart.update(); // Assuming `chart` is your Chart.js instance
   }
 
-  const students = [
-    {
-      name: "Mrs. Nipa Nayak",
-      rating: 4.5,
-      avatarUrl: "https://example.com/avatar1.jpg",
-    }, // Replace with actual image URLs
-    {
-      name: "Mr. Sandip Ujwal",
-      rating: 4.5,
-      avatarUrl: "https://example.com/avatar2.jpg",
-    },
-    {
-      name: "Mrs. Sejal Goswami",
-      rating: 4.5,
-      avatarUrl: "https://example.com/avatar3.jpg",
-    },
-    {
-      name: "Mr. Ketan Patel",
-      rating: 4.5,
-      avatarUrl: "https://example.com/avatar4.jpg",
-    },
-  ];
+  // const students = [
+  //   {
+  //     name: "Mrs. Nipa Nayak",
+  //     rating: 4.5,
+  //     avatarUrl: "https://example.com/avatar1.jpg",
+  //   }, // Replace with actual image URLs
+  //   {
+  //     name: "Mr. Sandip Ujwal",
+  //     rating: 4.5,
+  //     avatarUrl: "https://example.com/avatar2.jpg",
+  //   },
+  //   {
+  //     name: "Mrs. Sejal Goswami",
+  //     rating: 4.5,
+  //     avatarUrl: "https://example.com/avatar3.jpg",
+  //   },
+  //   {
+  //     name: "Mr. Ketan Patel",
+  //     rating: 4.5,
+  //     avatarUrl: "https://example.com/avatar4.jpg",
+  //   },
+  // ]; 
 
-  console.log("SyllabusData Data : ", syllabusData);
+  console.log("teacher Data : ", teacherData, attendanceRole);
 
 
   const [open, setOpen] = useState(false);
@@ -288,8 +288,6 @@ const Academics = ({ teacherData, examData, assignmentData, setmanageteacher, sy
     setIsPopupOpen(!isPopupOpen);
   };
 
-
-
   const handleSubmit = async (event) => {
 
     event.preventDefault();
@@ -299,7 +297,7 @@ const Academics = ({ teacherData, examData, assignmentData, setmanageteacher, sy
       uid: teacherData.id,
       attendance: attendance,  // Attendance is always "present"
       school_code: teacherData.schoolcode,
-      role: role  // Include the role in the data payload
+      role: attendanceRole  // Include the role in the data payload
     };
 
     try {
@@ -857,7 +855,7 @@ const Academics = ({ teacherData, examData, assignmentData, setmanageteacher, sy
 
                 assignmentData.map((assignment, index) => (
 
-                  <div className="assinmnet_grid">
+                  <div className="assinmnet_grid" key={index}>
                     <div className="assinmne_name" > {assignment.assignment_title?.trim() || 'Untitled Assignment'} </div>
                     <div className="last_date" > Last date to submit -{''} {assignment.submission_date && assignment.submission_date !== '0000-00-00' ? assignment.submission_date : 'N/A'}</div>
                     <div className="questins" > <button onClick={() => handleClickOpenQuestions(assignment.questions)} >  ? Questions </button> </div>

@@ -441,7 +441,7 @@ const AllTeachers = () => {
 
         </>
         : <Academics setmanageteacher={setmanageteacher} assignmentData={assignmentData} 
-          examData={examData} teacherData={teacherData} syllabusData={syllabusData} />}
+          examData={examData} teacherData={teacherData} syllabusData={syllabusData} attendanceRole={"student"} />}
     </>
   );
 };
