@@ -6,34 +6,36 @@ const Studentsdata = () => {
 
   return (
     <>
-    <Box textAlign="start">
-      
-      <Typography variant="h5" color="black" mb={4}>
-        Manage Students
-      </Typography>
+      <Box textAlign="start">
+
+        <Typography variant="h5" color="black" mb={4}>
+          Manage Students
+        </Typography>
 
 
-      <Grid container spacing={2} justifyContent="start" sx={{mb:2}}>
-        {classes.map((className) => (
-          <Grid item key={className}>
-            <Button
-              variant="outlined"
-              color="primary"
-              sx={{
-                borderRadius: '8px',
-                px: 3,
-                py: 1,
-                fontSize: '0.85rem',
-              }}
-            >
-              {className}
-            </Button>
-          </Grid>
-        ))}
-      </Grid>
-      <Divider sx={{ height: 1, backgroundColor: '#c9c9c9',my:3 }} />
-    </Box>
-<Allstudents/>
+        <Grid container spacing={2} justifyContent="start" sx={{ mb: 2 }}>
+          {classes.map((className) => (
+            <Grid item key={className}>
+              <Button
+                variant="outlined"
+                color="primary"
+                sx={{
+                  borderRadius: '8px',
+                  px: 3,
+                  py: 1,
+                  fontSize: '0.85rem',
+                }}
+              >
+                {className}
+              </Button>
+            </Grid>
+          ))}
+        </Grid>
+        <Divider sx={{ height: 1, backgroundColor: '#c9c9c9', my: 3 }} />
+        
+      </Box>
+
+      <Allstudents />
     </>
   );
 };

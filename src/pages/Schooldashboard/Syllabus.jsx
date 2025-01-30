@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { TextField, Button, Box, Typography, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
-import { Edit, Delete } from '@mui/icons-material';
+
 
 const App = () => {
 
@@ -122,26 +122,29 @@ const App = () => {
 
       <Typography variant="h5" gutterBottom>Subjects</Typography>
 
-      <div className='grid' style={{gap : '20px'}}>
+      <div style={{gap : '20px', display: 'flex',  flexWrap : 'wrap', marginTop : '30px' }}>
         {syllabuses && syllabuses.map((syllabusItem) => (
-          <div className='card' key={syllabusItem.id}>
+          <div  key={syllabusItem.id} 
+          style={{display : 'flex', flexDirection:'column',  gap:'10px', border:'solid 1px #503dff', padding : '20px',
+           borderRadius : '14px'
+          }} >
             <span className='subject'>{syllabusItem.subject}</span>
-            <div className='buttons_actions'>
+            <div style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
               <Button
                 variant="contained"
                 color="primary"
                 onClick={() => handleSyllabusSelect(syllabusItem)} // Open the update dialog
-                startIcon={<Edit />}
               >
-                Update
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" style={{marginRight : '4px'}}>
+                <g fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" color="currentColor"><path d="m16.214 4.982l1.402-1.401a1.982 1.982 0 0 1 2.803 2.803l-1.401 1.402m-2.804-2.804l-5.234 5.234c-1.045 1.046-1.568 1.568-1.924 2.205S8.342 14.561 8 16c1.438-.342 2.942-.7 3.579-1.056s1.16-.879 2.205-1.924l5.234-5.234m-2.804-2.804l2.804 2.804"/><path d="M21 12c0 4.243 0 6.364-1.318 7.682S16.242 21 12 21s-6.364 0-7.682-1.318S3 16.242 3 12s0-6.364 1.318-7.682S7.758 3 12 3"/></g></svg> Update
               </Button>
               <Button
                 variant="outlined"
                 color="error"
                 onClick={() => handleDeleteSyllabus(syllabusItem.id)}
-                startIcon={<Delete />}
               >
-                Delete
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" style={{marginRight : '4px'}}>
+                <path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19.5 5.5l-.62 10.025c-.158 2.561-.237 3.842-.88 4.763a4 4 0 0 1-1.2 1.128c-.957.584-2.24.584-4.806.584c-2.57 0-3.855 0-4.814-.585a4 4 0 0 1-1.2-1.13c-.642-.922-.72-2.205-.874-4.77L4.5 5.5M3 5.5h18m-4.944 0l-.683-1.408c-.453-.936-.68-1.403-1.071-1.695a2 2 0 0 0-.275-.172C13.594 2 13.074 2 12.035 2c-1.066 0-1.599 0-2.04.234a2 2 0 0 0-.278.18c-.395.303-.616.788-1.058 1.757L8.053 5.5m1.447 11v-6m5 6v-6" color="currentColor"/></svg> Delete
               </Button>
             </div>
           </div>

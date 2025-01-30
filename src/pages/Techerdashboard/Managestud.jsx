@@ -148,7 +148,7 @@ const Academics = () => {
           setExamData(ExamData);
           setAssignmentData(Assignment);
         } else {
-          alert("exam and assignment data not found");
+          // alert("exam and assignment data not found");
         }
 
         if (!response.ok) {
@@ -159,7 +159,7 @@ const Academics = () => {
 
         if (data.success) {
           // Change `result` to `data`
-          console.log("data yaha aagya hai");
+          console.log("data yaha aagya hai", data.data);
           setStudentData(data.data); // Store the student data in state
         } else {
           throw new Error("Failed to fetch student data");
@@ -255,29 +255,67 @@ const Academics = () => {
 
   return (
     <Box p={3}>
+
       {/* Header Section */}
-      <Box p={1}>
-        {/* Header Section */}
-        <Typography variant="h5" fontWeight="bold" color="#503dff" mb={1}>
-          Student Profile
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
+
+        <Typography variant="h5" fontWeight="bold" color="#00000" mb={1}>
+          Manage Students
         </Typography>
 
-        {/* Profile Info */}
-        <Box display="flex" alignItems="center" mt={2}>
-          <Avatar
-            src={`https://codtsmartschool.strangeweb.in/studentapi/${studentData?.image}`}
-            alt="Sanket Pathak"
-            sx={{ width: 56, height: 56 }}
-          />
-          <Box ml={2}>
-            <Typography variant="h6" fontWeight="bold">
-              {studentData?.first_name} {studentData?.last_name}
-            </Typography>
-            <Typography variant="body2" color="textSecondary">
-              Quick Actions
-            </Typography>
-          </Box>
+        <button
+          onClick={() => {
+            window.location.href = "/teacher/studentsdata";
+          }}
+          style={{
+            backgroundColor: "#503dff", // Purple color
+            color: "white",
+            padding: "12px 24px", 
+            fontSize: "16px",
+            border: "none",
+            borderRadius: "8px",
+            cursor: "pointer",
+            textDecoration: "none",
+            boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)", // Subtle shadow for depth
+            transition: "background-color 0.3s, transform 0.2s", // Smooth transition effects
+          }}
+          onMouseEnter={(e) => {
+            e.target.style.backgroundColor = "#4023cc"; // Darker purple on hover
+            e.target.style.transform = "scale(1.05)"; // Slight zoom effect on hover
+          }}
+          onMouseLeave={(e) => {
+            e.target.style.backgroundColor = "#503dff"; // Reset to original color
+            e.target.style.transform = "scale(1)"; // Reset zoom effect
+          }}
+        >
+          Back to Page
+        </button>
+
+
+      </div>
+
+      {/* Profile Info */}
+      <Box display="flex" alignItems="center" mt={2}>
+        <Avatar  src={`https://codtsmartschool.strangeweb.in/studentapi/${studentData?.image}`}
+        alt="Sanket Pathak" sx={{ width: 100, height: 100, border : 'solid 2px #503dff' }} />
+        <Box ml={2}>
+
+
+          <Typography variant="h6" fontWeight="bold">
+            {studentData?.first_name + " " + studentData?.last_name}
+          </Typography>
+
+          <Typography variant="h6" fontWeight="bold">
+            ( {studentData?.email} )
+          </Typography>
+
+          <Typography variant="body1">
+            {/* Faculty - {...teacherData.selected_subjects} */}
+          </Typography>
         </Box>
+      </Box>
+
+      <Box p={1}>
 
         <Box
           sx={{
@@ -291,33 +329,6 @@ const Academics = () => {
             spacing={0} // Remove default spacing
             sx={{ display: "flex", gap: "5px" }} // Use flex display with custom gap
           >
-            {/* <Grid item xs={12} sm={2} md={2.2}>
-              <Button
-                fullWidth
-                variant="contained"
-                sx={{
-                  width: { xs: "180px", sm: "190px" },
-                  backgroundColor: "#503dff",
-                  color: "white",
-                }}
-              >
-                Update Exam Status
-              </Button>
-            </Grid>
-            <Grid item xs={12} sm={2} md={2.5}>
-              <Button
-                fullWidth
-                variant="contained"
-                sx={{
-                  width: { xs: "180px", sm: "220px" },
-                  backgroundColor: "#503dff",
-                  color: "white",
-                }}
-              >
-                Update Assignments Status
-              </Button>
-            </Grid> */}
-
 
             {/* Dialog component */}
             <Dialog open={openDialog} onClose={handleCloseDialog} fullWidth>

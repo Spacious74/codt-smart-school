@@ -1,18 +1,13 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { fetchData } from '../../src/Service/apiService';
-import {
-  Box, Avatar, Typography, Button, Card, CardContent, CardActions, Grid, Link, Select,
-  MenuItem, TextField, Dialog, DialogActions, DialogContent, DialogTitle, Divider
-} from '@mui/material';
-import { Link as RouterLink } from 'react-router-dom';
+import { Box, Avatar, Typography, Button, Card, CardContent, CardActions, Grid, 
+  TextField, Dialog, DialogActions, DialogContent, DialogTitle, Divider } from '@mui/material';
 import Academics from "./Manageteacher"
 
 const Teachers = ({ setmanageteacher, setteacherData, teacherDetails }) => {
 
-  const {
-    id, first_name, last_name, email, phone_number, educational_board, address, city, pin_code,
-    state, password, image, selected_subjects, class_selection, selected_divisions, experience,
-  } = teacherDetails;
+  const { id, first_name, last_name, email, phone_number, educational_board, address, city, pin_code,
+  state, password, image, selected_subjects, class_selection, selected_divisions, experience } = teacherDetails;
 
   // State to control dialog visibility
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -286,7 +281,7 @@ const AllTeachers = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [assignmentData, setAssignmentData] = useState([]);
   const [syllabusData, setSyllabusData] = useState([]);
-  const [show, setShow] = useState(false)
+  const [show, setShow] = useState(false);
   const [examData, setExamData] = useState([]);
 
   const myschoolCode = localStorage.getItem("schoolCode");
@@ -375,9 +370,7 @@ const AllTeachers = () => {
         <>
           <Box textAlign="start" >
 
-            <Typography variant="h6" color="#8a8a8a" mb={3} fontWeight="bold">
-              Students
-            </Typography>
+            <Typography variant="h6" color="#8a8a8a" mb={3} fontWeight="bold">Students</Typography>
 
             <Grid container spacing={2} justifyContent="start" sx={{ flexWrap: { xs: 'wrap', sm: 'nowrap' } }}>
               {classes.map((className) => (

@@ -1,39 +1,12 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from 'axios';
-import {
-  Box,
-  Typography,
-  Avatar,
-  Button,
-  Grid,
-  Paper,
-  Card,
-  CardContent,
-  Chip,
-  Rating,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  List,
-  ListItem,
-  ListItemText,
-  TextField
-} from "@mui/material";
+import { Box, Typography, Avatar, Button, Grid, Paper, Card, CardContent, Chip, Rating, Dialog, DialogTitle, DialogContent, DialogActions, List, ListItem, ListItemText, TextField} from "@mui/material";
 
 import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-import {
-  FaClipboardList,
-  FaTasks,
-  FaBook,
-  FaChalkboardTeacher,
-  FaQuestionCircle,
-} from "react-icons/fa";
+import { FaClipboardList, FaTasks, FaBook, FaChalkboardTeacher, FaQuestionCircle } from "react-icons/fa";
 import prefor from "../../images/perfor.png";
 import { fetchData } from '../../src/Service/apiService'; // Assuming you have this utility for fetching data
-
-
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -220,31 +193,7 @@ const Academics = ({ teacherData, examData, assignmentData, setmanageteacher, sy
     chart.update(); // Assuming `chart` is your Chart.js instance
   }
 
-  // const students = [
-  //   {
-  //     name: "Mrs. Nipa Nayak",
-  //     rating: 4.5,
-  //     avatarUrl: "https://example.com/avatar1.jpg",
-  //   }, // Replace with actual image URLs
-  //   {
-  //     name: "Mr. Sandip Ujwal",
-  //     rating: 4.5,
-  //     avatarUrl: "https://example.com/avatar2.jpg",
-  //   },
-  //   {
-  //     name: "Mrs. Sejal Goswami",
-  //     rating: 4.5,
-  //     avatarUrl: "https://example.com/avatar3.jpg",
-  //   },
-  //   {
-  //     name: "Mr. Ketan Patel",
-  //     rating: 4.5,
-  //     avatarUrl: "https://example.com/avatar4.jpg",
-  //   },
-  // ]; 
-
   console.log("teacher Data : ", teacherData, attendanceRole);
-
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -514,16 +463,18 @@ const Academics = ({ teacherData, examData, assignmentData, setmanageteacher, sy
 
       {/* Profile Info */}
       <Box display="flex" alignItems="center" mt={2}>
-        <Avatar alt="Sanket Pathak" sx={{ width: 110, height: 110 }} />
+
+        <Avatar alt="Sanket Pathak"  src={`https://codtsmartschool.strangeweb.in/studentapi/${teacherData?.image}`}
+         sx={{ width: 100, height: 100, border : 'solid 2px #503dff' }} />
+
         <Box ml={2}>
 
-
           <Typography variant="h6" fontWeight="bold">
-            {teacherData.first_name + " " + teacherData.last_name}
+            {teacherData?.first_name + " " + teacherData?.last_name}
           </Typography>
 
           <Typography variant="h6" fontWeight="bold">
-            ( {teacherData.email} )
+            ( {teacherData?.email} )
           </Typography>
 
           <Typography variant="body1">
@@ -581,6 +532,7 @@ const Academics = ({ teacherData, examData, assignmentData, setmanageteacher, sy
               Attendance
             </Button>
 
+          </div>
             <Dialog open={openattdence} onClose={handleCloseAttdence} className="width80"  >
 
 
@@ -722,7 +674,6 @@ const Academics = ({ teacherData, examData, assignmentData, setmanageteacher, sy
                 </Button>
               </DialogActions>
             </Dialog>
-          </div>
 
         </div>
 

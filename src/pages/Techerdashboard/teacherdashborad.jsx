@@ -11,44 +11,53 @@ import { Doughnut } from 'react-chartjs-2';
 
 Chart.register(ArcElement, Tooltip, Legend);
 
+import academics from '../../assets/Codt logos/academics.png';
+import live_class from '../../assets/Codt logos/live_class.png';
+import report_card from '../../assets/Codt logos/report_card.png';
+import notice from '../../assets/Codt logos/notice.png';
+import online_course from '../../assets/Codt logos/online_course.png';
+import career from '../../assets/Codt logos/career research.png';
+import education_abroad from '../../assets/Codt logos/education_abroad.png';
+import salary from '../../assets/Codt logos/salary.png';
+
 const data = [
   {
-    icon: <Person sx={{ fontSize: '48px', color: 'white' }} />,
+    icon:  <img src={academics} alt="external-user" style={{borderRadius :'10px'}} />,
     label: 'Academics',
     route: '/teacher/academics',
   },
   {
-    icon: <LiveTv sx={{ fontSize: '48px', color: 'white' }} />,
+    icon: <img src={live_class} alt="external-user" style={{borderRadius :'10px'}} />,
     label: 'Live Classes',
     route: '/teacher/studentsdata',
   },
   {
-    icon: <Receipt sx={{ fontSize: '48px', color: 'white' }} />,
+    icon: <img src={salary} alt="external-user" style={{borderRadius :'10px'}} />,
     label: 'Salary',
     route: '/teacher/studentsdata',
   },
   {
-    icon: <Report sx={{ fontSize: '48px', color: 'white' }} />,
+    icon: <img src={report_card} alt="external-user" style={{borderRadius :'10px'}} />,
     label: 'Report Card',
     route: '/teacher/studentsdata',
   },
   {
-    icon: <Campaign sx={{ fontSize: '48px', color: 'white' }} />,
+    icon: <img src={notice} alt="external-user" style={{borderRadius :'10px'}} />,
     label: 'Notice',
     route: '/teacher/notice',
   },
   {
-    icon: <Laptop sx={{ fontSize: '48px', color: 'white' }} />,
+    icon: <img src={online_course} alt="external-user" style={{borderRadius :'10px'}} />,
     label: 'Online Courses',
     route: 'https://codt.in/',
   },
   {
-    icon: <Search sx={{ fontSize: '48px', color: 'white' }} />,
+    icon: <img src={career} alt="external-user" style={{borderRadius :'10px'}} />,
     label: 'Career Research',
     route: '/teacher/career',
   },
   {
-    icon: <Public sx={{ fontSize: '48px', color: 'white' }} />,
+    icon: <img src={education_abroad} alt="external-user" style={{borderRadius :'10px'}} />,
     label: 'Education Abroad',
     route: '/teacher/studentsdata',
   },
@@ -323,25 +332,9 @@ const Sidebar = () => {
                       display: "flex",
                       justifyContent: "center",
                       alignItems: "center",
-                      backgroundColor: [
-                        "#089451", // First item
-                        "#503dff", // Second item
-                        "#a80000", // Third item
-                        "#eb6a18", // Fourth item
-                        "#3d8cf2", // Fifth item
-                        "#eb6a18", // Sixth item
-                        "#3d8cf2", // Seventh item
-                        "#ee1527", // Eighth item
-                      ][idx % 8], // Apply the colors cyclically based on index
                     }}
                   >
-
-
-                    {/* Set the icon color to white */}
-                    <Box sx={{ color: "white" }}>
-                      {item.icon}
-                    </Box>
-
+                    <Box>{item.icon}</Box>
                   </Box>
 
                   <Typography variant="body1" align="center" sx={{ mt: 1 }}>
